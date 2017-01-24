@@ -2,5 +2,3 @@
 **COMP1640 - Enterprise Web Software Development**
 
 University of Greenwich
-Hello
-BYE
