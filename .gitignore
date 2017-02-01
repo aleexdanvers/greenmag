@@ -4,6 +4,6 @@ dist
 bower_components
 test/bower_components
 app/styles/.sass-cache
-*.css
-*.css.map
+main.css
+main.css.map
 .sass-cache
