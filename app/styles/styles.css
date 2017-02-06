@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
     height: 100%;
@@ -15,14 +17,14 @@ body, html {
 
 /* First image (Logo. Full height) */
 .bgimg-1 {
-    background-image: url('../images/RNC-grn-bg.jpg');
+    background-image: url('../images/RNC2-grn-bg.png');
     min-height: 100%;
     min-width: 100%;
-    opacity: 0.9 !important;
+    opacity: 0.8 !important;
 }
 
 .w3-display-middle2{
-  top: 40% !important;
+  top: 48% !important;
 } 
 
 /* Second image (Portfolio) */
@@ -397,7 +399,9 @@ ul.w3-ul li:last-child {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	overflow: hidden
+	overflow: hidden;
+    color: #fff;
+    font-family: Quicksand, sans-serif;
 }
 .w3-navbar li {
 	float: left
@@ -412,8 +416,8 @@ ul.w3-ul li:last-child {
 	width: 100%
 }
 .w3-navbar li a:hover {
-	color: #000;
-	background-color: #ccc
+	color: #fff;
+	background-color: #444;
 }
 .w3-navbar .w3-dropdown-hover, .w3-navbar .w3-dropdown-click {
 	position: static
@@ -1564,7 +1568,9 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 }
 .w3-black, .w3-hover-black:hover {
 	color: #fff!important;
-	background-color: #000!important
+	background-color: #000!important;
+    border-radius: 10px;
+    font-family: Quicksand, sans-serif;
 }
 .w3-grey, .w3-hover-grey:hover, .w3-gray, .w3-hover-gray:hover {
 	color: #000!important;
