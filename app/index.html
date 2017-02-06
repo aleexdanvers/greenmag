@@ -21,7 +21,7 @@
     <li class="w3-hide-small"><a href="#portfolio">SUBMIT ARTICLES</a></li>
     <li class="w3-hide-small"><a href="#contact">VIEW ARTICLES</a></li>
     <li class="w3-hide-small w3-right">
-      <a href="#" class="w3-hover-red">
+      <a href="#" onclick="document.getElementById('id01').style.display='block'" class="w3-hover-red">
         <i class="fa fa-user"></i><span class="loginClass"> SIGN IN</span>
       </a>
     </li>
@@ -197,6 +197,19 @@
           <i class="fa fa-paper-plane"></i> SEND MESSAGE
         </button>
       </form>
+    </div>
+  </div>
+</div>
+
+<div id="id01" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top w3-card-8">
+    <header class="w3-container w3-blackgrey"> 
+      <h2 class="lefty">Login Section</h2><h2><span onclick="document.getElementById('id01').style.display='none'" 
+      class="w3-closebtn2 righty"><i class="fa fa-close"></i></span></h2>
+    </header>
+    <div class="w3-container">
+      <p>Some text..</p>
+      <p>Some text..</p>
     </div>
   </div>
 </div>

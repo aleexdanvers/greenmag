@@ -28,6 +28,30 @@ body, html {
 	line-height: 18px !important;
 }
 
+.w3-blackgrey, .w3-blackgrey h2{
+	background-color: #444;
+	color: white;
+	font-family: Quicksand, sans-serif !important;
+}
+
+.w3-closebtn2{
+	color: #f44336 !important;
+	line-height: 100% !important;
+}
+
+.lefty{
+	float: left;
+}
+
+.righty{
+	float: right;
+	padding-top: 6px;
+}
+
+.w3-closebtn2:hover{
+	color: #f66558!important;
+}
+
 .loginClass{
 	font-family: Quicksand, sans-serif !important;
 }
