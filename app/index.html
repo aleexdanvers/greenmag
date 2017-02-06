@@ -18,10 +18,10 @@
     </li>
     <li class="w3-left-align"><a href="#home">HOME</a></li>
     <li class="w3-hide-small"><a href="#about">ABOUT</a></li>
-    <li class="w3-hide-small"><a href="#portfolio">SUBMIT ARTICLES</a></li>
-    <li class="w3-hide-small"><a href="#contact">VIEW ARTICLES</a></li>
+    <li class="w3-hide-small"><a href="#portfolio">ARTICLES</a></li>
+    <li class="w3-hide-small"><a href="#contact">STATISTICS</a></li>
     <li class="w3-hide-small w3-right">
-      <a href="#" onclick="document.getElementById('id01').style.display='block'" class="w3-hover-red">
+      <a onclick="document.getElementById('id01').style.display='block'" class="w3-hover-red">
         <i class="fa fa-user"></i><span class="loginClass"> SIGN IN</span>
       </a>
     </li>
@@ -30,10 +30,12 @@
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium">
     <ul class="w3-navbar w3-left-align w3-white">
-      <li><a href="#about" onclick="toggleFunction()">USER</a></li>
-      <li><a href="#portfolio" onclick="toggleFunction()">PORTFOLIO</a></li>
-      <li><a href="#contact" onclick="toggleFunction()">CONTACT</a></li>
-      <li><a href="#">SEARCH</a></li>
+      <li><a href="#home" onclick="toggleFunction()">HOME</a></li>
+      <li><a href="#about" onclick="toggleFunction()">ABOUT</a></li>
+      <li><a href="#portfolio" onclick="toggleFunction()">ARTICLES</a></li>
+      <li><a href="#contact" onclick="toggleFunction()">STATISTICS</a></li>
+      <li><a onclick="document.getElementById('id01').style.display='block'">SIGN IN
+      </a></li>
     </ul>
   </div>
 </div>
@@ -204,7 +206,7 @@
 <div id="id01" class="w3-modal">
   <div class="w3-modal-content w3-animate-top w3-card-8">
     <header class="w3-container w3-blackgrey"> 
-      <h2 class="lefty">Login Section</h2><h2><span onclick="document.getElementById('id01').style.display='none'" 
+      <h2 class="lefty">Login / Register</h2><h2><span onclick="document.getElementById('id01').style.display='none'" 
       class="w3-closebtn2 righty"><i class="fa fa-close"></i></span></h2>
     </header>
     <div class="w3-container">

@@ -50,6 +50,7 @@ body, html {
 
 .w3-closebtn2:hover{
 	color: #f66558!important;
+	cursor: pointer;
 }
 
 .loginClass{
@@ -1586,6 +1587,7 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 .w3-red, .w3-hover-red:hover {
 	color: #fff!important;
 	background-color: #f66558!important;
+	cursor: pointer;
 }
 .w3-sand, .w3-hover-sand:hover {
 	color: #000!important;
