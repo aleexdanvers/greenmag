@@ -435,7 +435,7 @@ ul.w3-ul li:last-child {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-    color: #fff;
+  color: #fff;
 }
 .w3-navbar li {
 	float: left
@@ -444,6 +444,7 @@ ul.w3-ul li:last-child {
 	display: block;
 	padding: 8px 16px;
 	font-family: Quicksand, sans-serif;
+  font-weight: bolder;
 }
 .w3-navbar li .w3-btn, .w3-navbar li .w3-input {
 	border: none;
