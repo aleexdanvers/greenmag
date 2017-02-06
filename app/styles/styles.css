@@ -63,13 +63,13 @@ body, html {
 
 /* Second image (Portfolio) */
 .bgimg-2 {
-    background-image: url("http://www.w3schools.com/w3images/parallax2.jpg");
+    background-image: url("../images/parallax2.jpg");
     min-height: 400px;
 }
 
 /* Third image (Contact) */
 .bgimg-3 {
-    background-image: url("http://www.w3schools.com/w3images/parallax3.jpg");
+    background-image: url("../images/parallax2.jpg");
     min-height: 400px;
 }
 
@@ -1499,6 +1499,9 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 .w3-text-shadow {
 	text-shadow: 1px 1px 0 #444
 }
+.w3-text-shadow-parallax {
+  text-shadow: 5px 5px 10px #000;
+}
 .w3-text-shadow-white {
 	text-shadow: 1px 1px 0 #ddd
 }
@@ -1612,8 +1615,10 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 .w3-black, .w3-hover-black:hover {
 	color: #fff!important;
 	background-color: #000!important;
-    border-radius: 10px;
-    font-family: Quicksand, sans-serif;
+  font-family: Quicksand, sans-serif;
+}
+.homepage-text {
+  border-radius: 10px;
 }
 .w3-grey, .w3-hover-grey:hover, .w3-gray, .w3-hover-gray:hover {
 	color: #000!important;
