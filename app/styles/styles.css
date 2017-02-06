@@ -55,6 +55,7 @@ body, html {
 
 .loginClass{
 	font-family: Quicksand, sans-serif !important;
+	text-transform: uppercase;
 }
 
 .w3-display-middle2{
