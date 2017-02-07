@@ -1124,7 +1124,6 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  border-right: 1px solid #444;
 }
 .w3-padding-left-small {
   padding-left: 10px;
