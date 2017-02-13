@@ -1,13 +1,56 @@
+<?php
+
+session_start();
+
+$servername = "mysql.hostinger.co.uk";
+$dbusername = "u495998595_admin";
+$dbpassword = "dmftw38QkZNB";
+$dbname = "u495998595_admin";
+
+$LoginUsername = trim(strip_tags(addslashes($_REQUEST['LoginUsername'])));
+$LoginPassword = $_REQUEST['LoginPassword'];
+
+$con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
+
+$loginquery  = "SELECT * FROM User WHERE Username = '" . $LoginUsername . "';";
+
+$result = mysqli_query($con, $loginquery);
+
+if (mysqli_num_rows($result) > 0) {
+
+  $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+  $facultyquery  = "SELECT * FROM Faculty WHERE FacultyID = '" . $row['FacultyID'] . "';";
+  $rolequery  = "SELECT * FROM Role WHERE RoleID = '" . $row['RoleID'] . "';";
+  $result2 = mysqli_query($con, $facultyquery);
+  $result3 = mysqli_query($con, $rolequery);
+  $row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+  $row3 = mysqli_fetch_array($result3, MYSQLI_ASSOC);
+
+  //Logged In Variables
+    $_SESSION['user_logged_in'] = true;
+    $_SESSION["Username"] = $row['Username'];
+    $_SESSION["Faculty"] = $row2['FacultyName'];;
+    $_SESSION["Role"] = $row3['RoleName'];
+
+} else {
+
+    //Error Variables
+
+}
+
+mysqli_close($con);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <title>Greenmag</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="styles/styles.css">
 <body>
-
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <ul class="w3-navbar" id="myNavbar">
@@ -22,7 +65,7 @@
     <li class="w3-hide-small"><a href="#statistics">STATISTICS</a></li>
     <li class="w3-hide-small w3-right">
       <a onclick="document.getElementById('id01').style.display='block'" class="w3-hover-red">
-        <i class="fa fa-user"></i><span class="loginClass"> Sign In</span>
+        <i class="fa fa-user"></i><span id="loginButtonID" class="loginClass"> Sign In</span>
       </a>
     </li>
   </ul>
@@ -192,7 +235,7 @@
         </form>
       </div>
       <div class="w3-half w3-padding-left-small">
-        <form action="login.php" target="_blank">
+        <form action="" method="post">
           <div class="w3-row-padding-top">
               <input class="w3-input w3-border w3-register-input" type="text" placeholder="Username" required name="LoginUsername">
               <input class="w3-input w3-border w3-register-input" type="Password" placeholder="Password" required name="LoginPassword">
@@ -221,9 +264,25 @@
   <p>Created by Kung Fu Pandas <i class="fa fa-file-code-o"></i> .</p>
 </footer>
  
-<!-- Add Google Maps -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="main.js"></script>
+<script type="text/javascript">
+  var Username;
+  var FacultyName;
+  var RoleName;
+  var user_logged_in;
+
+  function jsLoginFunction(Username, FacultyName, RoleName, user_logged_in){
+    console.log(Username);
+
+    var span = document.getElementById("loginButtonID");
+    span.textContent = " " + Username;
+  }
+
+</script>
+<?php
+echo "<script type='text/javascript'>jsLoginFunction('" . $_SESSION['Username'] . "','" . $_SESSION['Faculty'] . "', '" . $_SESSION['Role'] . "', '" . $_SESSION['user_logged_in'] . "')</script>";
+?>
 
 </body>
 </html>
+?>

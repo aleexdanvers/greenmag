@@ -3,34 +3,48 @@
 session_start();
 
 $servername = "mysql.hostinger.co.uk";
-$username = "u495998595_admin";
-$password = "dmftw38QkZNB";
+$dbusername = "u495998595_admin";
+$dbpassword = "dmftw38QkZNB";
 $dbname = "u495998595_admin";
 
-$useremail = trim(strip_tags(addslashes($_POST['LoginUsername'])));
-$userpassword = $_POST['LoginPassword'];
+$LoginUsername = trim(strip_tags(addslashes($_GET['LoginUsername'])));
+$LoginPassword = $_GET['LoginPassword'];
 
-$dbConnection = mysqli_connect($servername, $username, $password, $dbname);
+$con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
-$query  = "SELECT * FROM `User` WHERE Password = '$userpassword'";
-$result = mysqli_query($dbConnection, $query);
+$loginquery  = "SELECT * FROM User WHERE Username = '" . $LoginUsername . "';";
+
+$result = mysqli_query($con, $loginquery);
 
 if (mysqli_num_rows($result) > 0) {
 
-    echo "<ul>";
+	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+	$facultyquery  = "SELECT * FROM Faculty WHERE FacultyID = '" . $row['FacultyID'] . "';";
+	$rolequery  = "SELECT * FROM Role WHERE RoleID = '" . $row['RoleID'] . "';";
+	$result2 = mysqli_query($con, $facultyquery);
+	$result3 = mysqli_query($con, $rolequery);
+	$row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+	$row3 = mysqli_fetch_array($result3, MYSQLI_ASSOC);
 
-        echo "<li>{$row['Username']} {$row['Password']}</li>";
+	//Logged In Variables
+    $_SESSION["Username"] = $row['Username'];
+    $_SESSION["Faculty"] = $row2['FacultyName'];;
+    $_SESSION["Role"] = $row3['RoleName'];
 
-    }
+    echo $_SESSION["Username"]. "<br>";
+    echo $_SESSION["Faculty"]. "<br>";
+    echo $_SESSION["Role"]. "<br>";
 
-    echo "</ul>";
 
 } else {
 
-    echo "Query didn't return any result";
+		//Error Variables
 
 }
+
+mysqli_close($con);
+
+//header('Location: http://wwww.greenmag.co.uk');
 
 ?>
