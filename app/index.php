@@ -28,13 +28,13 @@ if (mysqli_num_rows($result) > 0) {
   $row3 = mysqli_fetch_array($result3, MYSQLI_ASSOC);
 
   //Logged In Variables
-    $_SESSION['user_logged_in'] = true;
+    $_SESSION["user_logged_in"] = true;
     $_SESSION["Username"] = $row['Username'];
     $_SESSION["Faculty"] = $row2['FacultyName'];;
     $_SESSION["Role"] = $row3['RoleName'];
 
 } else {
-
+    
     //Error Variables
 
 }
@@ -64,7 +64,7 @@ mysqli_close($con);
     <li class="w3-hide-small"><a href="#articles">ARTICLES</a></li>
     <li class="w3-hide-small"><a href="#statistics">STATISTICS</a></li>
     <li class="w3-hide-small w3-right">
-      <a onclick="document.getElementById('id01').style.display='block'" class="w3-hover-red">
+      <a onclick="document.getElementById('modal-logged-out').style.display='block'" id="loginButton" class="w3-hover-red">
         <i class="fa fa-user"></i><span id="loginButtonID" class="loginClass"> Sign In</span>
       </a>
     </li>
@@ -207,10 +207,10 @@ mysqli_close($con);
   </div>
 </div>
 
-<div id="id01" class="w3-modal">
+<div id="modal-logged-out" class="w3-modal">
   <div class="w3-modal-content w3-animate-top w3-card-8">
     <header class="w3-container w3-blackgrey"> 
-      <h2 class="lefty">User Area</h2><h2><span onclick="document.getElementById('id01').style.display='none'" 
+      <h2 class="lefty">User Area</h2><h2><span onclick="document.getElementById('modal-logged-out').style.display='none'" 
       class="w3-closebtn2 righty"><i class="fa fa-close"></i></span></h2>
     </header>
     <div class="w3-container">
@@ -250,6 +250,20 @@ mysqli_close($con);
   </div>
 </div>
 
+<div id="modal-logged-in" class="w3-modal">
+  <div class="w3-modal-content w3-animate-top w3-card-8">
+    <header class="w3-container w3-blackgrey"> 
+      <h2 class="lefty">User Area</h2><h2><span onclick="document.getElementById('modal-logged-in').style.display='none'" 
+      class="w3-closebtn2 righty"><i class="fa fa-close"></i></span></h2>
+    </header>
+    <div class="w3-container">
+      <form action="" method="post">
+        <button id="logOut" onclick="<?php session_destroy(); ?>">Log Out</button>
+      </form>
+    </div>
+  </div>
+</div>
+
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
   <a href="#home" class="w3-btn w3-padding w3-light-grey w3-hover-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
@@ -265,6 +279,10 @@ mysqli_close($con);
 </footer>
  
 <script src="main.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
 <script type="text/javascript">
   var Username;
   var FacultyName;
@@ -272,10 +290,15 @@ mysqli_close($con);
   var user_logged_in;
 
   function jsLoginFunction(Username, FacultyName, RoleName, user_logged_in){
-    console.log(Username);
+    if (user_logged_in == 1) {
+      var span = document.getElementById("loginButtonID");
+      span.textContent = " " + Username;
 
-    var span = document.getElementById("loginButtonID");
-    span.textContent = " " + Username;
+      $("#loginButton").bind("click", function() {
+        document.getElementById('modal-logged-out').style.display='none';
+        document.getElementById('modal-logged-in').style.display='block';
+      });
+    }
   }
 
 </script>
@@ -285,4 +308,3 @@ echo "<script type='text/javascript'>jsLoginFunction('" . $_SESSION['Username'] 
 
 </body>
 </html>
-?>
