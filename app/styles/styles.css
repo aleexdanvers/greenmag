@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Quicksand');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
@@ -20,7 +20,7 @@ body, html {
     background-image: url('../images/RNC2-grn-bg.png');
     min-height: 100%;
     min-width: 100%;
-    opacity: 0.8 !important;
+    opacity: 0.85 !important;
 }
 
 .fa-user{
@@ -31,11 +31,11 @@ body, html {
 .w3-blackgrey, .w3-blackgrey h2{
 	background-color: #444;
 	color: white;
-	font-family: Quicksand, sans-serif !important;
+	font-family: Raleway, sans-serif !important;
 }
 
 .w3-closebtn2{
-	color: #f44336 !important;
+	color: #f66558 !important;
 	line-height: 100% !important;
 }
 
@@ -49,12 +49,13 @@ body, html {
 }
 
 .w3-closebtn2:hover{
-	color: #f66558 !important;
+	color: #f44336 !important;
 	cursor: pointer;
 }
 
 .loginClass{
-	font-family: Quicksand, sans-serif !important;
+	font-family: Raleway, sans-serif;
+	letter-spacing: 1px;
 	text-transform: uppercase;
 }
 
@@ -334,7 +335,7 @@ a {
 	overflow: hidden;
 	text-decoration: none!important;
 	color: #fff;
-	background-color: #000;
+	background-color: #444;
 	text-align: center;
 	cursor: pointer;
 	white-space: nowrap
@@ -435,7 +436,7 @@ ul.w3-ul li:last-child {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-  color: #fff;
+  	color: #fff;
 }
 .w3-navbar li {
 	float: left
@@ -443,8 +444,8 @@ ul.w3-ul li:last-child {
 .w3-navbar li a, .w3-navitem, .w3-navbar li .w3-btn, .w3-navbar li .w3-input {
 	display: block;
 	padding: 8px 16px;
-	font-family: Quicksand, sans-serif;
-  font-weight: bolder;
+	font-family: Raleway, sans-serif;
+	letter-spacing: 1px;
 }
 .w3-navbar li .w3-btn, .w3-navbar li .w3-input {
 	border: none;
@@ -1613,11 +1614,11 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 }
 .w3-red, .w3-hover-red {
 	color: #fff!important;
-	background-color: #f44336!important;
+	background-color: #f66558!important;
 }
 .w3-red, .w3-hover-red:hover {
 	color: #fff!important;
-	background-color: #f66558!important;
+	background-color: #f44336!important;
 	cursor: pointer;
 }
 .w3-sand, .w3-hover-sand:hover {
@@ -1643,7 +1644,8 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 .w3-black, .w3-hover-black:hover {
 	color: #fff!important;
 	background-color: #000!important;
-  font-family: Quicksand, sans-serif;
+	font-family: Raleway, sans-serif;
+	letter-spacing: 10px;
 }
 .homepage-text {
   border-radius: 10px;
