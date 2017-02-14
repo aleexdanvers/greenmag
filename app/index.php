@@ -35,10 +35,10 @@ if (mysqli_num_rows($result) > 0) {
   $_SESSION["Role"] = $row3['RoleName'];
 
 } else {
-    
-    //Error Variables
-    $_SESSION["failed_login"] = true;
-
+    if ($LoginUsername != ''|| $LoginPassword != ''){
+    	//Error Variables
+    	$_SESSION["failed_login"] = true;
+    }
 }
 
 mysqli_close($con);
@@ -271,6 +271,8 @@ mysqli_close($con);
 	 var FacultyName;
 	 var RoleName;
 	 var user_logged_in;
+	 var loggedoutmodal = document.getElementById('modal-logged-out').style.display;
+	 var loggedinmodal = document.getElementById('modal-logged-in').style.display;
 
 	 function jsLoginFunction(Username, FacultyName, RoleName, user_logged_in){
 	   if (user_logged_in == 1) {
@@ -284,8 +286,28 @@ mysqli_close($con);
 	   }
 	 }
 
+	 function jsFailedLoginFunction(failed_login){
+	 	if(failed_login != ''){
+	 		console.log("Failed Login" + failed_login);
+	 	}
+	 }
+
+
+	 $(document).keyup(function(e) {
+     if (e.keyCode == 27) { // escape key maps to keycode `27`
+        console.log("escape pressed");
+        if(document.getElementById('modal-logged-in').style.display == 'block'){
+        	document.getElementById('modal-logged-in').style.display = 'none';
+        }
+        else if(document.getElementById('modal-logged-out').style.display == 'block'){
+        	document.getElementById('modal-logged-out').style.display = 'none';
+        }
+    }
+});
+
 	</script> <?php
 	echo "<script type='text/javascript'>jsLoginFunction('" . $_SESSION['Username'] . "','" . $_SESSION['Faculty'] . "', '" . $_SESSION['Role'] . "', '" . $_SESSION['user_logged_in'] . "')</script>";
+	echo "<script type='text/javascript'>jsFailedLoginFunction('" . $_SESSION['failed_login'] . "')</script>";
 	?>
 </body>
 </html>
