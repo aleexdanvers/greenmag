@@ -13,7 +13,7 @@
 <body>
 	<!-- Navbar (sit on top) -->
 	<div class="w3-top">
-		<ul class="w3-navbar" id="myNavbar">
+		<ul class="w3-navbar w3-white w3-card-2" id="myNavbar">
 			<li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
 				<a class="w3-hover-black" id="toggle-menu" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
 			</li>
@@ -48,7 +48,7 @@
 					<a href="#statistics" onclick="toggleFunction()">STATISTICS</a>
 				</li>
 				<li>
-					<a onclick="document.getElementById('id01').style.display='block'">SIGN IN</a>
+					<a onclick="document.getElementById('modal-logged-out').style.display='block'">SIGN IN</a>
 				</li>
 			</ul>
 		</div>
@@ -64,24 +64,7 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 		<div class="w3-center"><img src="../images/logo_light.png" width="150px"></div>
 	</div>
-	<div class="w3-row w3-center w3-dark-grey w3-padding-16">
-		<div class="w3-quarter w3-section">
-			<span class="w3-xlarge">40,000+</span><br>
-			Submissions
-		</div>
-		<div class="w3-quarter w3-section">
-			<span class="w3-xlarge">21,000+</span><br>
-			Students
-		</div>
-		<div class="w3-quarter w3-section">
-			<span class="w3-xlarge">5</span><br>
-			Faculties
-		</div>
-		<div class="w3-quarter w3-section">
-			<span class="w3-xlarge">1</span><br>
-			Greenwich
-		</div>
-	</div><!-- Second Parallax Image with Portfolio Text -->
+	<!-- Second Parallax Image with Portfolio Text -->
 	<div class="bgimg-2 w3-display-container w3-opacity-min">
 		<div class="w3-display-middle">
 			<span class="w3-xxlarge w3-text-light-grey w3-wide w3-text-shadow-parallax">ARTICLES</span>
@@ -115,7 +98,26 @@
 		<div class="w3-display-middle">
 			<span class="w3-xxlarge w3-text-light-grey w3-wide w3-text-shadow-parallax">STATISTICS</span>
 		</div>
-	</div><!-- Container (Contact Section) -->
+	</div>
+	<div class="w3-row w3-center w3-dark-grey w3-padding-16">
+		<div class="w3-quarter w3-section">
+			<span class="w3-xlarge">40,000+</span><br>
+			Submissions
+		</div>
+		<div class="w3-quarter w3-section">
+			<span class="w3-xlarge">21,000+</span><br>
+			Students
+		</div>
+		<div class="w3-quarter w3-section">
+			<span class="w3-xlarge">5</span><br>
+			Faculties
+		</div>
+		<div class="w3-quarter w3-section">
+			<span class="w3-xlarge">1</span><br>
+			Greenwich
+		</div>
+	</div>
+	<!-- Container (Contact Section) -->
 	<div class="w3-content w3-container w3-padding-64" id="statistics">
 		<h3 class="w3-center">STATS:</h3>
 		<p class="w3-large w3-center w3-padding-16">Some statistics about our submissions:</p>
@@ -142,7 +144,7 @@
 				<div class="w3-half w3-padding-right-small">
 					<form action="form.asp" target="_blank">
 						<div class="w3-row-padding-top">
-							<h3>New Account</h3><input class="w3-input w3-border w3-register-input" name="Username" placeholder="Email Address" required="" type="text"> <input class="w3-input w3-border w3-register-input" maxlength="20" name="Password" placeholder="Password" required="" type="password"> <input class="w3-input w3-border w3-register-input" maxlength="20" name="ConfirmPassword" placeholder="Confirm Password" required="" type="password"> <select class="styled-select w3-select w3-border w3-register-input" name="option">
+							<h3>New Account</h3><input class="w3-input w3-border w3-register-input" name="Username" placeholder="Email Address" required="" type="Email"> <input class="w3-input w3-border w3-register-input" maxlength="20" name="Password" placeholder="Password" required="" type="password"> <input class="w3-input w3-border w3-register-input" maxlength="20" name="ConfirmPassword" placeholder="Confirm Password" required="" type="password"> <select class="styled-select w3-select w3-border w3-register-input" name="option">
 								<option disabled selected value="">
 									Choose your faculty
 								</option>
@@ -166,7 +168,7 @@
 					<form action="login.php" method="post">
 						<div class="w3-row-padding-top">
 							<h3>Existing Account</h3>
-							<input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="text">
+							<input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="Email">
 							<input class="w3-input w3-border w3-register-input" maxlength="20" name="LoginPassword" placeholder="Password" required="" type="password">
 						</div>
 						<button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Login</button>
@@ -273,17 +275,8 @@
 		}
 		
 		function jsAvatar() {
-			if (RoleName == "Admin") {
-				avatar.innerHTML = "<img src='../images/1.png' width='250px'>";
-			} else if(RoleName == "Marketing Manager") {
-				avatar.innerHTML = "<img src='../images/2.png' width='250px'>";
-			} else if(RoleName == "Marketing Co-ordinator") {
-				avatar.innerHTML = "<img src='../images/3.png' width='250px'>";
-			} else if(RoleName == "Student") {
-				avatar.innerHTML = "<img src='../images/4.png' width='250px'>";
-			} else if(RoleName == "Guest") {
-				avatar.innerHTML = "<img src='../images/5.png' width='250px'>";
-			}
+			var avatarNo = Math.floor((Math.random() * 10) + 1);
+			avatar.innerHTML = "<img src='../images/" + avatarNo + ".png' width='250px'>";
 		}
 		
      $(document).keyup(function(e) {
