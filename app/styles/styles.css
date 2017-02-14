@@ -7,6 +7,10 @@ body, html {
     line-height: 1.8;
 }
 
+h5.userInfo {
+  margin: 1px 0 15px 0;
+}
+
 /* Create a Parallax Effect */
 .bgimg-1, .bgimg-2, .bgimg-3 {
     background-attachment: fixed;
@@ -598,7 +602,7 @@ ul.w3-ul li:last-child {
 	width: 100%
 }
 .w3-label {
-	color: #009688
+	color: #f66558;
 }
 .w3-input:not(:valid)~.w3-validate {
 	color: #f44336
@@ -1118,6 +1122,9 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 .w3-margin-left {
 	margin-left: 16px!important
 }
+.w3-margin-right-small {
+	margin-right: 8px!important
+}
 .w3-margin-right {
 	margin-right: 16px!important
 }
@@ -1232,6 +1239,18 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 
 .w3-row-padding-top input, .w3-row-padding-top select {
   margin-top: 15px;
+}
+
+.w3-row-padding-top-x {
+  margin-top: 40px;
+}
+
+.w3-row-padding-bottom {
+  margin-top: 24px;
+}
+
+.w3-row-padding-bottom input, .w3-row-padding-bottom select {
+  margin-bottom: 15px;
 }
 .w3-spin {
 	animation: w3-spin 2s infinite linear;

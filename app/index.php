@@ -30,7 +30,7 @@
 				<a href="#statistics">STATISTICS</a>
 			</li>
 			<li class="w3-hide-small w3-right">
-				<a class="w3-hover-red" id="loginButton" onclick="document.getElementById('modal-logged-out').style.display='block'"><i class="fa fa-user"></i> <span class="loginClass" id="loginButtonID">Sign In</span></a>
+				<a class="w3-hover-red" id="loginButton" onclick="document.getElementById('modal-logged-out').style.display='block'"><i class="fa fa-user w3-margin-right-small"></i> <span class="loginClass" id="loginButtonID">Sign In</span></a>
 			</li>
 		</ul><!-- Navbar on small screens -->
 		<div class="w3-hide w3-hide-large w3-hide-medium" id="navDemo">
@@ -136,7 +136,7 @@
 		<div class="w3-modal-content w3-animate-top w3-card-8">
 			<header class="w3-container w3-blackgrey">
 				<h2 class="lefty">User Accounts</h2>
-				<h2><span class="w3-closebtn2 righty" onclick="document.getElementById('modal-logged-out').style.display='none'"><i class="fa fa-close"></i></span></h2>
+				<h2><span class="w3-closebtn2 righty" onclick="closeModals()"><i class="fa fa-close"></i></span></h2>
 			</header>
 			<div class="w3-container">
 				<div class="w3-half w3-padding-right-small">
@@ -159,14 +159,18 @@
 									Faculty of Engineering & Science
 								</option>
 							</select>
-						</div><button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check"></i> Register</button>
+						</div><button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Register</button>
 					</form>
 				</div>
 				<div class="w3-half w3-padding-left-small">
 					<form action="login.php" method="post">
 						<div class="w3-row-padding-top">
-							<h3>Existing Account</h3><input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="text"> <input class="w3-input w3-border w3-register-input" maxlength="20" name="LoginPassword" placeholder="Password" required="" type="password">
-						</div><button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check"></i> Login</button><a id="forgottenpassword" style="padding-left:10px !important;">Forgotten Password?</a>
+							<h3>Existing Account</h3>
+							<input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="text">
+							<input class="w3-input w3-border w3-register-input" maxlength="20" name="LoginPassword" placeholder="Password" required="" type="password">
+						</div>
+						<button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Login</button>
+						<a id="forgottenpassword" style="padding-left:10px !important;">Forgotten Password?</a>
 						<h4 id="invalidid" style="display:none;padding-top:0px !important;color:red;font-size: 14px;">Invalid Email Address or Password</h4>
 					</form>
 				</div>
@@ -176,15 +180,27 @@
 	<div class="w3-modal" id="modal-logged-in">
 		<div class="w3-modal-content w3-animate-top w3-card-8">
 			<header class="w3-container w3-blackgrey">
-				<h2 class="lefty">User Area</h2>
-				<h2><span class="w3-closebtn2 righty" onclick="document.getElementById('modal-logged-in').style.display='none'"><i class="fa fa-close"></i></span></h2>
+				<h2 class="lefty" id="UserArea">User Area</h2>
+				<h2><span class="w3-closebtn2 righty" onclick="closeModals()"><i class="fa fa-close"></i></span></h2>
 			</header>
 			<div class="w3-container">
-				<form action="logout.php" class="w3-center w3-padding-xlarge" method="post">
-					<br>
-					<div class="w3-center"><img src="../images/1.png" width="150px"></div>
-					<p id="userContent"></p><button class="w3-btn w3-padding w3-section" id="logOut" onclick="">Log Out</button>
-				</form>
+				<div class="w3-half w3-row-padding-top-x">
+					<div id="avatar" class="w3-center">
+						<img src="../images/1.png" width="250px">
+					</div>
+				</div>
+				<div class="w3-half w3-row-padding-bottom">
+					<form action="logout.php" class="w3-center w3-padding-xlarge" method="post">
+						<label class="w3-label">Username:</label>
+						<h5 class="userInfo" id="username"></h3>
+						<label class="w3-label">Faculty:</label>
+						<h5 class="userInfo" id="faculty"></h3>
+						<label class="w3-label">Role:</label>
+						<h5 class="userInfo" id="role"></h3>
+						<button class="w3-btn w3-padding w3-section" id="changePassword" onclick="">Change Password</button>
+						<button class="w3-btn w3-padding w3-section" id="logOut" onclick="">Log Out</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -192,7 +208,7 @@
 		<div class="w3-modal-content w3-animate-top w3-card-8">
 			<header class="w3-container w3-blackgrey">
 				<h2 class="lefty">Forgotten Password</h2>
-				<h2><span class="w3-closebtn2 righty" onclick="document.getElementById('modal-forgotten-password').style.display='none'"><i class="fa fa-close"></i></span></h2>
+				<h2><span class="w3-closebtn2 righty" onclick="closeModals()"><i class="fa fa-close"></i></span></h2>
 			</header>
 			<div class="w3-container">
 				<form action="" class="w3-center w3-padding-xlarge" method="post">
@@ -208,49 +224,103 @@
 		</div>
 		<p>Created by Kung Fu Pandas</p>
 	</footer>
-	<script src="main.js">
-	</script> 
-	<script src="https://code.jquery.com/jquery-3.1.1.js">
-	</script> 
+	<script src="main.js"></script> 
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script> 
 	<script type="text/javascript">
-     var Username = <?php echo json_encode($_SESSION["Username"]); ?>;
-     var FacultyName = <?php echo json_encode($_SESSION["Faculty"]); ?>;;
-     var RoleName = <?php echo json_encode($_SESSION["Role"]); ?>;;
-     var UserLoggedIn = <?php echo json_encode($_SESSION["user_logged_in"]); ?>;;
+		//database variables
+		var FullUsername = <?php echo json_encode($_SESSION["Username"]); ?>;
+		var FacultyName = <?php echo json_encode($_SESSION["Faculty"]); ?>;;
+		var RoleName = <?php echo json_encode($_SESSION["Role"]); ?>;;
+		var UserLoggedIn = <?php echo json_encode($_SESSION["user_logged_in"]); ?>;;
+		var FailedPassword = <?php echo json_encode($_SESSION["failed_login"]); ?>;;
+		//modals + HTML elements
+		var modalLoggedIn = document.getElementById('modal-logged-in');
+		var modalLoggedOut = document.getElementById('modal-logged-out');
+		var modalForgottenPassword = document.getElementById('modal-forgotten-password');
+		var invalidId = document.getElementById('invalidid');
+		var avatar = document.getElementById("avatar");
 
-     function jsLoginFunction(Username, FacultyName, RoleName, UserLoggedIn){
+     function jsSuccesfulLogin() {
        if (UserLoggedIn == 1) { // 1 evaluates to true
-				 document.getElementById("loginButtonID").textContent = " " + Username;
-         document.getElementById("userContent").innerHTML = "Username: " + Username + "; Faculty Name: " + FacultyName + "; Role Name: " + RoleName; 
+				 var Username = FullUsername.replace('@greenwich.ac.uk', '');
+				 document.getElementById("loginButtonID").textContent = Username;
 
          $("#loginButton").bind("click", function() {
-           document.getElementById('modal-logged-out').style.display='none';
-           document.getElementById('modal-logged-in').style.display='block';
+           modalLoggedOut.style.display='none';
+           modalLoggedIn.style.display='block';
          });
+
+				 jsUserArea(Username);
+				 jsAvatar();
        }
      }
 
-     jsLoginFunction(Username, FacultyName, RoleName, UserLoggedIn);
+		function jsLoginLogic() {
+			if (FailedPassword == 1) {
+				invalidId.style.display='block';
+				modalLoggedOut.style.display='block';
+			} else {
+				jsSuccesfulLogin();
+				invalidId.style.display='none';
+			}
+		}
 
+		function jsUserArea(Username) {
+			document.getElementById("UserArea").innerHTML = "Welcome back " + Username.toUpperCase() + "!";
+			document.getElementById("username").innerHTML = FullUsername;
+			document.getElementById("faculty").innerHTML = FacultyName;
+			document.getElementById("role").innerHTML = RoleName;
+		}
+		
+		function jsAvatar() {
+			if (RoleName == "Admin") {
+				avatar.innerHTML = "<img src='../images/1.png' width='250px'>";
+			} else if(RoleName == "Marketing Manager") {
+				avatar.innerHTML = "<img src='../images/2.png' width='250px'>";
+			} else if(RoleName == "Marketing Co-ordinator") {
+				avatar.innerHTML = "<img src='../images/3.png' width='250px'>";
+			} else if(RoleName == "Student") {
+				avatar.innerHTML = "<img src='../images/4.png' width='250px'>";
+			} else if(RoleName == "Guest") {
+				avatar.innerHTML = "<img src='../images/5.png' width='250px'>";
+			}
+		}
+		
      $(document).keyup(function(e) {
 	       if (e.keyCode == 27) {
 	          console.log("escape pressed");
-	          if(document.getElementById('modal-logged-in').style.display == 'block'){
-	              document.getElementById('modal-logged-in').style.display = 'none';
+	          if(modalLoggedIn.style.display == 'block'){
+	              modalLoggedIn.style.display = 'none';
 	          }
-	          else if(document.getElementById('modal-logged-out').style.display == 'block'){
-	              document.getElementById('modal-logged-out').style.display = 'none';
+	          else if(modalLoggedOut.style.display == 'block'){
+	              modalLoggedOut.style.display = 'none';
+								invalidId.style.display = 'none';
 	          }
-	          else if(document.getElementById('modal-forgotten-password').style.display == 'block'){
-	              document.getElementById('modal-forgotten-password').style.display = 'none';
+	          else if(modalForgottenPassword.style.display == 'block'){
+	              modalForgottenPassword.style.display = 'none';
 	          }
 	      }
 	   });
+
+		 function closeModals() {
+			 if(modalLoggedIn.style.display == 'block'){
+					 modalLoggedIn.style.display = 'none';
+			 }
+			 else if(modalLoggedOut.style.display == 'block'){
+					 modalLoggedOut.style.display = 'none';
+					 invalidId.style.display = 'none';
+			 }
+			 else if(modalForgottenPassword.style.display == 'block'){
+					 modalForgottenPassword.style.display = 'none';
+			 }
+		 }
 		 
      $( "#forgottenpassword" ).click(function() {
-        document.getElementById("modal-forgotten-password").style.display = "block";
-        document.getElementById('modal-logged-out').style.display='none';
+        modalForgottenPassword.style.display = "block";
+        modalLoggedOut.style.display='none';
 	   });
+		 
+		 jsLoginLogic();
 	</script>
 </body>
 </html>

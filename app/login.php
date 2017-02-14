@@ -1,5 +1,4 @@
 <?php
-
     session_start();
 
     $servername = "mysql.hostinger.co.uk";
@@ -12,7 +11,7 @@
 
     $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
-    $loginquery  = "SELECT * FROM User WHERE Username = '" . $LoginUsername . "';";
+    $loginquery  = "SELECT * FROM User WHERE Username = '" . $LoginUsername . "' AND Password = '" . $LoginPassword . "';";
 
     $result = mysqli_query($con, $loginquery);
 
@@ -34,11 +33,12 @@
       $_SESSION["Faculty"] = $row2['FacultyName'];;
       $_SESSION["Role"] = $row3['RoleName'];
 
-    } else {
-    	//Failed Login
+    } else if (mysqli_num_rows($result) === 0) {
+      //Failed Login
+      $_SESSION["failed_login"] = true;
     }
 
     mysqli_close($con);
     header('Location: index.php');
 
-    ?>
+?>
