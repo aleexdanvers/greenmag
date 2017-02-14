@@ -204,7 +204,7 @@ mysqli_close($con);
 					<form action="form.asp" target="_blank">
 						<div class="w3-row-padding-top">
 						<h3>New Account</h3>
-							<input class="w3-input w3-border w3-register-input" name="Username" placeholder="Username" required="" type="text"> <input class="w3-input w3-border w3-register-input" name="Password" placeholder="Password" required="" type="password"> <input class="w3-input w3-border w3-register-input" name="ConfirmPassword" placeholder="Confirm Password" required="" type="password"> <select class="styled-select w3-select w3-border w3-register-input" name="option">
+							<input class="w3-input w3-border w3-register-input" name="Username" placeholder="Email Address" required="" type="text"> <input class="w3-input w3-border w3-register-input" minlength="5" maxlength="20" name="Password" placeholder="Password" required="" type="password"> <input class="w3-input w3-border w3-register-input" minlength="5" maxlength="20" name="ConfirmPassword" placeholder="Confirm Password" required="" type="password"> <select class="styled-select w3-select w3-border w3-register-input" name="option">
 								<option disabled selected value="">
 									Choose your faculty
 								</option>
@@ -229,10 +229,11 @@ mysqli_close($con);
 					<form action="" method="post">
 						<div class="w3-row-padding-top">
 						<h3>Existing Account</h3>
-							<input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Username" required="" type="text">
-							<input class="w3-input w3-border w3-register-input" name="LoginPassword" placeholder="Password" required="" type="password">
+							<input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="text">
+							<input class="w3-input w3-border w3-register-input" name="LoginPassword" placeholder="Password" minlength="4" maxlength="20" required="" type="password">
 						</div>
-						 <button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check"></i> Login</button><a style="padding-left:10px !important;" href="www.Greenmag.co.uk">Forgotten Password?</a>
+						 <button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check"></i> Login</button><a id="forgottenpassword" style="padding-left:10px !important;">Forgotten Password?</a>
+						 <h4 id="invalidid" style="display:none;padding-top:0px !important;color:red;font-size: 14px;">Invalid Email Address or Password</h4>
 					</form>
 				</div>
 			</div>
@@ -248,7 +249,23 @@ mysqli_close($con);
 			</header>
 			<div class="w3-container">
 				<form action="" method="post" class="w3-center w3-padding-xlarge">
+					<br><div class="w3-center"><img src="../images/1.png" width="150px"></div>
 					<button id="logOut" class="w3-btn w3-padding w3-section" onclick="<?php session_destroy(); ?>">Log Out</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="w3-modal" id="modal-forgotten-password">
+		<div class="w3-modal-content w3-animate-top w3-card-8">
+			<header class="w3-container w3-blackgrey">
+				<h2 class="lefty">Forgotten Password</h2>
+				<h2><span class="w3-closebtn2 righty" onclick="document.getElementById('modal-forgotten-password').style.display='none'"><i class="fa fa-close"></i></span></h2>
+			</header>
+			<div class="w3-container">
+				<form action="" method="post" class="w3-center w3-padding-xlarge">
+					<input class="w3-input w3-border w3-register-input" name="ForgotUsername" placeholder="Email Address" required="" type="text">
+					<button id=forgotPassword class="w3-btn w3-padding w3-section" onclick="">Send New Password</button>
 				</form>
 			</div>
 		</div>
@@ -289,6 +306,8 @@ mysqli_close($con);
 	 function jsFailedLoginFunction(failed_login){
 	 	if(failed_login != ''){
 	 		console.log("Failed Login" + failed_login);
+	 		document.getElementById("invalidid").style.display = "block";
+	 		document.getElementById('modal-logged-out').style.display='block'
 	 	}
 	 }
 
@@ -303,6 +322,10 @@ mysqli_close($con);
         	document.getElementById('modal-logged-out').style.display = 'none';
         }
     }
+});
+	 $( "#forgottenpassword" ).click(function() {
+  	 	document.getElementById("modal-forgotten-password").style.display = "block";
+	 	document.getElementById('modal-logged-out').style.display='none';
 });
 
 	</script> <?php
