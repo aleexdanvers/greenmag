@@ -247,8 +247,8 @@ mysqli_close($con);
 				<h2><span class="w3-closebtn2 righty" onclick="document.getElementById('modal-logged-in').style.display='none'"><i class="fa fa-close"></i></span></h2>
 			</header>
 			<div class="w3-container">
-				<form action="" method="post">
-					<button id="logOut" onclick="<?php session_destroy(); ?>">Log Out</button>
+				<form action="" method="post" class="w3-center w3-padding-xlarge">
+					<button id="logOut" class="w3-btn w3-padding w3-section" onclick="<?php session_destroy(); ?>">Log Out</button>
 				</form>
 			</div>
 		</div>
