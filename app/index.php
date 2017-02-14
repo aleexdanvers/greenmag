@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,7 +163,7 @@
 					</form>
 				</div>
 				<div class="w3-half w3-padding-left-small">
-					<form action="" method="post">
+					<form action="login.php" method="post">
 						<div class="w3-row-padding-top">
 							<h3>Existing Account</h3><input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="text"> <input class="w3-input w3-border w3-register-input" maxlength="20" name="LoginPassword" placeholder="Password" required="" type="password">
 						</div><button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check"></i> Login</button><a id="forgottenpassword" style="padding-left:10px !important;">Forgotten Password?</a>
@@ -205,62 +208,18 @@
 		</div>
 		<p>Created by Kung Fu Pandas</p>
 	</footer>
-	<?php
-
-    session_start();
-
-    $servername = "mysql.hostinger.co.uk";
-    $dbusername = "u495998595_admin";
-    $dbpassword = "dmftw38QkZNB";
-    $dbname = "u495998595_admin";
-
-    $LoginUsername = trim(strip_tags(addslashes($_REQUEST['LoginUsername'])));
-    $LoginPassword = md5($_REQUEST['LoginPassword']);
-
-    $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
-
-    $loginquery  = "SELECT * FROM User WHERE Username = '" . $LoginUsername . "';";
-
-    $result = mysqli_query($con, $loginquery);
-
-    if (mysqli_num_rows($result) > 0) {
-
-      $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-      $facultyquery  = "SELECT * FROM Faculty WHERE FacultyID = '" . $row['FacultyID'] . "';";
-      $rolequery  = "SELECT * FROM Role WHERE RoleID = '" . $row['RoleID'] . "';";
-      $result2 = mysqli_query($con, $facultyquery);
-      $result3 = mysqli_query($con, $rolequery);
-      $row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
-      $row3 = mysqli_fetch_array($result3, MYSQLI_ASSOC);
-
-      //Logged In Variables
-      $_SESSION["user_logged_in"] = true;
-      $_SESSION["failed_login"] = false;
-      $_SESSION["Username"] = $row['Username'];
-      $_SESSION["Faculty"] = $row2['FacultyName'];;
-      $_SESSION["Role"] = $row3['RoleName'];
-
-    } else {
-    	//Failed Login
-    }
-
-    mysqli_close($con);
-
-    ?>
 	<script src="main.js">
 	</script> 
 	<script src="https://code.jquery.com/jquery-3.1.1.js">
 	</script> 
 	<script type="text/javascript">
-	    var Username;
+	    var Username = <?php echo json_encode($_SESSION["Username"]); ?>;
 	    var FacultyName;
 	    var RoleName;
 	    var user_logged_in;
-	    var loggedoutmodal = document.getElementById('modal-logged-out').style.display;
-	    var loggedinmodal = document.getElementById('modal-logged-in').style.display;
 
 	    function jsLoginFunction(Username, FacultyName, RoleName, user_logged_in){
+	    	console.log(Username);
 	      if (user_logged_in == 1) {
 	        var span = document.getElementById("loginButtonID");
 	        span.textContent = " " + Username;
@@ -273,8 +232,10 @@
 	      }
 	    }
 
+	    jsLoginFunction(Username, FacultyName, RoleName, user_logged_in);
+
 	    $(document).keyup(function(e) {
-	    if (e.keyCode == 27) { // escape key maps to keycode `27`
+	    if (e.keyCode == 27) {
 	       console.log("escape pressed");
 	       if(document.getElementById('modal-logged-in').style.display == 'block'){
 	           document.getElementById('modal-logged-in').style.display = 'none';
@@ -292,8 +253,6 @@
 	       document.getElementById('modal-logged-out').style.display='none';
 	});
 
-	</script> <?php
-	    echo "<script type='text/javascript'>jsLoginFunction('" . $_SESSION['Username'] . "','" . $_SESSION['Faculty'] . "', '" . $_SESSION['Role'] . "', '" . $_SESSION['user_logged_in'] . "')</script>";
-	    ?>
+	</script>
 </body>
 </html>
