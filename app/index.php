@@ -1,5 +1,5 @@
 <?php
-session_start();
+	session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -213,46 +213,44 @@ session_start();
 	<script src="https://code.jquery.com/jquery-3.1.1.js">
 	</script> 
 	<script type="text/javascript">
-	    var Username = <?php echo json_encode($_SESSION["Username"]); ?>;
-	    var FacultyName;
-	    var RoleName;
-	    var user_logged_in;
+     var Username = <?php echo json_encode($_SESSION["Username"]); ?>;
+     var FacultyName = <?php echo json_encode($_SESSION["Faculty"]); ?>;;
+     var RoleName = <?php echo json_encode($_SESSION["Role"]); ?>;;
+     var UserLoggedIn = <?php echo json_encode($_SESSION["user_logged_in"]); ?>;;
 
-	    function jsLoginFunction(Username, FacultyName, RoleName, user_logged_in){
-	    	console.log(Username);
-	      if (user_logged_in == 1) {
-	        var span = document.getElementById("loginButtonID");
-	        span.textContent = " " + Username;
-	        document.getElementById("userContent").innerHTML = "Username: " + Username + "; Faculty Name: " + FacultyName + "; Role Name: " + RoleName; 
+     function jsLoginFunction(Username, FacultyName, RoleName, UserLoggedIn){
+       if (UserLoggedIn == 1) { // 1 evaluates to true
+				 document.getElementById("loginButtonID").textContent = " " + Username;
+         document.getElementById("userContent").innerHTML = "Username: " + Username + "; Faculty Name: " + FacultyName + "; Role Name: " + RoleName; 
 
-	        $("#loginButton").bind("click", function() {
-	          document.getElementById('modal-logged-out').style.display='none';
-	          document.getElementById('modal-logged-in').style.display='block';
-	        });
+         $("#loginButton").bind("click", function() {
+           document.getElementById('modal-logged-out').style.display='none';
+           document.getElementById('modal-logged-in').style.display='block';
+         });
+       }
+     }
+
+     jsLoginFunction(Username, FacultyName, RoleName, UserLoggedIn);
+
+     $(document).keyup(function(e) {
+	       if (e.keyCode == 27) {
+	          console.log("escape pressed");
+	          if(document.getElementById('modal-logged-in').style.display == 'block'){
+	              document.getElementById('modal-logged-in').style.display = 'none';
+	          }
+	          else if(document.getElementById('modal-logged-out').style.display == 'block'){
+	              document.getElementById('modal-logged-out').style.display = 'none';
+	          }
+	          else if(document.getElementById('modal-forgotten-password').style.display == 'block'){
+	              document.getElementById('modal-forgotten-password').style.display = 'none';
+	          }
 	      }
-	    }
-
-	    jsLoginFunction(Username, FacultyName, RoleName, user_logged_in);
-
-	    $(document).keyup(function(e) {
-	    if (e.keyCode == 27) {
-	       console.log("escape pressed");
-	       if(document.getElementById('modal-logged-in').style.display == 'block'){
-	           document.getElementById('modal-logged-in').style.display = 'none';
-	       }
-	       else if(document.getElementById('modal-logged-out').style.display == 'block'){
-	           document.getElementById('modal-logged-out').style.display = 'none';
-	       }
-	       else if(document.getElementById('modal-forgotten-password').style.display == 'block'){
-	           document.getElementById('modal-forgotten-password').style.display = 'none';
-	       }
-	   }
-	});
-	    $( "#forgottenpassword" ).click(function() {
-	       document.getElementById("modal-forgotten-password").style.display = "block";
-	       document.getElementById('modal-logged-out').style.display='none';
-	});
-
+	   });
+		 
+     $( "#forgottenpassword" ).click(function() {
+        document.getElementById("modal-forgotten-password").style.display = "block";
+        document.getElementById('modal-logged-out').style.display='none';
+	   });
 	</script>
 </body>
 </html>
