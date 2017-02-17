@@ -58,7 +58,7 @@
 			<span class="w3-center w3-padding-xlarge w3-black w3-xlarge w3-wide w3-animate-opacity homepage-text">GREENMAG</span>
 		</div>
 	</div><!-- Container (About Section) -->
-	<div class="w3-content w3-container w3-padding-32" id="about">
+	<div class="w3-content w3-container w3-padding-64" id="about">
 		<h3 class="w3-center">ABOUT</h3>
 		<p class="w3-center"><em>Lorem Ipsum</em></p>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -218,9 +218,10 @@
 				</form>
 			</div>
 		</div>
-	</div><!-- Footer -->
-	<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
-		<a class="w3-btn w3-padding w3-light-grey w3-hover-grey" href="#home"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+	</div>
+
+	<!-- Footer -->
+	<footer class="w3-center w3-blackgrey w3-padding-16 w3-hover-opacity-off">
 		<div class="w3-xlarge w3-section">
 			<i class="fa fa-facebook-official w3-hover-text-indigo"></i> <i class="fa fa-instagram w3-hover-text-purple"></i> <i class="fa fa-snapchat w3-hover-text-yellow"></i> <i class="fa fa-pinterest-p w3-hover-text-red"></i> <i class="fa fa-twitter w3-hover-text-light-blue"></i> <i class="fa fa-linkedin w3-hover-text-indigo"></i>
 		</div>
