@@ -31,7 +31,7 @@
 				<a href="#statistics">STATISTICS</a>
 			</li>
 			<li class="w3-hide-small w3-right">
-				<a class="w3-hover-red" id="loginButton" onclick="document.getElementById('modal-logged-out').style.display='block'"><i class="fa fa-user w3-margin-right-small"></i> <span class="loginClass" id="loginButtonID">Sign In</span></a>
+				<a class="w3-hover-red" id="loginButton" onclick="openModal()"><i class="fa fa-user w3-margin-right-small"></i> <span class="loginClass" id="loginButtonID">Sign In</span></a>
 			</li>
 		</ul><!-- Navbar on small screens -->
 		<div class="w3-hide w3-hide-large w3-hide-medium" id="navDemo">
@@ -49,7 +49,7 @@
 					<a href="#statistics" onclick="toggleFunction()">STATISTICS</a>
 				</li>
 				<li>
-					<a onclick="document.getElementById('modal-logged-out').style.display='block'">SIGN IN</a>
+					<a class="mobileSignIn" id="loginButton_mobile" onclick="openModal()"><span class="loginClass" id="loginButtonID_mobile">Sign In</span></a>
 				</li>
 			</ul>
 		</div>
@@ -181,7 +181,7 @@
 							<input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="Email">
 							<input class="w3-input w3-border w3-register-input" maxlength="20" id="LoginPassword" name="LoginPassword" placeholder="Password" required="" type="password">
 						</div>
-						<button class="w3-btn w3-padding w3-section" id="login" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Login</button>
+						<button class="w3-btn w3-padding w3-section" id="login" onclick="" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Login</button>
 						<a id="forgottenpassword" style="padding-left:10px !important;">Forgotten Password?</a>
 						<h4 id="invalidid" style="display:none;padding-top:0px !important;color:red;font-size: 16px;"><i class="fa fa-times" aria-hidden="true"></i> Invalid Email Address or Password</h4>
 					</form>
@@ -265,14 +265,20 @@
 		var password = document.getElementById("password")
 		var confirm_password = document.getElementById("confirm_password");
 		var loginPassword = document.getElementById("LoginPassword");
+		var loginButton = document.getElementById("login");
 
 
      function jsSuccesfulLogin() {
        if (UserLoggedIn == 1) { // 1 evaluates to true
 				 var Username = FullUsername.replace('@greenwich.ac.uk', '');
 				 document.getElementById("loginButtonID").textContent = Username;
+				 document.getElementById("loginButtonID_mobile").textContent = Username;
 
          $("#loginButton").bind("click", function() {
+           modalLoggedOut.style.display='none';
+           modalLoggedIn.style.display='block';
+         });
+         $("#loginButton_mobile").bind("click", function() {
            modalLoggedOut.style.display='none';
            modalLoggedIn.style.display='block';
          });
@@ -329,6 +335,10 @@
 	          }
 	      }
 	   });
+
+		 function openModal() {
+			 document.getElementById('modal-logged-out').style.display='block';
+		 }
 
 	function closeModals() {
 		if(modalLoggedIn.style.display == 'block'){

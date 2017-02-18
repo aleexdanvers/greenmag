@@ -29,7 +29,7 @@ input:-webkit-autofill {
 
 /* First image (Logo. Full height) */
 .bgimg-1 {
-    background-image: url('../images/RNC2-grn-bg.png');
+    background-image: url("../images/Greenwich_Park_and_Queen's_House_2013_March-min.jpg");
     min-height: 100%;
     min-width: 100%;
     opacity: 0.85 !important;
@@ -1872,4 +1872,7 @@ input[type=checkbox].w3-check:disabled+.w3-validate, input[type=radio].w3-radio:
 }
 .w3-border-pale-blue, .w3-hover-border-pale-blue:hover {
 	border-color: #e7ffff!important
+}
+.mobileSignIn {
+  cursor: pointer;
 }
