@@ -9,7 +9,7 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="styles/styles.css" rel="stylesheet">
-	<link rel="icon" href="../images/1487400714_Google_alt.png">
+	<link rel="icon" href="../images/1487474779_Google.png">
 </head>
 <body>
 	<!-- Navbar (sit on top) -->
@@ -69,7 +69,7 @@
 		<p class="w3-padding-8">If you are a guest, you can login within each Faculty to see the articles and the statistics about the annual submissions.</p><br><br>
  
 
-		<div class="w3-center"><img src="../images/logo_light.png" width="150px"></div>
+		<div class="w3-center"><img src="../images/1487474772_Google.png" width="150px"></div>
 	</div>
 	<!-- Second Parallax Image with Portfolio Text -->
 	<div class="bgimg-2 w3-display-container w3-opacity-min">
@@ -178,12 +178,11 @@
 					<form action="login.php" method="post">
 						<div class="w3-row-padding-top">
 							<h3>Existing Account</h3>
-							<input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="Email">
+							<input class="w3-input w3-border w3-register-input" name="LoginUsername" id="LoginUsername" placeholder="Email Address" required="" type="Email">
 							<input class="w3-input w3-border w3-register-input" maxlength="20" id="LoginPassword" name="LoginPassword" placeholder="Password" required="" type="password">
 						</div>
-						<button class="w3-btn w3-padding w3-section" id="login" onclick="" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Login</button>
+						<button class="w3-btn w3-padding w3-section" id="login" onclick="loginError()" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Login</button>
 						<a id="forgottenpassword" style="padding-left:10px !important;">Forgotten Password?</a>
-						<h4 id="invalidid" style="display:none;padding-top:0px !important;color:red;font-size: 16px;"><i class="fa fa-times" aria-hidden="true"></i> Invalid Email Address or Password</h4>
 					</form>
 				</div>
 			</div>
@@ -223,10 +222,9 @@
 				<h2><span class="w3-closebtn2 righty" onclick="closeModals()"><i class="fa fa-close"></i></span></h2>
 			</header>
 			<div class="w3-container">
-				<form action="forgottenPassword.php" class="w3-center w3-padding-xlarge" method="post">
+				<form action="forgottenPassword.php" class="w3-padding-xlarge" method="post"><br>
 					<input id="forgottenPasswordInput" class="w3-input w3-border w3-register-input" name="ForgotUsername" placeholder="Email Address" required="" type="Email">
-					<button class="w3-btn w3-padding w3-section" id="forgotPassword" onclick="">Send New Password</button>
-					<h4 id="invalidEmail" style="display:none;padding-top:0px !important;color:red;font-size: 16px;"><i class="fa fa-times" aria-hidden="true"></i> Email Address was not recognised</h4>
+					<button class="w3-btn w3-padding w3-section" id="forgotButton" onclick="forgottenPasswordError()">Send New Password</button>
 					<h4 id="validEmail" style="display:none;padding-top:0px !important;color:#2eb82e;font-size: 16px;"><i class="fa fa-check" aria-hidden="true"></i> A new password was sent to </h4>
 				</form>
 			</div>
@@ -249,6 +247,8 @@
 		var RoleName = <?php echo json_encode($_SESSION["Role"]); ?>;;
 		var UserLoggedIn = <?php echo json_encode($_SESSION["user_logged_in"]); ?>;;
 		var FailedPassword = <?php echo json_encode($_SESSION["failed_login"]); ?>;;
+		var FailedPasswordAttempt = <?php echo json_encode($_SESSION["old_password_attempt"]); ?>;;
+		var FailedUsernameAttempt = <?php echo json_encode($_SESSION["old_username_attempt"]); ?>;;
 		var ForgottenPasswordComplete = <?php echo json_encode($_SESSION["ForgottenPasswordComplete"]); ?>;;
 		var ForgottenPasswordFailed = <?php echo json_encode($_SESSION["ForgottenPasswordFailed"]); ?>;;
 		var ForgottenPasswordEmail = <?php echo json_encode($_SESSION["ForgottenPasswordEmail"]); ?>;;
@@ -257,15 +257,17 @@
 		var modalLoggedIn = document.getElementById('modal-logged-in');
 		var modalLoggedOut = document.getElementById('modal-logged-out');
 		var modalForgottenPassword = document.getElementById('modal-forgotten-password');
-		var invalidId = document.getElementById('invalidid');
 		var avatar = document.getElementById("avatar");
 		var validEmail = document.getElementById("validEmail");
-		var invalidEmail = document.getElementById("invalidEmail");
 		var forgottenPasswordInput = document.getElementById("forgottenPasswordInput");
 		var password = document.getElementById("password")
 		var confirm_password = document.getElementById("confirm_password");
 		var loginPassword = document.getElementById("LoginPassword");
+		var loginUsername = document.getElementById("LoginUsername");
 		var loginButton = document.getElementById("login");
+		var forgotUsername = document.getElementById("forgottenPasswordInput");
+		var forgotButton = document.getElementById("forgotButton");
+
 
 
      function jsSuccesfulLogin() {
@@ -290,21 +292,24 @@
 
 		function jsLoginLogic() {
 			if (FailedPassword == 1) {
-				invalidId.style.display='block';
 				modalLoggedOut.style.display='block';
+				loginPassword.value = FailedPasswordAttempt;
+				loginUsername.value = FailedUsernameAttempt;
+				loginButton.click();
 			}
 			else if (ForgottenPasswordComplete == 1){
 				validEmail.style.display='block';
+				forgotUsername.value = ForgottenPasswordEmail;
 				validEmail.innerHTML += ForgottenPasswordEmail;
 				modalForgottenPassword.style.display='block';
 			}
 			else if (ForgottenPasswordFailed == 1){
-				invalidEmail.style.display='block';
 				modalForgottenPassword.style.display='block';
+				forgotUsername.value = ForgottenPasswordEmail;
+				document.getElementById("forgotButton").click();
 			}
 			else {
 				jsSuccesfulLogin();
-				invalidId.style.display='none';
 			}
 		}
 
@@ -322,17 +327,7 @@
 		
      $(document).keyup(function(e) {
 	       if (e.keyCode == 27) {
-	          console.log("escape pressed");
-	          if(modalLoggedIn.style.display == 'block'){
-	              modalLoggedIn.style.display = 'none';
-	          }
-	          else if(modalLoggedOut.style.display == 'block'){
-	              modalLoggedOut.style.display = 'none';
-								invalidId.style.display = 'none';
-	          }
-	          else if(modalForgottenPassword.style.display == 'block'){
-	              modalForgottenPassword.style.display = 'none';
-	          }
+	          closeModals();
 	      }
 	   });
 
@@ -346,11 +341,9 @@
 		}
 		else if(modalLoggedOut.style.display == 'block'){
 			 modalLoggedOut.style.display = 'none';
-			 invalidId.style.display = 'none';
 		}
 		else if(modalForgottenPassword.style.display == 'block'){
 			 modalForgottenPassword.style.display = 'none';
-			 invalidEmail.style.display='none';
 			 validEmail.style.display='none';
 
 		}
@@ -362,6 +355,24 @@
 	  } else {
 	    confirm_password.setCustomValidity('');
 	  }
+	}
+
+	function loginError(){
+		if(loginPassword.value == FailedPasswordAttempt){
+			loginPassword.setCustomValidity("Invalid Password");
+		}
+		else{
+			loginPassword.setCustomValidity('');
+		}
+	}
+
+	function forgottenPasswordError(){
+		if(forgotUsername.value == ForgottenPasswordEmail){
+			forgotUsername.setCustomValidity("Username not found");
+		}
+		else{
+			forgotUsername.setCustomValidity('');
+		}
 	}
 
 	password.onchange = validatePassword;

@@ -39,6 +39,8 @@
     } else if (mysqli_num_rows($result) === 0) {
       //Failed Login
       $_SESSION["failed_login"] = true;
+      $_SESSION["old_password_attempt"] = $_REQUEST['LoginPassword'];
+      $_SESSION["old_username_attempt"] = $LoginUsername;
     }
 
     mysqli_close($con);
