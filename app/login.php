@@ -32,6 +32,9 @@
       $_SESSION["Username"] = $row['Username'];
       $_SESSION["Faculty"] = $row2['FacultyName'];;
       $_SESSION["Role"] = $row3['RoleName'];
+      $_SESSION["ForgottenPasswordFailed"] = false;
+      $_SESSION["ForgottenPasswordComplete"] = false;
+
 
     } else if (mysqli_num_rows($result) === 0) {
       //Failed Login
