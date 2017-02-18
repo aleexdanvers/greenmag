@@ -149,10 +149,10 @@
 			</header>
 			<div class="w3-container">
 				<div class="w3-half w3-padding-right-small">
-					<form action="form.asp" target="_blank">
+					<form action="register.php" target="_blank">
 						<div class="w3-row-padding-top">
-							<h3>New Account</h3><input class="w3-input w3-border w3-register-input" name="Username" placeholder="Email Address" required="" type="Email">
-							<input class="w3-input w3-border w3-register-input" id="password" maxlength="20" name="Password" placeholder="Password" required="" type="password">
+							<h3>New Account</h3><input class="w3-input w3-border w3-register-input" name="RegisterUsername" placeholder="Email Address" required="" type="Email">
+							<input class="w3-input w3-border w3-register-input" id="password" maxlength="20" name="RegisterPassword" placeholder="Password" required="" type="password">
 							<input class="w3-input w3-border w3-register-input" id="confirm_password" maxlength="20" name="ConfirmPassword" placeholder="Confirm Password" required="" type="password">
 							<select class="styled-select w3-select w3-border w3-register-input" name="option">
 								<option disabled selected value="">
@@ -179,9 +179,9 @@
 						<div class="w3-row-padding-top">
 							<h3>Existing Account</h3>
 							<input class="w3-input w3-border w3-register-input" name="LoginUsername" placeholder="Email Address" required="" type="Email">
-							<input class="w3-input w3-border w3-register-input" maxlength="20" name="LoginPassword" placeholder="Password" required="" type="password">
+							<input class="w3-input w3-border w3-register-input" maxlength="20" id="LoginPassword" name="LoginPassword" placeholder="Password" required="" type="password">
 						</div>
-						<button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Login</button>
+						<button class="w3-btn w3-padding w3-section" id="login" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Login</button>
 						<a id="forgottenpassword" style="padding-left:10px !important;">Forgotten Password?</a>
 						<h4 id="invalidid" style="display:none;padding-top:0px !important;color:red;font-size: 16px;"><i class="fa fa-times" aria-hidden="true"></i> Invalid Email Address or Password</h4>
 					</form>
@@ -264,6 +264,7 @@
 		var forgottenPasswordInput = document.getElementById("forgottenPasswordInput");
 		var password = document.getElementById("password")
 		var confirm_password = document.getElementById("confirm_password");
+		var loginPassword = document.getElementById("LoginPassword");
 
 
      function jsSuccesfulLogin() {
@@ -355,7 +356,7 @@
 
 	password.onchange = validatePassword;
 	confirm_password.onkeyup = validatePassword;
-		 
+
      $( "#forgottenpassword" ).click(function() {
         modalForgottenPassword.style.display = "block";
         modalLoggedOut.style.display='none';
