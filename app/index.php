@@ -195,22 +195,24 @@
 				<h2><span class="w3-closebtn2 righty" onclick="closeModals()"><i class="fa fa-close"></i></span></h2>
 			</header>
 			<div class="w3-container">
+				<br>
 				<div class="w3-half w3-row-padding-top-x">
 					<div id="avatar" class="w3-center">
 						<img src="../images/1.png" width="250px">
 					</div>
 				</div>
 				<div class="w3-half w3-row-padding-bottom">
-					<form action="logout.php" class="w3-center w3-padding-xlarge" method="post">
 						<label class="w3-label">Username:</label>
 						<h5 class="userInfo" id="username"></h3>
 						<label class="w3-label">Faculty:</label>
 						<h5 class="userInfo" id="faculty"></h3>
 						<label class="w3-label">Role:</label>
 						<h5 class="userInfo" id="role"></h3>
-						<button class="w3-btn w3-padding w3-section" id="changePassword" onclick="">Change Password</button>
-						<button class="w3-btn w3-padding w3-section" id="logOut" onclick="">Log Out</button>
+					<button style="float:left" class="w3-btn w3-padding w3-section" id="changePassword" onclick="openChangePasswordModal()">Change Password</button>
+					<form action="logout.php" class="" method="post">
+						<button style="margin-left:10px" class="w3-btn w3-padding w3-section" id="logOut" onclick="">Log Out</button>
 					</form>
+					<br>
 				</div>
 			</div>
 		</div>
@@ -227,6 +229,25 @@
 					<button class="w3-btn w3-padding w3-section" id="forgotButton" onclick="forgottenPasswordError()">Send New Password</button>
 					<h4 id="validEmail" style="display:none;padding-top:0px !important;color:#2eb82e;font-size: 16px;"><i class="fa fa-check" aria-hidden="true"></i> A new password was sent to </h4>
 				</form>
+			</div>
+		</div>
+	</div>
+	<div class="w3-modal" id="modal-change-password">
+		<div class="w3-modal-content w3-animate-top w3-card-8">
+			<header class="w3-container w3-blackgrey">
+				<h2 class="lefty">Change Password</h2>
+				<h2><span class="w3-closebtn2 righty" onclick="closeModals()"><i class="fa fa-close"></i></span></h2>
+			</header>
+			<div class="w3-container">
+				<div class="w3-row-padding-bottom">
+					<form action="changePassword.php" class="w3-center w3-padding-xlarge" method="post">
+						<input class="w3-input w3-border w3-register-input" maxlength="20" id="previousPassword" name="previousPassword" placeholder="Previous Password" required="" type="password">
+						<input class="w3-input w3-border w3-register-input" maxlength="20" id="newPassword" name="newPassword" placeholder="New Password" required="" type="password">
+						<input class="w3-input w3-border w3-register-input" maxlength="20" id="newPasswordConfirm" name="newPasswordConfirm" placeholder="Confirm New Password" required="" type="password">
+						<button class="w3-btn w3-padding w3-section" id="updatePassword">Update Password</button>
+						<h4 id="successfullPasswordChange" style="display:none;padding-top:0px !important;color:#2eb82e;font-size: 16px;"><i class="fa fa-check" aria-hidden="true"></i> Congratulations, you successfully changed your password!</h4>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -252,11 +273,14 @@
 		var ForgottenPasswordComplete = <?php echo json_encode($_SESSION["ForgottenPasswordComplete"]); ?>;;
 		var ForgottenPasswordFailed = <?php echo json_encode($_SESSION["ForgottenPasswordFailed"]); ?>;;
 		var ForgottenPasswordEmail = <?php echo json_encode($_SESSION["ForgottenPasswordEmail"]); ?>;;
+		var PasswordChangeSession = <?php echo json_encode($_SESSION['updateSuccessful']); ?>;;
+		
 
 		//modals + HTML elements
 		var modalLoggedIn = document.getElementById('modal-logged-in');
 		var modalLoggedOut = document.getElementById('modal-logged-out');
 		var modalForgottenPassword = document.getElementById('modal-forgotten-password');
+		var modalChangePassword = document.getElementById('modal-change-password');
 		var avatar = document.getElementById("avatar");
 		var validEmail = document.getElementById("validEmail");
 		var forgottenPasswordInput = document.getElementById("forgottenPasswordInput");
@@ -267,6 +291,8 @@
 		var loginButton = document.getElementById("login");
 		var forgotUsername = document.getElementById("forgottenPasswordInput");
 		var forgotButton = document.getElementById("forgotButton");
+		var newPassword = document.getElementById("newPassword");
+		var newPasswordConfirm = document.getElementById("newPasswordConfirm");
 
 
 
@@ -308,6 +334,10 @@
 				forgotUsername.value = ForgottenPasswordEmail;
 				document.getElementById("forgotButton").click();
 			}
+			else if (PasswordChangeSession == 1) {
+				modalChangePassword.style.display = "block";
+				document.getElementById("successfullPasswordChange").style.display = "block";
+			}
 			else {
 				jsSuccesfulLogin();
 			}
@@ -345,7 +375,8 @@
 		else if(modalForgottenPassword.style.display == 'block'){
 			 modalForgottenPassword.style.display = 'none';
 			 validEmail.style.display='none';
-
+		} else if(document.getElementById('modal-change-password').style.display == 'block'){
+			document.getElementById('modal-change-password').style.display = 'none';
 		}
 	}
 
@@ -354,6 +385,14 @@
 	    confirm_password.setCustomValidity("Passwords Don't Match");
 	  } else {
 	    confirm_password.setCustomValidity('');
+	  }
+	}
+
+	function validatePasswordChange(){
+	  if(newPassword.value != newPasswordConfirm.value) {
+	    newPasswordConfirm.setCustomValidity("Passwords Don't Match");
+	  } else {
+	    newPasswordConfirm.setCustomValidity('');
 	  }
 	}
 
@@ -378,11 +417,19 @@
 	password.onchange = validatePassword;
 	confirm_password.onkeyup = validatePassword;
 
-     $( "#forgottenpassword" ).click(function() {
-        modalForgottenPassword.style.display = "block";
-        modalLoggedOut.style.display='none';
+	newPassword.onchange = validatePasswordChange;
+	newPasswordConfirm.onkeyup = validatePasswordChange;
+
+	   $("#forgottenpassword").click(function() {
+	      modalForgottenPassword.style.display = "block";
+	      modalLoggedOut.style.display='none';
 	   });
-		 
+
+	   function openChangePasswordModal() {
+				 modalLoggedIn.style.display='none';
+	      modalChangePassword.style.display = "block";
+	   }
+
 		 jsLoginLogic();
 	</script>
 </body>
