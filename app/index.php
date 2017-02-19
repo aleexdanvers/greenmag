@@ -274,8 +274,6 @@
 		var ForgottenPasswordFailed = <?php echo json_encode($_SESSION["ForgottenPasswordFailed"]); ?>;;
 		var ForgottenPasswordEmail = <?php echo json_encode($_SESSION["ForgottenPasswordEmail"]); ?>;;
 		var PasswordChangeSession = <?php echo json_encode($_SESSION['updateSuccessful']); ?>;;
-		
-
 		//modals + HTML elements
 		var modalLoggedIn = document.getElementById('modal-logged-in');
 		var modalLoggedOut = document.getElementById('modal-logged-out');
@@ -294,143 +292,132 @@
 		var newPassword = document.getElementById("newPassword");
 		var newPasswordConfirm = document.getElementById("newPasswordConfirm");
 
-
-
-     function jsSuccesfulLogin() {
-       if (UserLoggedIn == 1) { // 1 evaluates to true
-				 var Username = FullUsername.replace('@greenwich.ac.uk', '');
-				 document.getElementById("loginButtonID").textContent = Username;
-				 document.getElementById("loginButtonID_mobile").textContent = Username;
-
-         $("#loginButton").bind("click", function() {
-           modalLoggedOut.style.display='none';
-           modalLoggedIn.style.display='block';
-         });
-         $("#loginButton_mobile").bind("click", function() {
-           modalLoggedOut.style.display='none';
-           modalLoggedIn.style.display='block';
-         });
-
-				 jsUserArea(Username);
-				 jsAvatar();
-       }
-     }
+		function jsSuccesfulLogin() {
+		  if (UserLoggedIn == 1) { // 1 evaluates to true
+		    var Username = FullUsername.replace('@greenwich.ac.uk', '');
+		    document.getElementById("loginButtonID").textContent = Username;
+		    document.getElementById("loginButtonID_mobile").textContent = Username;
+		    $("#loginButton").bind("click", function() {
+		      modalLoggedOut.style.display = 'none';
+		      modalLoggedIn.style.display = 'block';
+		    });
+		    $("#loginButton_mobile").bind("click", function() {
+		      modalLoggedOut.style.display = 'none';
+		      modalLoggedIn.style.display = 'block';
+		    });
+		    jsUserArea(Username);
+		    jsAvatar();
+		  }
+		}
 
 		function jsLoginLogic() {
-			if (FailedPassword == 1) {
-				modalLoggedOut.style.display='block';
-				loginPassword.value = FailedPasswordAttempt;
-				loginUsername.value = FailedUsernameAttempt;
-				loginButton.click();
-			}
-			else if (ForgottenPasswordComplete == 1){
-				validEmail.style.display='block';
-				forgotUsername.value = ForgottenPasswordEmail;
-				validEmail.innerHTML += ForgottenPasswordEmail;
-				modalForgottenPassword.style.display='block';
-			}
-			else if (ForgottenPasswordFailed == 1){
-				modalForgottenPassword.style.display='block';
-				forgotUsername.value = ForgottenPasswordEmail;
-				document.getElementById("forgotButton").click();
-			}
-			else if (PasswordChangeSession == 1) {
-				modalChangePassword.style.display = "block";
-				document.getElementById("successfullPasswordChange").style.display = "block";
-			}
-			else {
-				jsSuccesfulLogin();
-			}
+		  if (FailedPassword == 1) {
+		    modalLoggedOut.style.display = 'block';
+		    loginPassword.value = FailedPasswordAttempt;
+		    loginUsername.value = FailedUsernameAttempt;
+		    loginButton.click();
+		  } else if (ForgottenPasswordComplete == 1) {
+		    validEmail.style.display = 'block';
+		    forgotUsername.value = ForgottenPasswordEmail;
+		    validEmail.innerHTML += ForgottenPasswordEmail;
+		    modalForgottenPassword.style.display = 'block';
+		  } else if (ForgottenPasswordFailed == 1) {
+		    modalForgottenPassword.style.display = 'block';
+		    forgotUsername.value = ForgottenPasswordEmail;
+		    document.getElementById("forgotButton").click();
+		  } else if (PasswordChangeSession == 1) {
+		    modalChangePassword.style.display = "block";
+		    document.getElementById("successfullPasswordChange").style.display = "block";
+		  } 
+
+			if (FailedPassword == 0 || PasswordChangeSession == 1) {
+		    jsSuccesfulLogin();
+		  }
 		}
 
 		function jsUserArea(Username) {
-			document.getElementById("UserArea").innerHTML = "Welcome back " + Username.toUpperCase() + "!";
-			document.getElementById("username").innerHTML = FullUsername;
-			document.getElementById("faculty").innerHTML = FacultyName;
-			document.getElementById("role").innerHTML = RoleName;
+		  document.getElementById("UserArea").innerHTML = "Welcome back " + Username.toUpperCase() + "!";
+		  document.getElementById("username").innerHTML = FullUsername;
+		  document.getElementById("faculty").innerHTML = FacultyName;
+		  document.getElementById("role").innerHTML = RoleName;
 		}
-		
+
 		function jsAvatar() {
-			var avatarNo = Math.floor((Math.random() * 10) + 1);
-			avatar.innerHTML = "<img src='../images/" + avatarNo + ".png' width='250px'>";
+		  var avatarNo = Math.floor((Math.random() * 10) + 1);
+		  avatar.innerHTML = "<img src='../images/" + avatarNo + ".png' width='250px'>";
 		}
-		
-     $(document).keyup(function(e) {
-	       if (e.keyCode == 27) {
-	          closeModals();
-	      }
-	   });
+		$(document).keyup(function(e) {
+		  if (e.keyCode == 27) {
+		    closeModals();
+		  }
+		});
 
-		 function openModal() {
-			 document.getElementById('modal-logged-out').style.display='block';
-		 }
-
-	function closeModals() {
-		if(modalLoggedIn.style.display == 'block'){
-			 modalLoggedIn.style.display = 'none';
+		function openModal() {
+		  document.getElementById('modal-logged-out').style.display = 'block';
 		}
-		else if(modalLoggedOut.style.display == 'block'){
-			 modalLoggedOut.style.display = 'none';
+
+		function closeModals() {
+		  if (modalLoggedIn.style.display == 'block') {
+		    modalLoggedIn.style.display = 'none';
+		  } else if (modalLoggedOut.style.display == 'block') {
+		    modalLoggedOut.style.display = 'none';
+		  } else if (modalForgottenPassword.style.display == 'block') {
+		    modalForgottenPassword.style.display = 'none';
+		    validEmail.style.display = 'none';
+		  } else if (document.getElementById('modal-change-password').style.display == 'block') {
+		    document.getElementById('modal-change-password').style.display = 'none';
+				document.getElementById('successfullPasswordChange').style.display = 'none';
+		  }
 		}
-		else if(modalForgottenPassword.style.display == 'block'){
-			 modalForgottenPassword.style.display = 'none';
-			 validEmail.style.display='none';
-		} else if(document.getElementById('modal-change-password').style.display == 'block'){
-			document.getElementById('modal-change-password').style.display = 'none';
+
+		function validatePassword() {
+		  if (password.value != confirm_password.value) {
+		    confirm_password.setCustomValidity("Passwords Don't Match");
+		  } else {
+		    confirm_password.setCustomValidity('');
+		  }
 		}
-	}
 
-	function validatePassword(){
-	  if(password.value != confirm_password.value) {
-	    confirm_password.setCustomValidity("Passwords Don't Match");
-	  } else {
-	    confirm_password.setCustomValidity('');
-	  }
-	}
-
-	function validatePasswordChange(){
-	  if(newPassword.value != newPasswordConfirm.value) {
-	    newPasswordConfirm.setCustomValidity("Passwords Don't Match");
-	  } else {
-	    newPasswordConfirm.setCustomValidity('');
-	  }
-	}
-
-	function loginError(){
-		if(loginPassword.value == FailedPasswordAttempt){
-			loginPassword.setCustomValidity("Invalid Password");
+		function validatePasswordChange() {
+		  if (newPassword.value != newPasswordConfirm.value) {
+		    newPasswordConfirm.setCustomValidity("Passwords Don't Match");
+		  } else {
+		    newPasswordConfirm.setCustomValidity('');
+		  }
 		}
-		else{
-			loginPassword.setCustomValidity('');
+
+		function loginError() {
+		  if (loginPassword.value == FailedPasswordAttempt) {
+		    loginPassword.setCustomValidity("Invalid Password");
+		  } else {
+		    loginPassword.setCustomValidity('');
+		  }
 		}
-	}
 
-	function forgottenPasswordError(){
-		if(forgotUsername.value == ForgottenPasswordEmail){
-			forgotUsername.setCustomValidity("Username not found");
+		function forgottenPasswordError() {
+		  if (forgotUsername.value == ForgottenPasswordEmail) {
+		    forgotUsername.setCustomValidity("Username not found");
+		  } else {
+		    forgotUsername.setCustomValidity('');
+		  }
 		}
-		else{
-			forgotUsername.setCustomValidity('');
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+		newPassword.onchange = validatePasswordChange;
+		newPasswordConfirm.onkeyup = validatePasswordChange;
+
+		$("#forgottenpassword").click(function() {
+		  modalForgottenPassword.style.display = "block";
+		  modalLoggedOut.style.display = 'none';
+		});
+
+		function openChangePasswordModal() {
+		  modalLoggedIn.style.display = 'none';
+		  modalChangePassword.style.display = "block";
 		}
-	}
 
-	password.onchange = validatePassword;
-	confirm_password.onkeyup = validatePassword;
-
-	newPassword.onchange = validatePasswordChange;
-	newPasswordConfirm.onkeyup = validatePasswordChange;
-
-	   $("#forgottenpassword").click(function() {
-	      modalForgottenPassword.style.display = "block";
-	      modalLoggedOut.style.display='none';
-	   });
-
-	   function openChangePasswordModal() {
-				 modalLoggedIn.style.display='none';
-	      modalChangePassword.style.display = "block";
-	   }
-
-		 jsLoginLogic();
+		jsLoginLogic();
 	</script>
 </body>
 </html>

@@ -31,6 +31,7 @@
 			
 			$_SESSION['updateSuccessful'] = true;
 			$_SESSION["user_logged_in"] = true;
+			$_SESSION["failed_login"] = false;
     } else if (mysqli_num_rows($result) === 0) {
 			$_SESSION['updateFailed'] = false;
     }
