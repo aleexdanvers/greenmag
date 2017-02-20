@@ -51,7 +51,7 @@
       }
       
       else {
-          echo "Error updating record: " . mysqli_error($con);
+          echo "Error: " . mysqli_error($con);
       }
 
 

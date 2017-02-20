@@ -30,10 +30,12 @@
       $_SESSION["user_logged_in"] = true;
       $_SESSION["failed_login"] = false;
       $_SESSION["Username"] = $row['Username'];
-      $_SESSION["Faculty"] = $row2['FacultyName'];;
+      $_SESSION["Faculty"] = $row2['FacultyName'];
       $_SESSION["Role"] = $row3['RoleName'];
       $_SESSION["ForgottenPasswordFailed"] = false;
       $_SESSION["ForgottenPasswordComplete"] = false;
+      $_SESSION["old_password_attempt"] = "";
+      $_SESSION["old_username_attempt"] = "";
 
 
     } else if (mysqli_num_rows($result) === 0) {

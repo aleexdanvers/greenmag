@@ -9,6 +9,7 @@
 		$loginUsername = $_SESSION['Username'];
 		$oldPassword = md5($_REQUEST['previousPassword']);
 		$newPassword = md5($_REQUEST['newPassword']);
+		$_SESSION["ChangePassword"] = $_REQUEST['previousPassword'];
 
     $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
@@ -30,10 +31,9 @@
 			mail($to,$subject,$txt,$headers);
 			
 			$_SESSION['updateSuccessful'] = true;
-			$_SESSION["user_logged_in"] = true;
-			$_SESSION["failed_login"] = false;
+			$_SESSION["ChangePassword"] = "";
     } else if (mysqli_num_rows($result) === 0) {
-			$_SESSION['updateFailed'] = false;
+			$_SESSION['updateSuccessful'] = false;
     }
 
     mysqli_close($con);

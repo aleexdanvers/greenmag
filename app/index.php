@@ -149,9 +149,9 @@
 			</header>
 			<div class="w3-container">
 				<div class="w3-half w3-padding-right-small">
-					<form action="register.php" target="_blank">
+					<form action="register.php" method="post">
 						<div class="w3-row-padding-top">
-							<h3>New Account</h3><input class="w3-input w3-border w3-register-input" name="RegisterUsername" placeholder="Email Address" required="" type="Email">
+							<h3>New Account</h3><input class="w3-input w3-border w3-register-input" id="registerUsername" name="RegisterUsername" placeholder="Email Address" required="" type="Email">
 							<input class="w3-input w3-border w3-register-input" id="password" maxlength="20" name="RegisterPassword" placeholder="Password" required="" type="password">
 							<input class="w3-input w3-border w3-register-input" id="confirm_password" maxlength="20" name="ConfirmPassword" placeholder="Confirm Password" required="" type="password">
 							<select class="styled-select w3-select w3-border w3-register-input" name="option">
@@ -171,7 +171,7 @@
 									Faculty of Engineering & Science
 								</option>
 							</select>
-						</div><button class="w3-btn w3-padding w3-section" id="register" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Register</button>
+						</div><button class="w3-btn w3-padding w3-section" id="register" onclick="validateRegisterEmail()" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Register</button>
 					</form>
 				</div>
 				<div class="w3-half w3-padding-left-small">
@@ -244,7 +244,7 @@
 						<input class="w3-input w3-border w3-register-input" maxlength="20" id="previousPassword" name="previousPassword" placeholder="Previous Password" required="" type="password">
 						<input class="w3-input w3-border w3-register-input" maxlength="20" id="newPassword" name="newPassword" placeholder="New Password" required="" type="password">
 						<input class="w3-input w3-border w3-register-input" maxlength="20" id="newPasswordConfirm" name="newPasswordConfirm" placeholder="Confirm New Password" required="" type="password">
-						<button class="w3-btn w3-padding w3-section" id="updatePassword">Update Password</button>
+						<button class="w3-btn w3-padding w3-section" id="updatePassword" onclick="changePasswordError()">Update Password</button>
 						<h4 id="successfullPasswordChange" style="display:none;padding-top:0px !important;color:#2eb82e;font-size: 16px;"><i class="fa fa-check" aria-hidden="true"></i> Congratulations, you successfully changed your password!</h4>
 					</form>
 				</div>
@@ -274,6 +274,7 @@
 		var ForgottenPasswordFailed = <?php echo json_encode($_SESSION["ForgottenPasswordFailed"]); ?>;;
 		var ForgottenPasswordEmail = <?php echo json_encode($_SESSION["ForgottenPasswordEmail"]); ?>;;
 		var PasswordChangeSession = <?php echo json_encode($_SESSION['updateSuccessful']); ?>;;
+		var changePassword = <?php echo json_encode($_SESSION['ChangePassword']); ?>;;
 		//modals + HTML elements
 		var modalLoggedIn = document.getElementById('modal-logged-in');
 		var modalLoggedOut = document.getElementById('modal-logged-out');
@@ -291,6 +292,8 @@
 		var forgotButton = document.getElementById("forgotButton");
 		var newPassword = document.getElementById("newPassword");
 		var newPasswordConfirm = document.getElementById("newPasswordConfirm");
+		var previousPassword = document.getElementById("previousPassword");
+		var registerUsername = document.getElementById("registerUsername");
 
 		function jsSuccesfulLogin() {
 		  if (UserLoggedIn == 1) { // 1 evaluates to true
@@ -328,6 +331,10 @@
 		  } else if (PasswordChangeSession == 1) {
 		    modalChangePassword.style.display = "block";
 		    document.getElementById("successfullPasswordChange").style.display = "block";
+		  } else if (PasswordChangeSession == 0) {
+		    modalChangePassword.style.display = "block";
+		    previousPassword.value = changePassword;
+		    document.getElementById("updatePassword").click();
 		  } 
 
 			if (FailedPassword == 0 || PasswordChangeSession == 1) {
@@ -336,7 +343,7 @@
 		}
 
 		function jsUserArea(Username) {
-		  document.getElementById("UserArea").innerHTML = "Welcome back " + Username.toUpperCase() + "!";
+		  document.getElementById("UserArea").innerHTML = "Welcome " + Username.toUpperCase() + "!";
 		  document.getElementById("username").innerHTML = FullUsername;
 		  document.getElementById("faculty").innerHTML = FacultyName;
 		  document.getElementById("role").innerHTML = RoleName;
@@ -378,6 +385,14 @@
 		  }
 		}
 
+		function validateRegisterEmail() {
+		  if (/@greenwich.ac.uk$/.test(registerUsername)) {
+		  	registerUsername.setCustomValidity('');
+		  } else {
+		  	registerUsername.setCustomValidity("Must be @greenwich.ac.uk");
+		  }
+		}
+
 		function validatePasswordChange() {
 		  if (newPassword.value != newPasswordConfirm.value) {
 		    newPasswordConfirm.setCustomValidity("Passwords Don't Match");
@@ -399,6 +414,14 @@
 		    forgotUsername.setCustomValidity("Username not found");
 		  } else {
 		    forgotUsername.setCustomValidity('');
+		  }
+		}
+
+		function changePasswordError() {
+		  if (previousPassword.value == changePassword) {
+		    previousPassword.setCustomValidity("Invalid Password");
+		  } else {
+		    previousPassword.setCustomValidity('');
 		  }
 		}
 
