@@ -17,13 +17,9 @@
     $result = mysqli_query($con, $loginquery);
 
     if (mysqli_num_rows($result) > 0) {
-
-    //Username in use
-
-
+      $_SESSION["registerUsername"] = $registerEmail;
+      $_SESSION["usernameTaken"] = true;
     } else if (mysqli_num_rows($result) === 0) {
-
-
       $facultyquery  = "SELECT * FROM Faculty WHERE FacultyID = '" . $registerFaculty . "';";
       $result2 = mysqli_query($con, $facultyquery);
       $row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
@@ -46,6 +42,7 @@
           $_SESSION["Role"] = "Student";
           $_SESSION["ForgottenPasswordFailed"] = false;
           $_SESSION["ForgottenPasswordComplete"] = false;
+          $_SESSION["usernameTaken"] = false;
       }
       
       else {
