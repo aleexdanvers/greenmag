@@ -154,7 +154,7 @@
 							<h3>New Account</h3><input class="w3-input w3-border w3-register-input" id="registerUsername" name="RegisterUsername" placeholder="Email Address" required="" type="Email">
 							<input class="w3-input w3-border w3-register-input" id="password" maxlength="20" name="RegisterPassword" placeholder="Password" required="" type="password">
 							<input class="w3-input w3-border w3-register-input" id="confirm_password" maxlength="20" name="ConfirmPassword" placeholder="Confirm Password" required="" type="password">
-							<select class="styled-select w3-select w3-border w3-register-input" name="option">
+							<select class="styled-select w3-select w3-border w3-register-input" required name="option">
 								<option disabled selected value="">
 									Choose your faculty
 								</option>
@@ -171,7 +171,7 @@
 									Faculty of Engineering & Science
 								</option>
 							</select>
-						</div><button class="w3-btn w3-padding w3-section" id="register" onclick="validateRegisterEmail()" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Register</button>
+						</div><button class="w3-btn w3-padding w3-section" id="register" onclick="registerValidation()" type="submit"><i class="fa fa-check w3-margin-right-small"></i>Register</button>
 					</form>
 				</div>
 				<div class="w3-half w3-padding-left-small">
@@ -275,6 +275,8 @@
 		var ForgottenPasswordEmail = <?php echo json_encode($_SESSION["ForgottenPasswordEmail"]); ?>;;
 		var PasswordChangeSession = <?php echo json_encode($_SESSION['updateSuccessful']); ?>;;
 		var changePassword = <?php echo json_encode($_SESSION['ChangePassword']); ?>;;
+		var usernameTaken = <?php echo json_encode($_SESSION['usernameTaken']); ?>;;
+		var registerUsernamePHP = <?php echo json_encode($_SESSION['registerUsername']); ?>;;
 		//modals + HTML elements
 		var modalLoggedIn = document.getElementById('modal-logged-in');
 		var modalLoggedOut = document.getElementById('modal-logged-out');
@@ -294,6 +296,7 @@
 		var newPasswordConfirm = document.getElementById("newPasswordConfirm");
 		var previousPassword = document.getElementById("previousPassword");
 		var registerUsername = document.getElementById("registerUsername");
+		var registerButton = document.getElementById("register");
 
 		function jsSuccesfulLogin() {
 		  if (UserLoggedIn == 1) { // 1 evaluates to true
@@ -335,7 +338,13 @@
 		    modalChangePassword.style.display = "block";
 		    previousPassword.value = changePassword;
 		    document.getElementById("updatePassword").click();
-		  } 
+		  }
+			
+			if (usernameTaken == 1) {
+				modalLoggedOut.style.display = 'block';
+				registerUsername.value = registerUsernamePHP;
+				registerButton.click();
+			}
 
 			if (FailedPassword == 0 || PasswordChangeSession == 1) {
 		    jsSuccesfulLogin();
@@ -386,8 +395,8 @@
 		}
 
 		function validateRegisterEmail() {
-		  if (/@greenwich.ac.uk$/.test(registerUsername)) {
-		  	registerUsername.setCustomValidity('');
+		  if (/[A-Za-z]*[0-9]*[A-Za-z]?@greenwich.ac.uk$/.test(registerUsername.value)) {
+		  	registerUsername.setCustomValidity("");
 		  } else {
 		  	registerUsername.setCustomValidity("Must be @greenwich.ac.uk");
 		  }
@@ -425,6 +434,14 @@
 		  }
 		}
 
+		function usernameExists() {
+		  if (registerUsername.value == registerUsernamePHP) {
+		    registerUsername.setCustomValidity("Username already exists");
+		  } else {
+		    registerUsername.setCustomValidity('');
+		  }
+		}
+
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
 		newPassword.onchange = validatePasswordChange;
@@ -441,6 +458,11 @@
 		}
 
 		jsLoginLogic();
+
+		function registerValidation() {
+			validateRegisterEmail();
+			usernameExists();
+		}
 	</script>
 </body>
 </html>
