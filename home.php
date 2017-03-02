@@ -39,7 +39,7 @@ session_start();
             <h4 class="w3-center">My Profile</h4>
             <p class="w3-center"><img alt="Avatar" class="w3-circle" src="https://www.w3schools.com/w3images/avatar<?php echo $_SESSION['avatarChosen']; ?>.png" style="height:106px;width:106px"></p>
             <hr>
-            <p id="userName"><i class="fa fa-envelope-o fa-fw w3-margin-right w3-text-theme"></i></p>
+            <p id="userName"><i class="fa fa-envelope-o fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Username']; ?></p>
             <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Faculty']; ?></p>
             <p><i class="fa fa-user-o fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Role']; ?></p>
             <p><i class="fa fa-clock-o fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION["LastLoggedIn"]; ?></p>
@@ -304,8 +304,6 @@ session_start();
   var updateSuccessfulPHP = <?php echo json_encode($_SESSION['updateSuccessful']); ?>;;
   var unsuccessfullPasswordChange = document.getElementById("unsuccessfullPasswordChange");
   var successfullPasswordChange = document.getElementById("successfullPasswordChange");
-  var userName = document.getElementById("userName");
-  var userNamePHP = <?php echo json_encode($_SESSION['Username']); ?>;;
   var newPassword = document.getElementById("newPassword");
   var previousPassword = document.getElementById("previousPassword");
   var updatePassworddiv = document.getElementById("updatePassworddiv");
@@ -349,10 +347,6 @@ session_start();
     updatePassworddiv.innerHTML == "<br><br>";
     updatePassworddiv.style.display = "block";
    }
-  }
-
-  function loadStuff(){
-    userName.innerHTML += userNamePHP;
   }
 
   function validatePassword() {
@@ -437,7 +431,6 @@ session_start();
   }
 
   changePassword();
-  loadStuff();
   countArticles();
   </script>
 </body>
