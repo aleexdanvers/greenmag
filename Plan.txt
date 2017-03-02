@@ -1,0 +1,52 @@
+Design:
+Icon on About Page - Ellis/Jamie
+
+Login:
+Register (Username Taken) - Ellis
+
+Admin Page (Admins)
+Ellis - An administrator maintains any system data, e.g. closure dates for each academic year.
+
+
+
+
+Submitting Articles - Isaque
+Students Only - Word Doc, Up to 3 Images, Name (URL Based)
+Terms and Conditions Accept Before Submission
+Multiple Submissions
+Email to Marketing Coordinator based on faculty
+Marketing Manager - View All and export to ZIP
+
+
+Cut Off Date - Processing Deadline 14 days
+Comment within Processing Deadline 14 days
+Coordinator Edit and select articles for publication
+Guest view all faculty articles
+View Articles Page (Look into spec) - Isaque
+
+
+
+Statistics (Everyone - Look into spec)
+
+Action Page (Marketing Coordinators)
+
+Action Page (Marketing Managers)
+
+Extra Features
+
+
+
+//Done
+Footer
+Forgotten Password
+About Page
+Fixed Login Issues
+Fixed Clearing Modals
+Moved Stats
+Added Site Icon
+Added Message Icons
+Registering Passwords Matching Validation
+Removed Chrome Yellow Autofill Colour
+Error Messages Validation
+Mobile
+Change Password
