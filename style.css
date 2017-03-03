@@ -741,7 +741,7 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 .w3-responsive{
 	overflow-x:auto
 }
-.w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,.w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,.w3-cell-row:before,.w3-cell-row:after,.w3-topnav:after,.w3-topnav:before,.w3-clear:after,.w3-clear:before,.w3-btn-group:before,.w3-btn-group:after,.w3-btn-bar:before,.w3-btn-bar:after,.w3-bar:before,.w3-bar:after{
+.w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,.w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,.w3-row-padding-bottom:after,.w3-row-padding-bottom:before,.w3-cell-row:before,.w3-cell-row:after,.w3-topnav:after,.w3-topnav:before,.w3-clear:after,.w3-clear:before,.w3-btn-group:before,.w3-btn-group:after,.w3-btn-bar:before,.w3-btn-bar:after,.w3-bar:before,.w3-bar:after{
 	content:"";
 	display:table;
 	clear:both
@@ -1253,6 +1253,9 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 }
 .w3-row-padding,.w3-row-padding>.w3-half,.w3-row-padding>.w3-third,.w3-row-padding>.w3-twothird,.w3-row-padding>.w3-threequarter,.w3-row-padding>.w3-quarter,.w3-row-padding>.w3-col{
 	padding:0 8px
+}
+.w3-row-padding-bottom,.w3-row-padding-bottom>.w3-half,.w3-row-padding-bottom>.w3-third,.w3-row-padding-bottom>.w3-twothird,.w3-row-padding-bottom>.w3-threequarter,.w3-row-padding-bottom>.w3-quarter,.w3-row-padding-bottom>.w3-col{
+	padding:0 0 8px 0;
 }
 .w3-spin{
 	animation:w3-spin 2s infinite linear;

@@ -15,9 +15,14 @@
     <link href="assets/css/form-elements.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <style type="text/css">
-       body{
-           background-color:#333;
-       }
+      body { 
+        background: url("old/images/Greenwich_Park_and_Queen's_House_2013_March-min.jpg") no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        z-index: 99999;
+      }
     </style>
 </head>
 <body>
@@ -103,7 +108,7 @@
             </div>
         </div>
     </div>
-    <footer class="w3-container w3-theme-d4" style="text-align:center; position: fixed;bottom: 0;left: 0;width: 100%;font-size: 14px !important;padding-top: 9.25px !important;padding-bottom: 0px !important;font-weight: 400;">
+    <footer id="footer" class="w3-container w3-theme-d4" style="text-align:center; position: fixed;bottom: 0;left: 0;width: 100%;font-size: 14px !important;padding-top: 9.25px !important;padding-bottom: 0px !important;font-weight: 400;">
         <p>Copyright © 2017 Greenmag. All rights reserved. Developed by Kung Fu Pandas</p>
     </footer>
     <script src="assets/js/jquery-1.11.1.min.js">
@@ -116,6 +121,18 @@
     var incorrectEmailRegister = document.getElementById("incorrectEmailRegister");
     var registerpassword = document.getElementById("register-password");
     var registerpasswordconfirm = document.getElementById("register-password-confirm");
+    
+    if ($(window).width() <= 600) {
+      $('#footer').css('position','relative');
+    }
+    
+    $(window).resize(function() {
+      if ($(window).width() <= 600) {
+        $('#footer').css('position','relative');
+      } else {
+        $('#footer').css('position','fixed');
+      }
+    });
 
     function LoginFunction (){
         if(user_logged_in == true){

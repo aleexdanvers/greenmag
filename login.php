@@ -40,7 +40,7 @@
       $_SESSION["FacultyID"] = $row['FacultyID'];
       $_SESSION["Faculty"] = $row2['FacultyName'];
       $_SESSION["Role"] = $row3['RoleName'];
-      $_SESSION["LastLoggedIn"] = "Last Login: " . date_format($lastLoggedInDate, "jS F Y g:ia");
+      $_SESSION["LastLoggedIn"] = "Last Login: " . date_format($lastLoggedInDate, "d/m/Y g:ia");
       $_SESSION["avatarChosen"] = $row['AvatarID'];
 
       mysqli_close($con);

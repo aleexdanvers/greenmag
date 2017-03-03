@@ -17,16 +17,24 @@ session_start();
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 <body class="w3-theme-l5">
   <!-- Navbar -->
   <div class="w3-top">
     <div class="w3-bar w3-theme-d2 w3-left-align w3-medium">
-      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> <a class="w3-bar-item w3-button w3-theme-d4" href="#"><img src="guidance_g_color_rgb.png" height="30px"></a> <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="News"><i class="fa fa-bar-chart"></i></a> <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="Account Settings"><i class="fa fa-cog"></i></a><a class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white w3-theme-d4" href="http://www.greenmag.co.uk/logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
+      <a class="w3-bar-item w3-button w3-theme-d4" href="#"><img src="guidance_g_color_rgb.png" id="logo" height="29px"></a> 
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="News"><i class="fa fa-bar-chart"></i></a> 
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="Account Settings"><i class="fa fa-cog"></i></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white w3-theme-d4" href="http://www.greenmag.co.uk/logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
-    <a class="w3-padding-large" href="#">Link 1</a> <a class="w3-padding-large" href="#">Link 2</a> <a class="w3-padding-large" href="#">Link 3</a> <a class="w3-padding-large" href="#">My Profile</a>
+    <a class="w3-padding-large" href="#">Home</a> 
+    <a class="w3-padding-large" href="#">News</a> 
+    <a class="w3-padding-large" href="#">Account Settings</a> 
+    <a class="w3-padding-large w3-theme-d4" href="http://www.greenmag.co.uk/logout.php">Logout</a>
   </div><!-- Page Container -->
   <div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px">
     <!-- The Grid -->
@@ -75,7 +83,7 @@ session_start();
           <p><i aria-hidden="true" class="fa fa-exclamation-circle"></i> <strong>Did you know?</strong></p>
           <p>You can sort the articles you see using the above buttons?</p>
         </div><!-- Interests -->
-        <div class="w3-card-2 w3-round w3-white w3-hide-small">
+        <div class="w3-card-2 w3-round w3-white">
           <div class="w3-container">
             <h4 class="">Change Password</h4>
             <form action="changePassword.php" method="post">
@@ -89,7 +97,7 @@ session_start();
         <!-- End Left Column -->
       </div><!-- Middle Column -->
       <div class="w3-col m7">
-        <div class="w3-row-padding">
+        <div id="uploadArticlesBox" class="w3-row-padding">
           <div class="w3-col m12">
             <div class="w3-card-2 w3-round w3-white">
               <div class="w3-container w3-padding">
@@ -138,7 +146,7 @@ session_start();
                 $timeAgo = $days . " " . $stringAgo;
               }
 
-              echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin statusAll status" . $row2['Status'] . "'><br>";
+              echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin generatedContent statusAll status" . $row2['Status'] . "'><br>";
               echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='https://www.w3schools.com/w3images/avatar" . $_SESSION['avatarChosen'] . ".png' style='width:60px'>";
               echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
               echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . "</h4>";
@@ -197,12 +205,12 @@ session_start();
             <div class="w3-row w3-opacity">
               <form method="post" action="changeAvatar.php">
                 <div class="w3-half">
-                  <button class="w3-btn w3-green w3-btn-block w3-section" title="Accept"><i class="fa fa-check"></i></button>
+                  <button id="acceptButton" class="w3-btn w3-green w3-btn-block w3-section" title="Accept"><i class="fa fa-check"></i></button>
                   <input id="selectedAvatar" name="selectedAvatar" style="display: none"/>
                 </div>
               </form>
               <div class="w3-half">
-                <button class="w3-btn w3-red w3-btn-block w3-section" onclick="nextImage()" title="Decline"><i class="fa fa-remove"></i></button>
+                <button id="rejectButton" class="w3-btn w3-red w3-btn-block w3-section" onclick="nextImage()" title="Decline"><i class="fa fa-remove"></i></button>
               </div>
             </div>
           </div>
@@ -235,6 +243,45 @@ session_start();
     </div>
   </div>
   <script>
+  if ($(window).width() <= 600) {
+    $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
+    $('#uploadArticlesBox').removeClass('w3-row-padding');
+    $('.generatedContent').addClass('w3-margin-bottom');
+    $('.generatedContent').removeClass('w3-margin');
+    $('#acceptButton').removeClass('w3-section');
+    $('#acceptButton').addClass('w3-margin-top');
+    $('#rejectButton').removeClass('w3-section');
+    $('#rejectButton').addClass('w3-margin-bottom');
+    $('.modal-content').css('width', '90%');
+    $('#logo').css('height','34px');
+  }
+
+  $(window).resize(function() {
+    if ($(window).width() <= 600) {
+      $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
+      $('#uploadArticlesBox').removeClass('w3-row-padding');
+      $('.generatedContent').addClass('w3-margin-bottom');
+      $('.generatedContent').removeClass('w3-margin');
+      $('#acceptButton').removeClass('w3-section');
+      $('#acceptButton').addClass('w3-margin-top');
+      $('#rejectButton').removeClass('w3-section');
+      $('#rejectButton').addClass('w3-margin-bottom');
+      $('.modal-content').css('width', '90%');
+      $('#logo').css('height','34px');
+    } else {
+      $('#uploadArticlesBox').removeClass('w3-row-padding-bottom');
+      $('#uploadArticlesBox').addClass('w3-row-padding');
+      $('.generatedContent').removeClass('w3-margin-bottom');
+      $('.generatedContent').addClass('w3-margin');
+      $('#acceptButton').addClass('w3-section');
+      $('#acceptButton').removeClass('w3-margin-top');
+      $('#rejectButton').addClass('w3-section');
+      $('#rejectButton').removeClass('w3-margin-bottom');
+      $('.modal-content').css('width', '40%');
+      $('#logo').css('height','29px');
+    }
+  });
+  
   // Accordion
   function myFunction(id) {
      var x = document.getElementById(id);
