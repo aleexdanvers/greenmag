@@ -51,7 +51,7 @@
           $_SESSION["UserID"] = $row['UserID'];
           $_SESSION["Faculty"] = $facultyText;
           $_SESSION["Role"] = "Student";
-          $_SESSION["avatarChosen"] = $row['AvatarID'];
+          $_SESSION["avatarChosen"] = "3";
           $_SESSION["LastLoggedIn"] = "Welcome to Greenmag!";
           mysqli_close($con);
           header('Location: http://www.greenmag.co.uk/home.php');

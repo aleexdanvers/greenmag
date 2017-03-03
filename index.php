@@ -16,7 +16,7 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <style type="text/css">
       body { 
-        background: url("old/images/Greenwich_Park_and_Queen's_House_2013_March-min.jpg") no-repeat center center fixed; 
+        background: url("Greenwich_Park_and_Queen's_House_2013_March-min.jpg") no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -34,7 +34,7 @@
                     <div class="col-sm-8 col-sm-offset-2 text">
                         <h1>Welcome to <strong>Greenmag</strong></h1>
                     </div>
-                </div><br>
+                </div><br><br>
                 <div class="row">
                     <div class="col-sm-5">
                         <div class="form-box">
@@ -52,8 +52,8 @@
                                     <div class="form-group">
                                         <input class="form-password form-control" id="login-password" name="login-password" placeholder="Password..." required="" type="password">
                                     </div><button class="btn" type="submit">Sign in!</button>
-                                </form><br>
-                                <a href="" id="forgottenpassword">Forgotten Password?</a>
+                                </form>
+                                <button style="margin-top:15px;width:100% !important;" class="btn" type="submit">Forgotten Password?</button>
                                 <h4 id="incorrectPasswordLogin" style="display:none;padding-top:5px !important;color:#ff3333;font-size: 14px;"><i aria-hidden="true" class="fa fa-times"></i> Invalid Username or Password!</h4>
                             </div>
                         </div>
@@ -108,9 +108,6 @@
             </div>
         </div>
     </div>
-    <footer id="footer" class="w3-container w3-theme-d4" style="text-align:center; position: fixed;bottom: 0;left: 0;width: 100%;font-size: 14px !important;padding-top: 9.25px !important;padding-bottom: 0px !important;font-weight: 400;">
-        <p>Copyright © 2017 Greenmag. All rights reserved. Developed by Kung Fu Pandas</p>
-    </footer>
     <script src="assets/js/jquery-1.11.1.min.js">
     </script>
     <script type="text/javascript">

@@ -19,6 +19,11 @@ session_start();
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
+    <style type="text/css">
+      body { 
+        background: url("escheresque_ste_@2X.png"); 
+      }
+    </style>
 <body class="w3-theme-l5">
   <!-- Navbar -->
   <div class="w3-top">
@@ -170,15 +175,27 @@ session_start();
               }
 
               echo "</div>";
-              echo "<button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button>";
-              echo "<button class='w3-btn w3-theme w3-margin-bottom' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button> ";
-              if ($row['Comment'] != null){
-                echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'><img style='float:left;margin-right:5px;' src='1488486321_profle.png' height='20px'><p><span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator: </span><br>" . $row['Comment'] . "</p></div>";
+
+              echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
+
+              echo "<button class='w3-btn w3-theme w3-margin-bottom' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button>";
+
+              if ($row['Comment'] != ""){
+                echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'><img style='float:left;margin-right:5px;' src='1488486321_profle.png' height='20px'><p><span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator </span><br>" . $row['Comment'] . "</p></div>";
               }
               else{
-                echo "<div class='hiddenComments' style='display:none;'><p>No Comments!</p></div>";
+                echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'><p>No Comments</p></div>";
               }
                 echo "</div>";
+            }
+            if (mysqli_num_rows($result) === 0){
+              echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin generatedContent'><br>";
+              echo "<h4 style='margin-bottom:0 !important;text-align:center;'>No Articles</h4>";
+              echo "<p style='text-align:center;'>You have not submitted anything!</p>";
+              echo "<div class='w3-row-padding' style='margin:0 -16px'>";
+              echo "<div class='w3-full'><img class='w3-margin-bottom' src='sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
+              echo "</div>";
+
             }
             mysqli_close($con);
         ?>

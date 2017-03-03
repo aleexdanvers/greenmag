@@ -18,6 +18,11 @@ session_start();
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" rel="stylesheet">
 </head>
+    <style type="text/css">
+      body { 
+        background: url("escheresque_ste_@2X.png"); 
+      }
+    </style>
 <body class="w3-theme-l5">
   <!-- Navbar -->
   <div class="w3-top">
@@ -42,9 +47,15 @@ session_start();
             <div class="w3-card-2 w3-round w3-white">
               <div class="w3-container">
                 <h4 class="w3-center">Guest Account</h4>
-                <p class="w3-center"><img alt="Avatar" class="w3-circle" src="https://www.w3schools.com/w3images/avatar<?php echo $_SESSION['avatarChosen']; ?>.png" style="height:106px;width:106px"></p>
+                <p class="w3-center"><img alt="Avatar" class="w3-circle" src="1488486321_profle.png" style="height:106px;width:106px"></p>
                 <hr>
                 <p style="text-align: center;"><?php echo $_SESSION['Faculty']; ?></p>
+                <p style="text-align: center;">Showing 
+                <?php
+                $articleQuery  = "SELECT Article.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID WHERE User.FacultyID = " . $_SESSION["FacultyID"] . " AND Article.StatusID = 1;";
+                $result = mysqli_query($con, $articleQuery);
+                echo mysqli_num_rows($result). " "; ?>
+                Approved Articles</p>
               </div>
             </div>
           </div>
@@ -55,9 +66,6 @@ session_start();
       </div>
         <!-- Generate Content -->
         <?php
-            $articleQuery  = "SELECT * FROM Article ORDER BY DateSubmitted DESC;";
-            $result = mysqli_query($con, $articleQuery);
-
             while($row = mysqli_fetch_array($result)){
 
               $dateAgo = date_create($row['DateSubmitted']);
@@ -83,9 +91,10 @@ session_start();
               }
 
               echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin statusAll status" . $row2['Status'] . "'><br>";
-              echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='https://www.w3schools.com/w3images/avatar" . $_SESSION['avatarChosen'] . ".png' style='width:60px'>";
+              echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='https://www.w3schools.com/w3images/avatar" . $row['AvatarID'] . ".png' style='width:60px'>";
               echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
-              echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . "</h4><br>";
+              echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . "</h4>";
+              echo "<p style='margin:0 !important;color:#999 !important;font-style: italic;'>" . $row['Username'] . "</p>";
               echo "<p>" . $row['ArticleDescription'] . "</p>";
               echo "<div class='w3-row-padding' style='margin:0 -16px'>";
               $db_images = $row['ImagePath'];
@@ -105,8 +114,17 @@ session_start();
               }
 
               echo "</div>";
-              echo "<button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button>";
+              echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
                 echo "</div>";
+            }
+            if (mysqli_num_rows($result) === 0){
+              echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin generatedContent'><br>";
+              echo "<h4 style='margin-bottom:0 !important;text-align:center;'>No Articles</h4>";
+              echo "<p style='text-align:center;'>There are currently no approved articles in your faculty!</p>";
+              echo "<div class='w3-row-padding' style='margin:0 -16px'>";
+              echo "<div class='w3-full'><img class='w3-margin-bottom' src='sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
+              echo "</div>";
+
             }
             mysqli_close($con);
         ?>
