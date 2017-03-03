@@ -1,16 +1,11 @@
 <?php
     session_start();
 
-    $servername = "mysql.hostinger.co.uk";
-    $dbusername = "u495998595_admin";
-    $dbpassword = "apb32axsoJVr";
-    $dbname = "u495998595_admin";
+    include 'includes/dbConnection.php';
 
 		$loginUsername = $_SESSION['Username'];
 		$oldPassword = md5($_REQUEST['previousPassword']);
 		$newPassword = md5($_REQUEST['newPassword']);
-
-    $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
     $loginquery  = "SELECT * FROM User WHERE Username = '" . $loginUsername . "' AND Password = '" . $oldPassword . "';";
 
@@ -28,11 +23,11 @@
 			$headers .= "MIME-Version: 1.0" . "\r\n";
 			$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 			mail($to,$subject,$txt,$headers);
-			$_SESSION['updateSuccessful'] = true;
+			$_SESSION['updateSuccessful'] = 'true';
     } else if (mysqli_num_rows($result) === 0) {
-			$_SESSION['updateSuccessful'] = false;
+			$_SESSION['updateSuccessful'] = 'false';
     }
 
     mysqli_close($con);
-    header('Location: http://www.greenmag.co.uk/home.php');
+    header('Location: home.php');
 ?>

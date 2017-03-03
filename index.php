@@ -7,7 +7,7 @@
     <title>Greenmag</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="style.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
     <link href="https://www.w3schools.com/lib/w3-theme-blue.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" rel="stylesheet">
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <style type="text/css">
       body { 
-        background: url("Greenwich_Park_and_Queen's_House_2013_March-min.jpg") no-repeat center center fixed; 
+        background: url("images/greenwichBackground.jpg") no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

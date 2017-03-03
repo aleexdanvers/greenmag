@@ -1,16 +1,11 @@
 <?php
     session_start();
 
-    $servername = "mysql.hostinger.co.uk";
-    $dbusername = "u495998595_admin";
-    $dbpassword = "apb32axsoJVr";
-    $dbname = "u495998595_admin";
+    include 'includes/dbConnection.php';
 
     $registerEmail = trim(strip_tags(addslashes($_REQUEST['register-email'])));
     $registerPassword = $_REQUEST['register-password'];
     $registerFaculty = $_REQUEST['option'];
-
-    $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
     $loginquery  = "SELECT * FROM User WHERE Username = '" . $registerEmail . "';";
 
@@ -20,7 +15,7 @@
 
       $_SESSION["failed_register"] = true;
       mysqli_close($con);
-      header('Location: http://www.greenmag.co.uk/index.php');
+      header('Location: index.php');
 
 
     } else if (mysqli_num_rows($result) === 0) {
@@ -54,7 +49,7 @@
           $_SESSION["avatarChosen"] = "3";
           $_SESSION["LastLoggedIn"] = "Welcome to Greenmag!";
           mysqli_close($con);
-          header('Location: http://www.greenmag.co.uk/home.php');
+          header('Location: home.php');
       }
     }
 ?>

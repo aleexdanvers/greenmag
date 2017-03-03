@@ -1,11 +1,7 @@
 <?php 
-session_start();
+  session_start();
 
-  $servername = "mysql.hostinger.co.uk";
-  $dbusername = "u495998595_admin";
-  $dbpassword = "apb32axsoJVr";
-  $dbname = "u495998595_admin";
-  $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
+  include 'includes/dbConnection.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,25 +9,27 @@ session_start();
   <title>Greenmag</title>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <link href="style.css" rel="stylesheet">
+  <link href="styles/style.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" rel="stylesheet">
 </head>
-    <style type="text/css">
-      body { 
-        background: url("escheresque_ste_@2X.png"); 
-      }
-    </style>
 <body class="w3-theme-l5">
   <!-- Navbar -->
   <div class="w3-top">
     <div class="w3-bar w3-theme-d2 w3-left-align w3-medium">
-      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> <a class="w3-bar-item w3-button w3-theme-d4" href="#"><img src="guidance_g_color_rgb.png" height="30px"></a> <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="News"><i class="fa fa-bar-chart"></i></a> <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="Account Settings"><i class="fa fa-cog"></i></a><a class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white w3-theme-d4" href="http://www.greenmag.co.uk/logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
+      <a class="w3-bar-item w3-logo-button w3-theme-d4" href="#"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="News"><i class="fa fa-bar-chart"></i></a> 
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="Account Settings"><i class="fa fa-cog"></i></a>
+      <a class="w3-bar-item w3-hide-small w3-right w3-padding-large w3-theme-d4 w3-logout-button" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
-    <a class="w3-padding-large" href="#">Link 1</a> <a class="w3-padding-large" href="#">Link 2</a> <a class="w3-padding-large" href="#">Link 3</a> <a class="w3-padding-large" href="#">My Profile</a>
+    <a class="w3-padding-large" href="#">Home</a> 
+    <a class="w3-padding-large" href="#">News</a> 
+    <a class="w3-padding-large" href="#">Account Settings</a> 
+    <a class="w3-padding-large w3-theme-d4" href="logout.php">Logout</a>
   </div><!-- Page Container -->
   <div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px">
     <!-- The Grid -->
@@ -44,11 +42,11 @@ session_start();
       <div class="w3-col m6">
         <div class="w3-row-padding">
           <div class="w3-col m12">
-            <div class="w3-card-2 w3-round w3-white">
+            <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container">
                 <h4 class="w3-center">Guest Account</h4>
-                <p class="w3-center"><img alt="Avatar" class="w3-circle" src="1488486321_profle.png" style="height:106px;width:106px"></p>
-                <hr>
+                <p class="w3-center"><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
+                <br>
                 <p style="text-align: center;"><?php echo $_SESSION['Faculty']; ?></p>
                 <p style="text-align: center;">Showing 
                 <?php
@@ -90,7 +88,7 @@ session_start();
                 $timeAgo = $days . " " . $stringAgo;
               }
 
-              echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin statusAll status" . $row2['Status'] . "'><br>";
+              echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin'><br>";
               echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='https://www.w3schools.com/w3images/avatar" . $row['AvatarID'] . ".png' style='width:60px'>";
               echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
               echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . "</h4>";
@@ -110,7 +108,7 @@ session_start();
               }
 
               for ($i = 0; $i < $noOfImages; $i++) {
-                echo "<div class='" . $imageClass . "'><img class='w3-margin-bottom' src='../article_images/" . $imagesArray[$i] . "' style='width:100%'></div>";
+                echo "<div class='" . $imageClass . "'><img class='w3-margin-bottom' src='article_images/" . $imagesArray[$i] . "' style='width:100%'></div>";
               }
 
               echo "</div>";
@@ -118,11 +116,11 @@ session_start();
                 echo "</div>";
             }
             if (mysqli_num_rows($result) === 0){
-              echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin generatedContent'><br>";
+              echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent'><br>";
               echo "<h4 style='margin-bottom:0 !important;text-align:center;'>No Articles</h4>";
               echo "<p style='text-align:center;'>There are currently no approved articles in your faculty!</p>";
               echo "<div class='w3-row-padding' style='margin:0 -16px'>";
-              echo "<div class='w3-full'><img class='w3-margin-bottom' src='sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
+              echo "<div class='w3-full'><img class='w3-margin-bottom' src='images/sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
               echo "</div>";
 
             }
@@ -134,9 +132,6 @@ session_start();
       </div><!-- End Grid -->
     </div><!-- End Page Container -->
   </div><br>
-  <footer class="w3-container w3-theme-d4" style="text-align:center;padding-left: 30px !important;padding-bottom:5px !important;">
-    <p>Copyright © 2017 Greenmag. All rights reserved. Developed by Kung Fu Pandas</p>
-  </footer>
   <script>
   // Accordion
   function myFunction(id) {

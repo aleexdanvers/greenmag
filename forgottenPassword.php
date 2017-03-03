@@ -1,10 +1,7 @@
 <?php
     session_start();
 
-    $servername = "mysql.hostinger.co.uk";
-    $dbusername = "u495998595_admin";
-    $dbpassword = "apb32axsoJVr";
-    $dbname = "u495998595_admin";
+    include 'includes/dbConnection.php';
 
     $forgottenEmail = trim(strip_tags(addslashes($_REQUEST['ForgotUsername'])));
     $_SESSION["ForgottenPasswordEmail"] = $forgottenEmail;
@@ -19,8 +16,6 @@
         }
         return implode($pass);
     }
-
-    $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
     $loginquery  = "SELECT * FROM User WHERE Username = '" . $forgottenEmail . "';";
 

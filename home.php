@@ -1,11 +1,7 @@
 <?php 
-session_start();
+  session_start();
 
-  $servername = "mysql.hostinger.co.uk";
-  $dbusername = "u495998595_admin";
-  $dbpassword = "apb32axsoJVr";
-  $dbname = "u495998595_admin";
-  $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
+  include 'includes/dbConnection.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,33 +9,28 @@ session_start();
   <title>Greenmag</title>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <link href="style.css" rel="stylesheet">
+  <link href="styles/style.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
-    <style type="text/css">
-      body { 
-        background: url("escheresque_ste_@2X.png"); 
-      }
-    </style>
 <body class="w3-theme-l5">
   <!-- Navbar -->
   <div class="w3-top">
     <div class="w3-bar w3-theme-d2 w3-left-align w3-medium">
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
-      <a class="w3-bar-item w3-button w3-theme-d4" href="#"><img src="guidance_g_color_rgb.png" id="logo" height="29px"></a> 
+      <a class="w3-bar-item w3-logo-button w3-theme-d4" href="#"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a> 
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="News"><i class="fa fa-bar-chart"></i></a> 
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="Account Settings"><i class="fa fa-cog"></i></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white w3-theme-d4" href="http://www.greenmag.co.uk/logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
+      <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
     <a class="w3-padding-large" href="#">Home</a> 
     <a class="w3-padding-large" href="#">News</a> 
     <a class="w3-padding-large" href="#">Account Settings</a> 
-    <a class="w3-padding-large w3-theme-d4" href="http://www.greenmag.co.uk/logout.php">Logout</a>
+    <a class="w3-padding-large w3-theme-d4 w3-logout-button" href="logout.php">Logout</a>
   </div><!-- Page Container -->
   <div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px">
     <!-- The Grid -->
@@ -47,20 +38,19 @@ session_start();
       <!-- Left Column -->
       <div class="w3-col m3">
         <!-- Profile -->
-        <div class="w3-card-2 w3-round w3-white">
+        <div class="w3-card-2 w3-round w3-333">
           <div class="w3-container">
             <h4 class="w3-center">My Profile</h4>
-            <p class="w3-center"><img alt="Avatar" class="w3-circle" src="https://www.w3schools.com/w3images/avatar<?php echo $_SESSION['avatarChosen']; ?>.png" style="height:106px;width:106px"></p>
-            <hr>
-            <p id="userName"><i class="fa fa-envelope-o fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Username']; ?></p>
+            <p class="w3-center" style="margin-bottom:35px;"><img alt="Avatar" class="w3-circle" src="https://www.w3schools.com/w3images/avatar<?php echo $_SESSION['avatarChosen']; ?>.png" style="height:106px;width:106px"></p>
+            <p id="userName"><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Username']; ?></p>
             <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Faculty']; ?></p>
-            <p><i class="fa fa-user-o fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Role']; ?></p>
-            <p><i class="fa fa-clock-o fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION["LastLoggedIn"]; ?></p>
+            <p><i class="fa fa-user fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Role']; ?></p>
+            <p><i class="fa fa-clock-o fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION["LastLoggedIn"]; ?></p> 
           </div>
         </div><br>
         <!-- Accordion -->
         <div class="w3-card-2 w3-round">
-          <div class="w3-white">
+          <div class="w3-333">
             <button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo1')"><i class="fa fa-globe fa-fw w3-margin-right"></i> My Articles</button>
             <div class="w3-hide w3-container" id="Demo1">
               <p class="articlecounttext"></p><button onclick="sortingFunction(1)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button><br>
@@ -83,12 +73,12 @@ session_start();
           </div>
         </div><br>
         <!-- Alert Box -->
-        <div class="w3-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+        <div class="w3-container w3-round w3-theme-l4 w3-theme-border w3-margin-bottom w3-hide-small">
           <span class="w3-hover-text-grey w3-closebtn" onclick="this.parentElement.style.display='none'"><i class="fa fa-remove"></i></span>
           <p><i aria-hidden="true" class="fa fa-exclamation-circle"></i> <strong>Did you know?</strong></p>
           <p>You can sort the articles you see using the above buttons?</p>
         </div><!-- Interests -->
-        <div class="w3-card-2 w3-round w3-white">
+        <div class="w3-card-2 w3-round w3-333">
           <div class="w3-container">
             <h4 class="">Change Password</h4>
             <form action="changePassword.php" method="post">
@@ -104,7 +94,7 @@ session_start();
       <div class="w3-col m7">
         <div id="uploadArticlesBox" class="w3-row-padding">
           <div class="w3-col m12">
-            <div class="w3-card-2 w3-round w3-white">
+            <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
                 <h4 class="">Upload Articles</h4>
                 <p class="w3-border w3-padding" contenteditable="true">Give your article a name!</p><button class="w3-btn w3-theme" type="button"><i class="fa fa-pencil"></i> &nbsp;Post</button>
@@ -151,11 +141,11 @@ session_start();
                 $timeAgo = $days . " " . $stringAgo;
               }
 
-              echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin generatedContent statusAll status" . $row2['Status'] . "'><br>";
+              echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent statusAll status" . $row2['Status'] . "'><br>";
               echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='https://www.w3schools.com/w3images/avatar" . $_SESSION['avatarChosen'] . ".png' style='width:60px'>";
               echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
               echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . "</h4>";
-              echo "<p style='margin:0 !important;'>Status: <strong>" . $row2['Status'] . "</p></strong>";
+              echo "<p class='w3-opacity' style='margin:0 !important;'>Status: " . $row2['Status'] . "</p>";
               echo "<p>" . $row['ArticleDescription'] . "</p>";
               echo "<div class='w3-row-padding' style='margin:0 -16px'>";
               $db_images = $row['ImagePath'];
@@ -171,7 +161,7 @@ session_start();
               }
 
               for ($i = 0; $i < $noOfImages; $i++) {
-                echo "<div class='" . $imageClass . "'><img class='w3-margin-bottom' src='../article_images/" . $imagesArray[$i] . "' style='width:100%'></div>";
+                echo "<div class='" . $imageClass . "'><img class='w3-margin-bottom' src='article_images/" . $imagesArray[$i] . "' style='width:100%'></div>";
               }
 
               echo "</div>";
@@ -181,7 +171,7 @@ session_start();
               echo "<button class='w3-btn w3-theme w3-margin-bottom' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button>";
 
               if ($row['Comment'] != ""){
-                echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'><img style='float:left;margin-right:5px;' src='1488486321_profle.png' height='20px'><p><span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator </span><br>" . $row['Comment'] . "</p></div>";
+                echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'><img style='float:left;margin-right:5px;' src='images/guestAvatar.png' height='20px'><p><span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator </span><br>" . $row['Comment'] . "</p></div>";
               }
               else{
                 echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'><p>No Comments</p></div>";
@@ -189,11 +179,11 @@ session_start();
                 echo "</div>";
             }
             if (mysqli_num_rows($result) === 0){
-              echo "<div class='w3-container w3-card-2 w3-white w3-round w3-margin generatedContent'><br>";
+              echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent'><br>";
               echo "<h4 style='margin-bottom:0 !important;text-align:center;'>No Articles</h4>";
               echo "<p style='text-align:center;'>You have not submitted anything!</p>";
               echo "<div class='w3-row-padding' style='margin:0 -16px'>";
-              echo "<div class='w3-full'><img class='w3-margin-bottom' src='sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
+              echo "<div class='w3-full'><img class='w3-margin-bottom' src='images/sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
               echo "</div>";
 
             }
@@ -203,14 +193,14 @@ session_start();
         <!-- End Middle Column -->
       </div><!-- Right Column -->
       <div class="w3-col m2">
-        <div class="w3-card-2 w3-round w3-white">
+        <div class="w3-card-2 w3-round w3-333">
           <div class="w3-container">
             <h4 class="">Faculty Deadlines</h4>
             <p style="font-size: 12px;"><i aria-hidden="true" style="margin-right:5px;" class="fa fa-calendar-check-o fa-fw w3-text-theme"></i>Submissions: <?php echo $_SESSION["CloseDate"]; ?></p>
             <p style="font-size: 12px;"><i aria-hidden="true" style="margin-right:5px;" class="fa fa-calendar-check-o fa-fw w3-text-theme"></i>Close Date: <?php echo $_SESSION["FinalCloseDate"]; ?></p>
           </div>
         </div><br>
-        <div class="w3-card-2 w3-round w3-white w3-center">
+        <div class="w3-card-2 w3-round w3-333 w3-center">
           <div class="w3-container">
             <h4 class="w3-center">Change Avatar</h4>
             <div class="w3-content w3-display-container">
@@ -219,20 +209,20 @@ session_start();
               <img class="mySlides" src="https://www.w3schools.com/w3images/avatar2.png" id="avatar2" style="width:100%"> 
               <img class="mySlides" src="https://www.w3schools.com/w3images/avatar5.png" id="avatar5" style="width:100%">
             </div>
-            <div class="w3-row w3-opacity">
+            <div class="w3-row">
               <form method="post" action="changeAvatar.php">
-                <div class="w3-half">
+                <div class="w3-half" style="padding-right:5px;">
                   <button id="acceptButton" class="w3-btn w3-green w3-btn-block w3-section" title="Accept"><i class="fa fa-check"></i></button>
                   <input id="selectedAvatar" name="selectedAvatar" style="display: none"/>
                 </div>
               </form>
-              <div class="w3-half">
-                <button id="rejectButton" class="w3-btn w3-red w3-btn-block w3-section" onclick="nextImage()" title="Decline"><i class="fa fa-remove"></i></button>
+              <div class="w3-half" style="padding-left:5px;">
+                <button id="rejectButton" class="w3-btn w3-ff4d4d w3-btn-block w3-section" onclick="nextImage()" title="Decline"><i class="fa fa-remove"></i></button>
               </div>
             </div>
           </div>
         </div><br>
-        <div class="w3-card-2 w3-round w3-white w3-padding-16 w3-center">
+        <div class="w3-card-2 w3-round w3-333 w3-padding-16 w3-center">
           <p><i class="fa fa-bug w3-xxlarge"></i></p>
           <div style="margin-left:10%;margin-right: 10%;">
             <button class="w3-btn w3-btn-block w3-theme" id="myBtn">Info</button>
@@ -241,9 +231,6 @@ session_start();
       </div><!-- End Grid -->
     </div><!-- End Page Container -->
   </div><br>
-  <footer class="w3-container w3-theme-d4" style="text-align:center;padding-left: 30px !important;padding-bottom:5px !important;">
-    <p>Copyright © 2017 Greenmag. All rights reserved. Developed by Kung Fu Pandas</p>
-  </footer>
   <div class="modal" id="myModal">
     <!-- Modal content -->
     <div class="modal-content">
@@ -361,17 +348,17 @@ session_start();
     getAvatarImage();
   }
   
-  
   var modal = document.getElementById('myModal');
   var btn = document.getElementById("myBtn");
   var span = document.getElementsByClassName("close")[0];
-  var updateSuccessfulPHP = <?php echo json_encode($_SESSION['updateSuccessful']); ?>;;
+  // console.log(updateSuccessfulPHP);
+  var updateSuccessfulPHP = <?php echo json_encode($_SESSION['updateSuccessful']); ?>;
   var unsuccessfullPasswordChange = document.getElementById("unsuccessfullPasswordChange");
   var successfullPasswordChange = document.getElementById("successfullPasswordChange");
   var newPassword = document.getElementById("newPassword");
   var previousPassword = document.getElementById("previousPassword");
   var updatePassworddiv = document.getElementById("updatePassworddiv");
-  var LastLoggedIn = <?php echo json_encode($_SESSION['LastLoggedIn']); ?>;;
+  var LastLoggedIn = <?php echo json_encode($_SESSION['LastLoggedIn']); ?>;
 
   // When the user clicks the button, open the modal 
   btn.onclick = function() {
@@ -401,13 +388,13 @@ session_start();
   }
 
   function changePassword(){
-   if(updateSuccessfulPHP == true){
+   if(updateSuccessfulPHP == 'true'){
     successfullPasswordChange.style.display = "block";
    }
-   if (updateSuccessfulPHP == false){
+   if (updateSuccessfulPHP == 'false'){
      unsuccessfullPasswordChange.style.display = "block";
    }
-   else{
+   if (updateSuccessfulPHP == 'unset') {
     updatePassworddiv.innerHTML == "<br><br>";
     updatePassworddiv.style.display = "block";
    }

@@ -1,15 +1,10 @@
 <?php
     session_start();
 
-    $servername = "mysql.hostinger.co.uk";
-    $dbusername = "u495998595_admin";
-    $dbpassword = "apb32axsoJVr";
-    $dbname = "u495998595_admin";
+    include 'includes/dbConnection.php';
 
     $LoginUsername = trim(strip_tags(addslashes($_REQUEST['login-email'])));
     $LoginPassword = md5($_REQUEST['login-password']);
-
-    $con = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 
     $loginquery  = "SELECT * FROM User WHERE Username = '" . $LoginUsername . "' AND Password = '" . $LoginPassword . "';";
 
@@ -42,15 +37,16 @@
       $_SESSION["Role"] = $row3['RoleName'];
       $_SESSION["LastLoggedIn"] = "Last Login: " . date_format($lastLoggedInDate, "d/m/Y g:ia");
       $_SESSION["avatarChosen"] = $row['AvatarID'];
+      $_SESSION['updateSuccessful'] = 'unset';
 
       mysqli_close($con);
-      header('Location: http://www.greenmag.co.uk/home.php');
+      header('Location: home.php');
 
 
     } else if (mysqli_num_rows($result) === 0) {
       //Failed Login
       $_SESSION["failed_login"] = true;
       mysqli_close($con);
-      header('Location: http://www.greenmag.co.uk/index.php');
+      header('Location: index.php');
     }
 ?>
