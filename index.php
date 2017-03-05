@@ -55,7 +55,7 @@
                             <div class="form-bottom">
                                 <form action="login.php" class="login-form" method="post" role="form">
                                     <div class="form-group">
-                                        <input class="form-email form-control" id="login-email" name="login-email" placeholder="Email Address..." required="" type="email">
+                                        <input class="form-email form-control" id="login-email" name="login-email" placeholder="Email Address..." required="" type="text">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-password form-control" id="login-password" name="login-password" placeholder="Password..." required="" type="password">
@@ -80,7 +80,7 @@
                             <div class="form-bottom">
                                 <form action="register.php" class="registration-form" method="post" role="form">
                                     <div class="form-group">
-                                        <input class="form-email form-control" id="register-email" name="register-email" placeholder="Email Address" required="" type="email">
+                                        <input class="form-email form-control" id="register-email" name="register-email" placeholder="Email Address" required="" type="text">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-password form-control" id="register-password" name="register-password" placeholder="Password" required="" type="password">
