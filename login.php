@@ -45,8 +45,18 @@
     $result5 = mysqli_query($con, $updateBrowserQuery);
 
       mysqli_close($con);
-      header('Location: home.php');
-
+      
+      if ($row3['RoleName'] == 'Admin') {
+        header('Location: admin.php');
+      } else if ($row3['RoleName'] == 'Marketing Manager') {
+        header('Location: marketingmanager.php');
+      } else if ($row3['RoleName'] == 'Marketing Co-ordinator') {
+        header('Location: marketingcoordinator.php');
+      } else if ($row3['RoleName'] == 'Student') {
+        header('Location: home.php');
+      } else if ($row3['RoleName'] == 'Guest') {
+        header('Location: guest.php');
+      }
 
     } else if (mysqli_num_rows($result) === 0) {
       //Failed Login
