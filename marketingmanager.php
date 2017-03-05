@@ -60,6 +60,7 @@
                 <p class="w3-center"><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
                 <p style="text-align: center;">All Faculties</p>
                 <p id="showingp" style="text-align: center;"></p>
+                <button style="display:block; margin:0 auto;" class="w3-btn w3-theme" onclick="location.href='zip.php'" type="button"><i class="fa fa-download"></i> &nbsp;Download ZIP</button><br>
               </div>
             </div>
           </div>

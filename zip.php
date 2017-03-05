@@ -29,8 +29,9 @@
     	}
     }
 
-
-	$zipname = 'zipfiles.zip';
+	$dateNow = date_create(gmdate("Y-m-d H:i:s"));
+	$dateNowNewFormat = date_format($dateNow, "dmY_Hi");
+	$zipname = $dateNowNewFormat . '_zipfiles.zip';
 	$zip = new ZipArchive;
 	$zip->open($zipname, ZipArchive::CREATE);
 	foreach ($files as $file) {
