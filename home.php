@@ -53,7 +53,7 @@
         <div class="w3-card-2 w3-round w3-333">
           <div class="w3-container">
             <h4 class="w3-center">My Profile</h4>
-            <p class="w3-center" style="margin-bottom:35px;"><img alt="Avatar" class="w3-circle" src="https://www.w3schools.com/w3images/avatar<?php echo $_SESSION['avatarChosen']; ?>.png" style="height:106px;width:106px"></p>
+            <p class="w3-center" style="margin-bottom:35px;"><img alt="Avatar" class="w3-circle" src="images/avatars/<?php echo $_SESSION['avatarChosen']; ?>.png" style="height:106px;width:106px"></p>
             <p id="userName"><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Username']; ?></p>
             <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Faculty']; ?></p>
             <p><i class="fa fa-user fa-fw w3-margin-right w3-text-theme"></i> <?php echo $_SESSION['Role']; ?></p>
@@ -154,7 +154,7 @@
               }
 
               echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent statusAll status" . $row2['Status'] . "'><br>";
-              echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='https://www.w3schools.com/w3images/avatar" . $_SESSION['avatarChosen'] . ".png' style='width:60px'>";
+              echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='images/avatars/" . $_SESSION['avatarChosen'] . ".png' style='width:60px'>";
               echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
               echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . "</h4>";
               echo "<p class='w3-opacity' style='margin:0 !important;'>Status: " . $row2['Status'] . "</p>";
@@ -223,10 +223,16 @@
           <div class="w3-container">
             <h4 class="w3-center">Change Avatar</h4>
             <div class="w3-content w3-display-container">
-              <img class="mySlides" src="https://www.w3schools.com/w3images/avatar3.png" id="avatar3" style="width:100%"> 
-              <img class="mySlides" src="https://www.w3schools.com/w3images/avatar4.png" id="avatar4" style="width:100%"> 
-              <img class="mySlides" src="https://www.w3schools.com/w3images/avatar2.png" id="avatar2" style="width:100%"> 
-              <img class="mySlides" src="https://www.w3schools.com/w3images/avatar5.png" id="avatar5" style="width:100%">
+              <img class="mySlides" src="images/avatars/1.png" id="avatar1" style="width:100%"> 
+              <img class="mySlides" src="images/avatars/2.png" id="avatar2" style="width:100%"> 
+              <img class="mySlides" src="images/avatars/3.png" id="avatar3" style="width:100%"> 
+              <img class="mySlides" src="images/avatars/4.png" id="avatar4" style="width:100%">
+              <img class="mySlides" src="images/avatars/5.png" id="avatar5" style="width:100%"> 
+              <img class="mySlides" src="images/avatars/6.png" id="avatar6" style="width:100%"> 
+              <img class="mySlides" src="images/avatars/7.png" id="avatar7" style="width:100%"> 
+              <img class="mySlides" src="images/avatars/8.png" id="avatar8" style="width:100%">
+              <img class="mySlides" src="images/avatars/9.png" id="avatar9" style="width:100%">
+              <img class="mySlides" src="images/avatars/10.png" id="avatar10" style="width:100%">
             </div>
             <div class="w3-row">
               <form method="post" action="changeAvatar.php">
@@ -375,7 +381,9 @@
   function getAvatarImage() {
     var avatar = document.getElementsByClassName("mySlides");
     
-    if (document.getElementById("avatar2").style.display == "block") {
+    if (document.getElementById("avatar1").style.display == "block") {
+      document.getElementById("selectedAvatar").value = "1";
+    } else if (document.getElementById("avatar2").style.display == "block") {
       document.getElementById("selectedAvatar").value = "2";
     } else if (document.getElementById("avatar3").style.display == "block") {
       document.getElementById("selectedAvatar").value = "3";
@@ -383,6 +391,16 @@
       document.getElementById("selectedAvatar").value = "4";
     } else if (document.getElementById("avatar5").style.display == "block") {
       document.getElementById("selectedAvatar").value = "5";
+    } else if (document.getElementById("avatar6").style.display == "block") {
+      document.getElementById("selectedAvatar").value = "6";
+    } else if (document.getElementById("avatar7").style.display == "block") {
+      document.getElementById("selectedAvatar").value = "7";
+    } else if (document.getElementById("avatar8").style.display == "block") {
+      document.getElementById("selectedAvatar").value = "8";
+    } else if (document.getElementById("avatar9").style.display == "block") {
+      document.getElementById("selectedAvatar").value = "9";
+    } else if (document.getElementById("avatar10").style.display == "block") {
+      document.getElementById("selectedAvatar").value = "10";
     }
   }
 

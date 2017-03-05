@@ -100,7 +100,7 @@
               }
 
               echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin'><br>";
-              echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='https://www.w3schools.com/w3images/avatar" . $row['AvatarID'] . ".png' style='width:60px'>";
+              echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='images/avatars/" . $row['AvatarID'] . ".png' style='width:60px'>";
               echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
               echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . "</h4>";
               echo "<p style='margin:0 !important;color:#999 !important;font-style: italic;'>" . $row['Username'] . "</p>";
