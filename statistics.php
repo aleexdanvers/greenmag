@@ -96,7 +96,6 @@
                 </table>
                 <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of contributions within each Faculty for each academic year</p><br>
 
-                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Percentage of contributions by each Faculty for any academic year</p><br>
                 <div id="piechart" style="width: 50%; height: 300px;"></div>
                 <div id="piechart2" style="width: 50%; height: 300px;"></div>
                 <script type="text/javascript">
@@ -133,6 +132,7 @@
                        chart2.draw(data2, options);
                      }
                 </script>
+                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Percentage of contributions by each Faculty for any academic year</p><br>
                 <table class="w3-table">
                   <tr valign="middle">
                     <th>Faculty</th>
