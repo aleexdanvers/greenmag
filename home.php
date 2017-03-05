@@ -20,9 +20,11 @@
   <div class="w3-top">
     <div class="w3-bar w3-theme-d2 w3-left-align w3-medium">
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
-      <a class="w3-bar-item w3-logo-button w3-theme-d4" href="#"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a> 
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="News"><i class="fa fa-bar-chart"></i></a> 
+      <a class="w3-bar-item w3-logo-button w3-theme-d4" href="home.php"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a> 
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="Account Settings"><i class="fa fa-cog"></i></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="guest.php" title="Guest"><i class="fa fa-user"></i></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i></a>
       <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->

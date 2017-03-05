@@ -16,6 +16,114 @@ html{
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }
+
+.skill-list h3 {
+  font-size: 12px;
+}
+
+progress, progress[role] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background-size: auto;
+  height: 25px;
+  width: 100%;
+}
+
+.skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 2px;
+}
+
+.skill {
+  margin-bottom: 5px;
+  position: relative;
+}
+.skill h3 {
+  color: #fff;
+  left: 1em;
+  line-height: .5;
+  position: absolute;
+}
+.skill ::-webkit-progress-value {
+  -webkit-animation: bar-fill 2s;
+  width: 0px;
+}
+
+.skill-1::-webkit-progress-value {
+  background: #ff9e2c;
+}
+
+.skill-1::-moz-progress-bar {
+  background: #ff9e2c;
+}
+
+.skill-2::-webkit-progress-value {
+  background: #4ecdc4;
+}
+
+.skill-2::-moz-progress-bar {
+  background: #4ecdc4;
+}
+
+.skill-3::-webkit-progress-value {
+  background: #ff6b6b;
+}
+
+.skill-3::-moz-progress-bar {
+  background: #ff6b6b;
+}
+
+@-webkit-keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+@keyframes bar-fill {
+  0% {
+    width: 0;
+  }
+}
+
+.list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  padding: 6px 0px 5px 5px;
+  color:#888;
+}
+
+.list-item.is-checked .list-item-title {
+  color: #ffffff;
+}
+
+.list-item.is-checked .ion-checkmark-round {
+  -webkit-transition-delay: 250ms;
+  color: rgb(255, 116, 116);
+  -webkit-animation-name: checkmark-bounce;
+  -webkit-animation-duration: 750ms;
+  -webkit-animation-delay: 200ms;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-animation-iteration-count: 1;
+}
+
+.list-item-check {
+  float: left;
+  margin-right: 10px;
+}
+
+i.ion-checkmark-round {
+  position: relative;
+  top: -2px;
+  font-size: 14px;
+  color: #888;
+}
+
 .smallbtnfont{
 	font-size: 14px !important;
 }
@@ -287,6 +395,18 @@ a{
 	width:100%;
 	display:table
 }
+.w3-table td, .w3-table th{
+	border: 1px solid #ff4d4d;
+	vertical-align: middle
+}
+.w3-table th{
+	background-color: #ff4d4d;
+	font-weight: normal !important;
+}
+.w3-table tr:nth-child(even) {
+    background-color: #444;
+    color: #fff;
+}
 .w3-table-all{
 	border:1px solid #ccc
 }
@@ -305,6 +425,8 @@ a{
 .w3-hoverable tbody tr:hover,.w3-ul.w3-hoverable li:hover{
 	background-color:#ccc
 }
+div.google-visualization-tooltip { pointer-events: none }
+svg > g > g:last-child { pointer-events: none }
 .w3-centered tr th,.w3-centered tr td{
 	text-align:center
 }
@@ -312,10 +434,13 @@ a{
 	padding:8px 8px;
 	display:table-cell;
 	text-align:left;
-	vertical-align:top
+	vertical-align:middle;
 }
 .w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{
 	padding-left:16px
+}
+.lightbackground{
+	background-color: #333 !important;
 }
 .w3-btn,.w3-btn-block,.w3-button{
 	border:none;
@@ -328,7 +453,7 @@ a{
 	color:#fff;
 	background-color:#000;
 	text-align:center;
-	cursor:pointer;
+	cursor:pointer !important;
 	white-space:nowrap
 }
 .w3-btn:hover,.w3-btn-block:hover,.w3-btn-floating:hover,.w3-btn-floating-large:hover{
@@ -722,6 +847,9 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 	border:none;
 	outline:none;
 	display:block
+}
+.w3-bar-item:hover{
+	cursor: pointer !important;
 }
 .w3-bar .w3-btn{
 	padding:8px 16px;

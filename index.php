@@ -1,5 +1,7 @@
 <?php
     session_start();
+
+        include 'includes/dbConnection.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,6 +53,7 @@
                                     </div>
                                     <div class="form-group">
                                         <input class="form-password form-control" id="login-password" name="login-password" placeholder="Password..." required="" type="password">
+                                        <input id="selectedbrowser" name="selectedbrowser" style="display: none"/>
                                     </div><button class="btn" type="submit">Sign in!</button>
                                 </form>
                                 <button style="margin-top:15px;width:100% !important;" class="btn" type="submit">Forgotten Password?</button>
@@ -154,6 +157,33 @@
       }
     }
 
+    function myFunction() { 
+     if(navigator.userAgent.indexOf("Opera") != -1 || navigator.userAgent.indexOf('OPR') != -1 ) 
+    {
+    document.getElementById("selectedbrowser").value = "Opera";
+    }
+    else if(navigator.userAgent.indexOf("Chrome") != -1 )
+    {
+    document.getElementById("selectedbrowser").value = "Chrome";
+    }
+    else if(navigator.userAgent.indexOf("Safari") != -1)
+    {
+    document.getElementById("selectedbrowser").value = "Safari";
+    }
+    else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
+    {
+    document.getElementById("selectedbrowser").value = "Firefox";
+    }
+    else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+    {
+    document.getElementById("selectedbrowser").value = "IE";
+    }
+    else{
+    document.getElementById("selectedbrowser").value = "Other";
+    }
+    }
+
+    myFunction();
     LoginFunction();
     RegisterFunction();
 

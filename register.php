@@ -28,7 +28,8 @@
 
       $sql = "INSERT INTO User (Username, Password, FacultyID, RoleID, AvatarID) VALUES ('" . $registerEmail . "','" . md5($registerPassword) . "','" . $registerFaculty . "','4','3')";
 
-      $updateQuery = "UPDATE User SET LastLoggedIn = '" . date("Y-m-d H:i:s") . "' WHERE Username = '" . $registerEmail . "';";
+      $newLoginQuantity = $row['LogInQuantity'] + 1;
+      $updateQuery = "UPDATE User SET LastLoggedIn = '" . date("Y-m-d H:i:s") . "', LogInQuantity = " . $newLoginQuantity . " WHERE Username = '" . $LoginUsername . "';";
       $result4 = mysqli_query($con, $updateQuery);
 
       if (mysqli_query($con, $sql)) {

@@ -5,6 +5,7 @@
 
     $LoginUsername = trim(strip_tags(addslashes($_REQUEST['login-email'])));
     $LoginPassword = md5($_REQUEST['login-password']);
+    $browservariable = $_REQUEST['selectedbrowser'];
 
     $loginquery  = "SELECT * FROM User WHERE Username = '" . $LoginUsername . "' AND Password = '" . $LoginPassword . "';";
 
@@ -21,7 +22,8 @@
       $row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
       $row3 = mysqli_fetch_array($result3, MYSQLI_ASSOC);
 
-      $updateQuery = "UPDATE User SET LastLoggedIn = '" . date("Y-m-d H:i:s") . "' WHERE Username = '" . $LoginUsername . "';";
+      $newLoginQuantity = $row['LogInQuantity'] + 1;
+      $updateQuery = "UPDATE User SET LastLoggedIn = '" . date("Y-m-d H:i:s") . "', LogInQuantity = " . $newLoginQuantity . " WHERE Username = '" . $LoginUsername . "';";
       $result4 = mysqli_query($con, $updateQuery);
 
       $lastLoggedInDate = date_create($row['LastLoggedIn']);
@@ -38,6 +40,9 @@
       $_SESSION["LastLoggedIn"] = "Last Login: " . date_format($lastLoggedInDate, "d/m/Y g:ia");
       $_SESSION["avatarChosen"] = $row['AvatarID'];
       $_SESSION['updateSuccessful'] = 'unset';
+
+    $updateBrowserQuery = "UPDATE Browsers SET Used = 1 WHERE BrowserName = '" . $browservariable . "';";
+    $result5 = mysqli_query($con, $updateBrowserQuery);
 
       mysqli_close($con);
       header('Location: home.php');
