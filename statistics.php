@@ -36,8 +36,10 @@
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="statsNav" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i><p class="navbarText" id="statsText">Statistics</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="articlesNav" href="viewarticles.php" title="Account Settings"><i class="fa fa-file-text-o"></i><p class="navbarText" id="articlesText">All Articles</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="guestNav" href="guest.php" title="Guest"><i class="fa fa-user"></i><p class="navbarText" id="guestText">Guest</p></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingNav" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingText">Marketing Manager</p></a>
-      <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingManagerNav" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingManagerText">Marketing Manager</p></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingCoordinatorNav" href="marketingcoordinator.php" title="Marketing Co-ordinator"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingCoordinatorText">Marketing Co-ordinator</p></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="adminNav" href="admin.php" title="Admin"><i class="fa fa-briefcase"></i><p class="navbarText" id="adminText">Admin</p></a>
+      <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="Logout"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
@@ -252,6 +254,44 @@
     </div><!-- End Page Container -->
   </div><br>
   <script>
+  var role = <?php echo json_encode($_SESSION['Role']); ?>;
+  
+  if (role == 'Student') {
+    // $("#statsNav").hide();
+    $("#guestNav").hide();
+    $("#marketingManagerNav").hide();
+    // $("#articlesNav").hide();
+    $("#marketingCoordinatorNav").hide();
+    $("#adminNav").hide();
+  } else if (role == 'Guest') {
+    // $("#statsNav").hide();
+    // $("#guestNav").hide();
+    $("#marketingManagerNav").hide();
+    $("#articlesNav").hide();
+    $("#marketingCoordinatorNav").hide();
+    $("#adminNav").hide();
+  } else if (role == 'Marketing Co-ordinator') {
+    // $("#statsNav").hide();
+    $("#guestNav").hide();
+    $("#marketingManagerNav").hide();
+    $("#articlesNav").hide();
+    // $("#marketingCoordinatorNav").hide();
+    $("#adminNav").hide();
+  } else if (role == 'Marketing Manager') {
+    // $("#statsNav").hide();
+    $("#guestNav").hide();
+    // $("#marketingManagerNav").hide();
+    $("#articlesNav").hide();
+    $("#marketingCoordinatorNav").hide();
+    $("#adminNav").hide();
+  } else if (role == 'Admin') {
+    // $("#statsNav").hide();
+    $("#guestNav").hide();
+    $("#marketingManagerNav").hide();
+    $("#articlesNav").hide();
+    $("#marketingCoordinatorNav").hide();
+    // $("#adminNav").hide();
+  }
   // START Navbar Animations START //
   $("#statsText").hide();
   $("#statsNav").mouseenter(function(){
@@ -269,12 +309,12 @@
       $("#guestText").hide('slow');
   });
 
-  $("#marketingText").hide();
-  $("#marketingNav").mouseenter(function(){
-      $("#marketingText").show('slow');
+  $("#marketingManagerText").hide();
+  $("#marketingManagerNav").mouseenter(function(){
+      $("#marketingManagerText").show('slow');
   });
-  $("#marketingNav").mouseleave(function(){
-      $("#marketingText").hide('slow');
+  $("#marketingManagerNav").mouseleave(function(){
+      $("#marketingManagerText").hide('slow');
   });
   
   $("#articlesText").hide();
@@ -283,6 +323,22 @@
   });
   $("#articlesNav").mouseleave(function(){
       $("#articlesText").hide('slow');
+  });
+  
+  $("#marketingCoordinatorText").hide();
+  $("#marketingCoordinatorNav").mouseenter(function(){
+      $("#marketingCoordinatorText").show('slow');
+  });
+  $("#marketingCoordinatorNav").mouseleave(function(){
+      $("#marketingCoordinatorText").hide('slow');
+  });
+  
+  $("#adminText").hide();
+  $("#adminNav").mouseenter(function(){
+      $("#adminText").show('slow');
+  });
+  $("#adminNav").mouseleave(function(){
+      $("#adminText").hide('slow');
   });
   // END Navbar Animations END //
 
