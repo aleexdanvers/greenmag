@@ -2056,3 +2056,6 @@ hr.no-margin-top {
 	padding-left: 5px;
 	margin: 0px;
 }
+.navHover {
+	display: none;
+}

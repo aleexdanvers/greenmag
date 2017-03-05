@@ -43,12 +43,12 @@
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
       <a class="w3-bar-item w3-logo-button w3-theme-d4" href="home.php"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a> 
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="statsNav" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i><p class="navbarText" id="statsText">Statistics</p></a>
-      <!-- <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" href="#" title="Account Settings"><i class="fa fa-cog"></i><p class="navbarText">Statistics</p></a> -->
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="articlesNav" href="viewarticles.php" title="Account Settings"><i class="fa fa-file-text-o"></i><p class="navbarText" id="articlesText">All Articles</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="guestNav" href="guest.php" title="Guest"><i class="fa fa-user"></i><p class="navbarText" id="guestText">Guest</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingManagerNav" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingManagerText">Marketing Manager</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingCoordinatorNav" href="marketingcoordinator.php" title="Marketing Co-ordinator"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingCoordinatorText">Marketing Co-ordinator</p></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="adminNav" href="admin.php" title="Admin"><i class="fa fa-briefcase"></i><p class="navbarText" id="adminText">Admin</p></a>
-      <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="adminNav" href="admin.php" title="Admin"><i class="fa fa-cog"></i><p class="navbarText" id="adminText">Admin</p></a>
+      <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="Logout"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
@@ -183,40 +183,40 @@
   var role = <?php echo json_encode($_SESSION['Role']); ?>;
   
   if (role == 'Student') {
-    // $("#statsNav").hide();
-    $("#guestNav").hide();
-    $("#marketingManagerNav").hide();
-    // $("#articlesNav").hide();
-    $("#marketingCoordinatorNav").hide();
-    $("#adminNav").hide();
-  } else if (role == 'Guest') {
-    // $("#statsNav").hide();
+    $("#statsNav").show();
     // $("#guestNav").hide();
-    $("#marketingManagerNav").hide();
-    $("#articlesNav").hide();
-    $("#marketingCoordinatorNav").hide();
-    $("#adminNav").hide();
-  } else if (role == 'Marketing Co-ordinator') {
-    // $("#statsNav").hide();
-    $("#guestNav").hide();
-    $("#marketingManagerNav").hide();
-    $("#articlesNav").hide();
-    // $("#marketingCoordinatorNav").hide();
-    $("#adminNav").hide();
-  } else if (role == 'Marketing Manager') {
-    // $("#statsNav").hide();
-    $("#guestNav").hide();
     // $("#marketingManagerNav").hide();
-    $("#articlesNav").hide();
-    $("#marketingCoordinatorNav").hide();
-    $("#adminNav").hide();
-  } else if (role == 'Admin') {
-    // $("#statsNav").hide();
-    $("#guestNav").hide();
-    $("#marketingManagerNav").hide();
-    $("#articlesNav").hide();
-    $("#marketingCoordinatorNav").hide();
+    $("#articlesNav").show();
+    // $("#marketingCoordinatorNav").hide();
     // $("#adminNav").hide();
+  } else if (role == 'Guest') {
+    $("#statsNav").show();
+    $("#guestNav").show();
+    // $("#marketingManagerNav").hide();
+    // $("#articlesNav").hide();
+    // $("#marketingCoordinatorNav").hide();
+    // $("#adminNav").hide();
+  } else if (role == 'Marketing Co-ordinator') {
+    $("#statsNav").show();
+    // $("#guestNav").hide();
+    // $("#marketingManagerNav").hide();
+    // $("#articlesNav").hide();
+    $("#marketingCoordinatorNav").show();
+    // $("#adminNav").hide();
+  } else if (role == 'Marketing Manager') {
+    $("#statsNav").show();
+    // $("#guestNav").hide();
+    $("#marketingManagerNav").show();
+    // $("#articlesNav").hide();
+    // $("#marketingCoordinatorNav").hide();
+    // $("#adminNav").hide();
+  } else if (role == 'Admin') {
+    $("#statsNav").show();
+    // $("#guestNav").hide();
+    // $("#marketingManagerNav").hide();
+    // $("#articlesNav").hide();
+    // $("#marketingCoordinatorNav").hide();
+    $("#adminNav").show();
   }
   // START Navbar Animations START //
   $("#statsText").hide();

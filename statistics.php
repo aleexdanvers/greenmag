@@ -38,7 +38,7 @@
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="guestNav" href="guest.php" title="Guest"><i class="fa fa-user"></i><p class="navbarText" id="guestText">Guest</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingManagerNav" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingManagerText">Marketing Manager</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingCoordinatorNav" href="marketingcoordinator.php" title="Marketing Co-ordinator"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingCoordinatorText">Marketing Co-ordinator</p></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="adminNav" href="admin.php" title="Admin"><i class="fa fa-briefcase"></i><p class="navbarText" id="adminText">Admin</p></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="adminNav" href="admin.php" title="Admin"><i class="fa fa-cog"></i><p class="navbarText" id="adminText">Admin</p></a>
       <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="Logout"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
@@ -257,40 +257,40 @@
   var role = <?php echo json_encode($_SESSION['Role']); ?>;
   
   if (role == 'Student') {
-    // $("#statsNav").hide();
-    $("#guestNav").hide();
-    $("#marketingManagerNav").hide();
-    // $("#articlesNav").hide();
-    $("#marketingCoordinatorNav").hide();
-    $("#adminNav").hide();
-  } else if (role == 'Guest') {
-    // $("#statsNav").hide();
+    $("#statsNav").show();
     // $("#guestNav").hide();
-    $("#marketingManagerNav").hide();
-    $("#articlesNav").hide();
-    $("#marketingCoordinatorNav").hide();
-    $("#adminNav").hide();
-  } else if (role == 'Marketing Co-ordinator') {
-    // $("#statsNav").hide();
-    $("#guestNav").hide();
-    $("#marketingManagerNav").hide();
-    $("#articlesNav").hide();
-    // $("#marketingCoordinatorNav").hide();
-    $("#adminNav").hide();
-  } else if (role == 'Marketing Manager') {
-    // $("#statsNav").hide();
-    $("#guestNav").hide();
     // $("#marketingManagerNav").hide();
-    $("#articlesNav").hide();
-    $("#marketingCoordinatorNav").hide();
-    $("#adminNav").hide();
-  } else if (role == 'Admin') {
-    // $("#statsNav").hide();
-    $("#guestNav").hide();
-    $("#marketingManagerNav").hide();
-    $("#articlesNav").hide();
-    $("#marketingCoordinatorNav").hide();
+    $("#articlesNav").show();
+    // $("#marketingCoordinatorNav").hide();
     // $("#adminNav").hide();
+  } else if (role == 'Guest') {
+    $("#statsNav").show();
+    $("#guestNav").show();
+    // $("#marketingManagerNav").hide();
+    // $("#articlesNav").hide();
+    // $("#marketingCoordinatorNav").hide();
+    // $("#adminNav").hide();
+  } else if (role == 'Marketing Co-ordinator') {
+    $("#statsNav").show();
+    // $("#guestNav").hide();
+    // $("#marketingManagerNav").hide();
+    // $("#articlesNav").hide();
+    $("#marketingCoordinatorNav").show();
+    // $("#adminNav").hide();
+  } else if (role == 'Marketing Manager') {
+    $("#statsNav").show();
+    // $("#guestNav").hide();
+    $("#marketingManagerNav").show();
+    // $("#articlesNav").hide();
+    // $("#marketingCoordinatorNav").hide();
+    // $("#adminNav").hide();
+  } else if (role == 'Admin') {
+    $("#statsNav").show();
+    // $("#guestNav").hide();
+    // $("#marketingManagerNav").hide();
+    // $("#articlesNav").hide();
+    // $("#marketingCoordinatorNav").hide();
+    $("#adminNav").show();
   }
   // START Navbar Animations START //
   $("#statsText").hide();
