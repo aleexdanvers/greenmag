@@ -55,7 +55,7 @@
                             <div class="form-bottom">
                                 <form action="login.php" class="login-form" method="post" role="form">
                                     <div class="form-group">
-                                        <input class="form-email form-control" id="login-email" name="login-email" placeholder="Email Address..." required="" type="text">
+                                        <input class="form-email form-control" id="login-email" name="login-email" placeholder="Email Address..." required="" type="email">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-password form-control" id="login-password" name="login-password" placeholder="Password..." required="" type="password">
@@ -80,7 +80,7 @@
                             <div class="form-bottom">
                                 <form action="register.php" class="registration-form" method="post" role="form">
                                     <div class="form-group">
-                                        <input class="form-email form-control" id="register-email" name="register-email" placeholder="Email Address" required="" type="text">
+                                        <input class="form-email form-control" id="register-email" name="register-email" placeholder="Email Address" required="" type="email">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-password form-control" id="register-password" name="register-password" placeholder="Password" required="" type="password">
@@ -106,7 +106,7 @@
                                                 Faculty of Engineering & Science
                                             </option>
                                         </select>
-                                    </div><button class="btn" onclick="validatePassword()" type="submit">Sign me up!</button>
+                                    </div><button class="btn" onclick="registerValidation()" type="submit">Sign me up!</button>
                                     <h4 id="incorrectEmailRegister" style="display:none;padding-top:5px !important;color:#ff3333;font-size: 14px;"><br>
                                     <i aria-hidden="true" class="fa fa-times"></i> Username already exists!</h4>
                                 </form>
@@ -125,6 +125,7 @@
     var failed_register = <?php echo json_encode($_SESSION["failed_register"]); ?>;
     var incorrectPasswordLogin = document.getElementById("incorrectPasswordLogin");
     var incorrectEmailRegister = document.getElementById("incorrectEmailRegister");
+    var registerEmail = document.getElementById("register-email");
     var registerpassword = document.getElementById("register-password");
     var registerpasswordconfirm = document.getElementById("register-password-confirm");
     
@@ -163,6 +164,14 @@
       }
     }
 
+    function validateRegisterEmail() {
+      if (/[A-Za-z]*[0-9]*[A-Za-z]?@greenwich.ac.uk$/.test(registerEmail.value)) {
+        registerEmail.setCustomValidity('');
+      } else {
+        registerEmail.setCustomValidity("Must be @greenwich.ac.uk");
+      }
+    }
+
     function myFunction() { 
      if(navigator.userAgent.indexOf("Opera") != -1 || navigator.userAgent.indexOf('OPR') != -1 ) 
     {
@@ -187,6 +196,11 @@
     else{
     document.getElementById("selectedbrowser").value = "Other";
     }
+    }
+
+    function registerValidation() {
+      validateRegisterEmail();
+      validatePassword();
     }
 
     myFunction();
