@@ -5,11 +5,11 @@
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
   }
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Marketing Manager Page';";
+  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Guest Page';";
   $resultpageview = mysqli_query($con, $pageviewquery);
   $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
   $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Marketing Manager Page';";
+  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Guest Page';";
   $updatePageView = mysqli_query($con, $updatePageViewQuery);
 ?>
 <!DOCTYPE html>
@@ -57,46 +57,21 @@
           <div class="w3-col m12">
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container">
-                <h4 class="w3-center">Marketing Manager</h4>
-                <p class="w3-center"><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
-                <p style="text-align: center;">All Faculties</p>
-                <p id="showingp" style="text-align: center;"></p>
-                <button style="display:block; margin:0 auto;" class="w3-btn w3-theme" onclick="location.href='zip.php'" type="button"><i class="fa fa-download"></i> &nbsp;Download ZIP</button><br>
+                <!-- <h4 class="w3-center">Articles</h4> -->
+                <p style="text-align: center;">Here you can view all approved articles submitted to the <strong><?php echo $_SESSION['Faculty']; ?></strong> faculty.</p>
+                <?php
+                $articleQuery  = "SELECT Article.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID WHERE User.FacultyID = " . $_SESSION["FacultyID"] . " AND Article.StatusID = 1;";
+                $result = mysqli_query($con, $articleQuery); ?>
               </div>
             </div>
           </div>
-        </div><br>
-            <div class="w3-container">
-            <button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo5')"><i class="fa fa-globe fa-fw w3-margin-right"></i> All Approved Articles</button>
-            <div class="w3-hide w3-container lightbackground" id="Demo5">
-              <p class="articlecounttext"></p><button onclick="sortingFunction(5)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button>
-              <br>
-              <br>
-            </div>
-            <button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo1')"><i class="fa fa-home fa-fw w3-margin-right"></i> Architecture, Computing & Humanities Articles</button>
-            <div class="w3-hide w3-container lightbackground" id="Demo1">
-              <p class="articlecounttext"></p><button onclick="sortingFunction(1)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button><br>
-              <br>
-            </div><button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo2')"><i class="fa fa-home fa-fw w3-margin-right"></i> Business School Articles</button>
-            <div class="w3-hide w3-container lightbackground" id="Demo2">
-              <p class="articlecounttext"></p><button onclick="sortingFunction(2)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button>
-              <br>
-              <br>
-            </div><button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo3')"><i class="fa fa-home fa-fw w3-margin-right"></i> Education & Health Articles</button>
-            <div class="w3-hide w3-container lightbackground" id="Demo3">
-              <p class="articlecounttext"></p><button onclick="sortingFunction(3)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button><br>
-              <br>
-            </div>
-            <button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo4')"><i class="fa fa-home fa-fw w3-margin-right"></i> Engineering & Science Articles</button>
-            <div class="w3-hide w3-container lightbackground" id="Demo4">
-              <p class="articlecounttext"></p><button onclick="sortingFunction(4)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button><br>
-              <br>
-            </div>
-          </div>
+        </div>
+        <div class="w3-col m3">
+        <!-- Profile -->
+        <br>
+      </div>
         <!-- Generate Content -->
         <?php
-            $articleQuery  = "SELECT Article.*, Faculty.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID WHERE Article.StatusID = 1 ORDER BY Faculty.FacultyName ASC;";
-            $result = mysqli_query($con, $articleQuery);
             while($row = mysqli_fetch_array($result)){
 
               $dateAgo = date_create($row['DateSubmitted']);
@@ -121,12 +96,11 @@
                 $timeAgo = $days . " " . $stringAgo;
               }
 
-              echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent statusAll status" . $row['FacultyID'] . "'><br>";
+              echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin'><br>";
               echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='images/avatars/" . $row['AvatarID'] . ".png' style='width:60px'>";
               echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
               echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . "</h4>";
-              echo "<p style='margin:0 !important;color:#999 !important;font-style: italic;'>" . $row['Username'] . "</p><br>";
-              echo "<p>" . $row['FacultyName'] . ":</p>";
+              echo "<p style='margin:0 !important;color:#999 !important;font-style: italic;'>" . $row['Username'] . "</p>";
               echo "<p>" . $row['ArticleDescription'] . "</p>";
               echo "<div class='w3-row-padding' style='margin:0 -16px'>";
               $db_images = $row['ImagePath'];
@@ -146,7 +120,7 @@
               }
 
               echo "</div>";
-              echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
+              // echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
                 echo "</div>";
             }
             if (mysqli_num_rows($result) === 0){
@@ -175,7 +149,7 @@
   $("#statsNav").mouseleave(function(){
       $("#statsText").hide('slow');
   });
-  
+
   $("#guestText").hide();
   $("#guestNav").mouseenter(function(){
       $("#guestText").show('slow');
@@ -213,124 +187,6 @@
          x.previousElementSibling.className.replace(" w3-theme-d1", "");
      }
   }
-
-
-  function sortingFunction(number){
-    var counter;
-    var faculty;
-    if(number == 1){
-    var elements = document.getElementsByClassName('status1');
-    
-    for (var i = 0; i < elements.length; i++){
-        elements[i].style.display = "block";
-    }
-    var elements2 = document.getElementsByClassName('status2');
-    var elements3 = document.getElementsByClassName('status3');
-    var elements4 = document.getElementsByClassName('status4');
-    for (var i = 0; i < elements2.length; i++){
-        elements2[i].style.display = "none";
-    }
-    for (var i = 0; i < elements3.length; i++){
-        elements3[i].style.display = "none";
-    }
-    for (var i = 0; i < elements4.length; i++){
-        elements4[i].style.display = "none";
-    }
-    counter = elements.length;
-    faculty = "The Architecture, Computing & Humanities Faculty";
-    }
-    else if(number == 2){
-    //All
-    var elements = document.getElementsByClassName('status2');
-    
-    for (var i = 0; i < elements.length; i++){
-        elements[i].style.display = "block";
-    }
-    var elements2 = document.getElementsByClassName('status1');
-    var elements3 = document.getElementsByClassName('status3');
-    var elements4 = document.getElementsByClassName('status4');
-    for (var i = 0; i < elements2.length; i++){
-        elements2[i].style.display = "none";
-    }
-    for (var i = 0; i < elements3.length; i++){
-        elements3[i].style.display = "none";
-    }
-    for (var i = 0; i < elements4.length; i++){
-        elements4[i].style.display = "none";
-    }
-    counter = elements.length;
-    faculty = "The Business School Faculty";
-    }
-    else if(number == 3){
-    //All
-    var elements = document.getElementsByClassName('status3');
-    
-    for (var i = 0; i < elements.length; i++){
-        elements[i].style.display = "block";
-    }
-    var elements2 = document.getElementsByClassName('status1');
-    var elements3 = document.getElementsByClassName('status2');
-    var elements4 = document.getElementsByClassName('status4');
-    for (var i = 0; i < elements2.length; i++){
-        elements2[i].style.display = "none";
-    }
-    for (var i = 0; i < elements3.length; i++){
-        elements3[i].style.display = "none";
-    }
-    for (var i = 0; i < elements4.length; i++){
-        elements4[i].style.display = "none";
-    }
-    counter = elements.length;
-    faculty = "The Education & Health Faculty";
-    }
-    else if(number == 4){
-    //All
-    var elements = document.getElementsByClassName('status4');
-    
-    for (var i = 0; i < elements.length; i++){
-        elements[i].style.display = "block";
-    }
-    var elements2 = document.getElementsByClassName('status1');
-    var elements3 = document.getElementsByClassName('status2');
-    var elements4 = document.getElementsByClassName('status3');
-    for (var i = 0; i < elements2.length; i++){
-        elements2[i].style.display = "none";
-    }
-    for (var i = 0; i < elements3.length; i++){
-        elements3[i].style.display = "none";
-    }
-    for (var i = 0; i < elements4.length; i++){
-        elements4[i].style.display = "none";
-    }
-    counter = elements.length;
-    faculty = "The Engineering & Science Faculty";
-    }
-    else if(number == 5){
-    //All
-    var elements = document.getElementsByClassName('status1');
-    
-    for (var i = 0; i < elements.length; i++){
-        elements[i].style.display = "block";
-    }
-    var elements2 = document.getElementsByClassName('status2');
-    var elements3 = document.getElementsByClassName('status3');
-    var elements4 = document.getElementsByClassName('status4');
-    for (var i = 0; i < elements2.length; i++){
-        elements2[i].style.display = "block";
-    }
-    for (var i = 0; i < elements3.length; i++){
-        elements3[i].style.display = "block";
-    }
-    for (var i = 0; i < elements4.length; i++){
-        elements4[i].style.display = "block";
-    }
-    counter = elements.length + elements2.length + elements3.length + elements4.length;
-    faculty = "All Faculties";
-    }
-    document.getElementById("showingp").innerHTML = "Showing " + counter + " Approved Articles<br>From " + faculty;    
-  }
-
-  sortingFunction(5);
 
   // Used to toggle the menu on smaller screens when clicking on the menu button
   function openNav() {
