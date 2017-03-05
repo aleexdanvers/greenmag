@@ -5,6 +5,12 @@
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
   }
+  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Marketing Manager Page';";
+  $resultpageview = mysqli_query($con, $pageviewquery);
+  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
+  $NewPageViews = $rowpageview['Views'] + 1;
+  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Marketing Manager Page';";
+  $updatePageView = mysqli_query($con, $updatePageViewQuery);
 ?>
 <!DOCTYPE html>
 <html>
@@ -175,8 +181,8 @@
 
   function sortingFunction(number){
     var counter;
+    var faculty;
     if(number == 1){
-    //All
     var elements = document.getElementsByClassName('status1');
     
     for (var i = 0; i < elements.length; i++){
@@ -191,10 +197,11 @@
     for (var i = 0; i < elements3.length; i++){
         elements3[i].style.display = "none";
     }
-    for (var i = 0; i < elements3.length; i++){
+    for (var i = 0; i < elements4.length; i++){
         elements4[i].style.display = "none";
     }
     counter = elements.length;
+    faculty = "The Architecture, Computing & Humanities Faculty";
     }
     else if(number == 2){
     //All
@@ -212,10 +219,11 @@
     for (var i = 0; i < elements3.length; i++){
         elements3[i].style.display = "none";
     }
-    for (var i = 0; i < elements3.length; i++){
+    for (var i = 0; i < elements4.length; i++){
         elements4[i].style.display = "none";
     }
     counter = elements.length;
+    faculty = "The Business School Faculty";
     }
     else if(number == 3){
     //All
@@ -237,6 +245,7 @@
         elements4[i].style.display = "none";
     }
     counter = elements.length;
+    faculty = "The Education & Health Faculty";
     }
     else if(number == 4){
     //All
@@ -258,6 +267,7 @@
         elements4[i].style.display = "none";
     }
     counter = elements.length;
+    faculty = "The Engineering & Science Faculty";
     }
     else if(number == 5){
     //All
@@ -279,8 +289,9 @@
         elements4[i].style.display = "block";
     }
     counter = elements.length + elements2.length + elements3.length + elements4.length;
+    faculty = "All Faculties";
     }
-    document.getElementById("showingp").innerHTML = "Showing " + counter + " Approved Articles";    
+    document.getElementById("showingp").innerHTML = "Showing " + counter + " Approved Articles<br>From " + faculty;    
   }
 
   sortingFunction(5);

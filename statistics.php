@@ -5,6 +5,12 @@
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
   }
+  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Statistics Page';";
+  $resultpageview = mysqli_query($con, $pageviewquery);
+  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
+  $NewPageViews = $rowpageview['Views'] + 1;
+  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Statistics Page';";
+  $updatePageView = mysqli_query($con, $updatePageViewQuery);
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,7 +56,7 @@
           <div class="w3-col m12">
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
-                <h4 class="">Statistics</h4><br>
+                <h4 class="">Statistics</h4>
                 <table class="w3-table">
                   <tr valign="middle">
                     <th>Faculty</th>
@@ -88,11 +94,11 @@
                     <td style="text-align: center;">4</td>
                   </tr>
                 </table>
-                <p>* Number of contributions within each Faculty for each academic year</p><br>
+                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of contributions within each Faculty for each academic year</p><br>
 
                 <div id="piechart" style="width: 50%; height: 300px;margin:auto;"></div>
                 <div id="piechart2" style="width: 50%; height: 300px;margin:auto;"></div>
-                <p>* Percentage of contributions by each Faculty for any academic year</p><br>
+                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Percentage of contributions by each Faculty for any academic year</p><br>
                 <script type="text/javascript">
                      google.charts.load('current', {'packages':['corechart']});
                      google.charts.setOnLoadCallback(drawChart);
@@ -154,7 +160,7 @@
                     <td style="text-align: center;">3</td>
                   </tr>
                 </table>
-                <p>* Number of contributors within each Faculty for each academic year</p><br>
+                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of contributors within each Faculty for each academic year</p><br>
               </div>
             </div>
           </div>
@@ -186,7 +192,7 @@
 
                 ?>
                 </ul>
-                <p>* Number of successful logins to the system by a single user</p>
+                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of successful logins to the system by a single user</p>
               </div>
             </div><br>
             <div class="w3-card-2 w3-round w3-333">
@@ -210,7 +216,7 @@
                  ?>
                 
               </ul>
-              <p>* Shows the various browsers that have been used by users</p>
+              <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Shows the various browsers that have been used by users</p>
               </div>
             </div><br>
             <div class="w3-card-2 w3-round w3-333">
@@ -235,7 +241,7 @@
 
                 ?>
                 </ul>
-                <p>* Number of views on a specific page by users</p>
+                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of views on a specific page by users</p>
               </div>
             </div>
           </div>
