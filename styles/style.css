@@ -2022,14 +2022,37 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 .w3-hover-theme:hover {color:#fff !important; background-color:#2196f3 !important}
 .w3-hover-text-theme:hover {color:#2196f3 !important}
 .w3-hover-border-theme:hover {border-color:#2196f3 !important}
-.commentText:before{
-	content: '>      '
-}
 .commentText{
-	padding-left: 20px;
+	margin-left: 70px;
+	margin-top: 5px;
+	color: #fff;
+	font-style: italic;
 }
 .commentTextOuter{
-	padding: 15px;
-	background-color: #000;
-	margin: 5px 0;
+	padding: 5px;
+	background-color: #456;
+	margin: 15px 0;
+}
+hr.no-margin-top {
+	border-top: 3px dashed #222;
+	margin-bottom: 13px;
+	margin-top: 0;
+}
+.hiddenComments {
+	margin-bottom: 20px;
+}
+.floatDaPies-left {
+	float: left;
+}
+.floatDaPies-right {
+	float: right;
+}
+.marginDaPies {
+	margin: auto;
+}
+.navbarText {
+	/*display: inline;*/
+	float: right;
+	padding-left: 5px;
+	margin: 0px;
 }

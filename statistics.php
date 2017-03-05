@@ -33,10 +33,10 @@
     <div class="w3-bar w3-theme-d2 w3-left-align w3-medium">
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
       <a class="w3-bar-item w3-logo-button w3-theme-d4" href="home.php"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a> 
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i></a> 
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="Account Settings"><i class="fa fa-cog"></i></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="guest.php" title="Guest"><i class="fa fa-user"></i></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="statsNav" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i><p class="navbarText" id="statsText">Statistics</p></a>
+      <!-- <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" href="#" title="Account Settings"><i class="fa fa-cog"></i><p class="navbarText">Statistics</p></a> -->
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="guestNav" href="guest.php" title="Guest"><i class="fa fa-user"></i><p class="navbarText" id="guestText">Guest</p></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingNav" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingText">Marketing Manager</p></a>
       <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
@@ -96,9 +96,9 @@
                 </table>
                 <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of contributions within each Faculty for each academic year</p><br>
 
-                <div id="piechart" style="width: 50%; height: 300px;margin:auto;"></div>
-                <div id="piechart2" style="width: 50%; height: 300px;margin:auto;"></div>
                 <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Percentage of contributions by each Faculty for any academic year</p><br>
+                <div id="piechart" style="width: 50%; height: 300px;"></div>
+                <div id="piechart2" style="width: 50%; height: 300px;"></div>
                 <script type="text/javascript">
                      google.charts.load('current', {'packages':['corechart']});
                      google.charts.setOnLoadCallback(drawChart);
@@ -250,6 +250,32 @@
     </div><!-- End Page Container -->
   </div><br>
   <script>
+  // START Navbar Animations START //
+  $("#statsText").hide();
+  $("#statsNav").mouseenter(function(){
+      $("#statsText").show('slow');
+  });
+  $("#statsNav").mouseleave(function(){
+      $("#statsText").hide('slow');
+  });
+  
+  $("#guestText").hide();
+  $("#guestNav").mouseenter(function(){
+      $("#guestText").show('slow');
+  });
+  $("#guestNav").mouseleave(function(){
+      $("#guestText").hide('slow');
+  });
+
+  $("#marketingText").hide();
+  $("#marketingNav").mouseenter(function(){
+      $("#marketingText").show('slow');
+  });
+  $("#marketingNav").mouseleave(function(){
+      $("#marketingText").hide('slow');
+  });
+  // END Navbar Animations END //
+
   if ($(window).width() <= 600) {
     $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
     $('#uploadArticlesBox').removeClass('w3-row-padding');
@@ -261,9 +287,19 @@
     $('#rejectButton').addClass('w3-margin-bottom');
     $('.modal-content').css('width', '90%');
     $('#logo').css('height','34px');
+    $('#piechart').removeClass('floatDaPies-left');
+    $('#piechart2').removeClass('floatDaPies-right');
+    $('#piechart').addClass('marginDaPies');
+    $('#piechart2').addClass('marginDaPies');
+  } else {
+    $('#piechart').addClass('floatDaPies-left');
+    $('#piechart2').addClass('floatDaPies-right');
+    $('#piechart').removeClass('marginDaPies');
+    $('#piechart2').removeClass('marginDaPies');
   }
 
   $(window).resize(function() {
+    location.reload();
     if ($(window).width() <= 600) {
       $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
       $('#uploadArticlesBox').removeClass('w3-row-padding');
@@ -275,6 +311,10 @@
       $('#rejectButton').addClass('w3-margin-bottom');
       $('.modal-content').css('width', '90%');
       $('#logo').css('height','34px');
+      $('#piechart').removeClass('floatDaPies-left');
+      $('#piechart2').removeClass('floatDaPies-right');
+      $('#piechart').addClass('marginDaPies');
+      $('#piechart2').addClass('marginDaPies');
     } else {
       $('#uploadArticlesBox').removeClass('w3-row-padding-bottom');
       $('#uploadArticlesBox').addClass('w3-row-padding');
@@ -286,6 +326,10 @@
       $('#rejectButton').removeClass('w3-margin-bottom');
       $('.modal-content').css('width', '40%');
       $('#logo').css('height','29px');
+      $('#piechart').addClass('floatDaPies-left');
+      $('#piechart2').addClass('floatDaPies-right');
+      $('#piechart').removeClass('marginDaPies');
+      $('#piechart2').removeClass('marginDaPies');
     }
   });
   

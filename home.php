@@ -31,10 +31,10 @@
     <div class="w3-bar w3-theme-d2 w3-left-align w3-medium">
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
       <a class="w3-bar-item w3-logo-button w3-theme-d4" href="home.php"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a> 
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="#" title="Account Settings"><i class="fa fa-cog"></i></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="guest.php" title="Guest"><i class="fa fa-user"></i></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="statsNav" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i><p class="navbarText" id="statsText">Statistics</p></a>
+      <!-- <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" href="#" title="Account Settings"><i class="fa fa-cog"></i><p class="navbarText">Statistics</p></a> -->
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="guestNav" href="guest.php" title="Guest"><i class="fa fa-user"></i><p class="navbarText" id="guestText">Guest</p></a>
+      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingNav" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingText">Marketing Manager</p></a>
       <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
@@ -183,16 +183,13 @@
               echo "<button class='w3-btn w3-theme w3-margin-bottom' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button>";
 
               if ($row['Comment'] != ""){
-                echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'>";
-                echo "<img style='float:left;margin-right:5px;' src='images/guestAvatar.png' height='20px'>";
-                echo "<div class='articleComment'>";
-                echo "<span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator </span>";
-                echo "<div class='commentTextOuter'>";
-                echo "<p class='commentText'>";
-                echo $row['Comment'];
-                echo "</p>";
-                echo "</div>";
-                echo "</div>";
+                echo "<div class='hiddenComments hiddenComments" . $row['ArticleID'] . "' style='display:none;'>";
+                  echo "<hr class='no-margin-top'>";
+                  echo "<img style='float:left;margin-right:5px;' src='images/guestAvatar.png' height='50px'>";
+                  echo "<span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator:</span>";
+                  echo "<p class='commentText' style='margin-top:0 !important'>";
+                    echo $row['Comment'];
+                  echo "</p>";
                 echo "</div>";
               }
               else{
@@ -269,6 +266,32 @@
     </div>
   </div>
   <script>
+  // START Navbar Animations START //
+  $("#statsText").hide();
+  $("#statsNav").mouseenter(function(){
+      $("#statsText").show('slow');
+  });
+  $("#statsNav").mouseleave(function(){
+      $("#statsText").hide('slow');
+  });
+  
+  $("#guestText").hide();
+  $("#guestNav").mouseenter(function(){
+      $("#guestText").show('slow');
+  });
+  $("#guestNav").mouseleave(function(){
+      $("#guestText").hide('slow');
+  });
+
+  $("#marketingText").hide();
+  $("#marketingNav").mouseenter(function(){
+      $("#marketingText").show('slow');
+  });
+  $("#marketingNav").mouseleave(function(){
+      $("#marketingText").hide('slow');
+  });
+  // END Navbar Animations END //
+  
   if ($(window).width() <= 600) {
     $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
     $('#uploadArticlesBox').removeClass('w3-row-padding');
