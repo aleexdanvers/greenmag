@@ -69,11 +69,11 @@ progress, progress[role] {
 }
 
 .skill-3::-webkit-progress-value {
-  background: #ff6b6b;
+  background: #ff4d4d;
 }
 
 .skill-3::-moz-progress-bar {
-  background: #ff6b6b;
+  background: #ff4d4d;
 }
 
 @-webkit-keyframes bar-fill {
@@ -223,6 +223,7 @@ a{
 }
 a:active,a:hover{
 	outline-width:0
+	cursor: pointer;
 }
 abbr[title]{
 	border-bottom:none;
@@ -459,6 +460,9 @@ svg > g > g:last-child { pointer-events: none }
 .w3-btn:hover,.w3-btn-block:hover,.w3-btn-floating:hover,.w3-btn-floating-large:hover{
 	box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
 }
+.google-visualization-tooltip {
+background-color: #000000 !important;
+}
 .w3-button{
 	color:#000;
 	background-color:#f1f1f1;
@@ -467,9 +471,11 @@ svg > g > g:last-child { pointer-events: none }
 .w3-button:hover{
 	color:#000!important;
 	background-color:#ccc!important
+	cursor: pointer;
 }
 .w3-logo-button:hover,.w3-logout-button:hover {
 	color: #000!important;
+	cursor: pointer;
 }
 .w3-logout-button {
 	text-decoration: none;
@@ -2016,3 +2022,14 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 .w3-hover-theme:hover {color:#fff !important; background-color:#2196f3 !important}
 .w3-hover-text-theme:hover {color:#2196f3 !important}
 .w3-hover-border-theme:hover {border-color:#2196f3 !important}
+.commentText:before{
+	content: '>      '
+}
+.commentText{
+	padding-left: 20px;
+}
+.commentTextOuter{
+	padding: 15px;
+	background-color: #000;
+	margin: 5px 0;
+}

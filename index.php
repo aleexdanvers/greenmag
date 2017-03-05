@@ -7,6 +7,7 @@
 <html>
 <head>
     <title>Greenmag</title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="styles/style.css" rel="stylesheet">
@@ -136,7 +137,7 @@
 
     function LoginFunction (){
         if(user_logged_in == true){
-            window.location.replace("http://www.greenmag.co.uk/home.php");
+            window.location.replace("home.php");
         }
         else if(failed_login == true){
             incorrectPasswordLogin.style.display = "block";

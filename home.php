@@ -2,11 +2,15 @@
   session_start();
 
   include 'includes/dbConnection.php';
+  if($_SESSION["user_logged_in"] == false){
+    header('Location: logout.php');
+  }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <title>Greenmag</title>
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="styles/style.css" rel="stylesheet">
@@ -173,7 +177,17 @@
               echo "<button class='w3-btn w3-theme w3-margin-bottom' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button>";
 
               if ($row['Comment'] != ""){
-                echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'><img style='float:left;margin-right:5px;' src='images/guestAvatar.png' height='20px'><p><span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator </span><br>" . $row['Comment'] . "</p></div>";
+                echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'>";
+                echo "<img style='float:left;margin-right:5px;' src='images/guestAvatar.png' height='20px'>";
+                echo "<div class='articleComment'>";
+                echo "<span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator </span>";
+                echo "<div class='commentTextOuter'>";
+                echo "<p class='commentText'>";
+                echo $row['Comment'];
+                echo "</p>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
               }
               else{
                 echo "<div class='hiddenComments" . $row['ArticleID'] . "' style='display:none;'><p>No Comments</p></div>";

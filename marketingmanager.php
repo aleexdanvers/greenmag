@@ -2,11 +2,15 @@
   session_start();
 
   include 'includes/dbConnection.php';
+  if($_SESSION["user_logged_in"] == false){
+    header('Location: logout.php');
+  }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <title>Greenmag</title>
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="styles/style.css" rel="stylesheet">
