@@ -77,6 +77,7 @@
               <div class="w3-container">
                 <h4 class="w3-center">Marketing Co-Ordinator</h4>
                 <p class="w3-center"><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
+                <p style="text-align: center;"><?php echo $_SESSION["LastLoggedIn"]; ?></p>
                 <p style="text-align: center;"><?php echo $_SESSION["Faculty"]; ?></p>
                 <p id="showingp" style="text-align: center;"></p>
                 </div>

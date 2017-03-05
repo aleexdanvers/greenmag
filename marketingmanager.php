@@ -72,7 +72,7 @@
               <div class="w3-container">
                 <h4 class="w3-center">Marketing Manager</h4>
                 <p class="w3-center"><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
-                <p style="text-align: center;">All Faculties</p>
+                <p style="text-align: center;"><?php echo $_SESSION["LastLoggedIn"]; ?></p>
                 <p id="showingp" style="text-align: center;"></p>
                 <button style="display:block; margin:0 auto;" class="w3-btn w3-theme" onclick="location.href='zip.php'" type="button"><i class="fa fa-download"></i> &nbsp;Download ZIP</button><br>
               </div>
@@ -305,7 +305,7 @@
         elements4[i].style.display = "none";
     }
     counter = elements.length;
-    faculty = "The Architecture, Computing & Humanities Faculty";
+    faculty = "Architecture, Computing & Humanities Faculty";
     }
     else if(number == 2){
     //All
@@ -327,7 +327,7 @@
         elements4[i].style.display = "none";
     }
     counter = elements.length;
-    faculty = "The Business School Faculty";
+    faculty = "Business School Faculty";
     }
     else if(number == 3){
     //All
@@ -349,7 +349,7 @@
         elements4[i].style.display = "none";
     }
     counter = elements.length;
-    faculty = "The Education & Health Faculty";
+    faculty = "Education & Health Faculty";
     }
     else if(number == 4){
     //All
@@ -371,7 +371,7 @@
         elements4[i].style.display = "none";
     }
     counter = elements.length;
-    faculty = "The Engineering & Science Faculty";
+    faculty = "Engineering & Science Faculty";
     }
     else if(number == 5){
     //All
@@ -395,7 +395,7 @@
     counter = elements.length + elements2.length + elements3.length + elements4.length;
     faculty = "All Faculties";
     }
-    document.getElementById("showingp").innerHTML = "Showing " + counter + " Approved Articles<br>From " + faculty;    
+    document.getElementById("showingp").innerHTML = "Showing " + counter + " Approved Articles from " + faculty;    
   }
 
   sortingFunction(5);
