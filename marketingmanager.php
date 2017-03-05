@@ -32,18 +32,16 @@
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
       <a class="w3-bar-item w3-logo-button w3-theme-d4" href="home.php"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a> 
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="statsNav" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i><p class="navbarText" id="statsText">Statistics</p></a>
-      <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="articlesNav" href="viewarticles.php" title="Account Settings"><i class="fa fa-file-text-o"></i><p class="navbarText" id="articlesText">All Articles</p></a>
+      <!-- <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" href="#" title="Account Settings"><i class="fa fa-cog"></i><p class="navbarText">Statistics</p></a> -->
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="guestNav" href="guest.php" title="Guest"><i class="fa fa-user"></i><p class="navbarText" id="guestText">Guest</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingNav" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingText">Marketing Manager</p></a>
       <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
-    <a class="w3-padding-large" href="/">Home</a> 
-    <a class="w3-padding-large" href="/statistics.php">Statistics</a> 
-    <a class="w3-padding-large" href="/viewarticles.php">All Articles</a> 
-    <a class="w3-padding-large" href="/guest.php">Guest</a> 
-    <a class="w3-padding-large" href="/marketingmanager.php">Marketing Manager</a> 
+    <a class="w3-padding-large" href="#">Home</a> 
+    <a class="w3-padding-large" href="#">News</a> 
+    <a class="w3-padding-large" href="#">Account Settings</a> 
     <a class="w3-padding-large w3-theme-d4" href="logout.php">Logout</a>
   </div><!-- Page Container -->
   <div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px">
@@ -192,14 +190,6 @@
   });
   $("#marketingNav").mouseleave(function(){
       $("#marketingText").hide('slow');
-  });
-  
-  $("#articlesText").hide();
-  $("#articlesNav").mouseenter(function(){
-      $("#articlesText").show('slow');
-  });
-  $("#articlesNav").mouseleave(function(){
-      $("#articlesText").hide('slow');
   });
   // END Navbar Animations END //
 

@@ -5,11 +5,11 @@
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
   }
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Student Page';";
+  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Marketing Manager Page';";
   $resultpageview = mysqli_query($con, $pageviewquery);
   $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
   $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Student Page';";
+  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Marketing Manager Page';";
   $updatePageView = mysqli_query($con, $updatePageViewQuery);
 ?>
 <!DOCTYPE html>
@@ -46,7 +46,119 @@
     <a class="w3-padding-large" href="/marketingmanager.php">Marketing Manager</a> 
     <a class="w3-padding-large w3-theme-d4" href="logout.php">Logout</a>
   </div><!-- Page Container -->
+  <div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px">
+    <!-- The Grid -->
+    <div class="w3-row">
+      <!-- Left Column -->
+      <div class="w3-col m3">
+        <!-- Profile -->
+        <br>
+      </div><!-- Middle Column -->
+      <div class="w3-col m6">
+        <div class="w3-row-padding">
+          <div class="w3-col m12">
+            <div class="w3-card-2 w3-round w3-333">
+              <div class="w3-container">
+                <h4 class="w3-center">Marketing Co-Ordinator</h4>
+                <p class="w3-center"><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
+                <p style="text-align: center;"><?php echo $_SESSION["Faculty"]; ?></p>
+                <p id="showingp" style="text-align: center;"></p>
+                </div>
+            </div>
+          </div>
+        </div><br>
+            <div class="w3-container">
+            <button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo4')"><i class="fa fa-globe fa-fw w3-margin-right"></i> All Articles</button>
+            <div class="w3-hide w3-container lightbackground" id="Demo4">
+              <p class="articlecounttext" style="margin-top:20px !important;"></p><button onclick="sortingFunction(4)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button><br><br>
+            </div>
+            <button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo1')"><i class="fa fa-check fa-fw w3-margin-right"></i> Approved Articles</button>
+            <div class="w3-hide w3-container lightbackground" id="Demo1">
+              <p class="articlecounttext" style="margin-top:20px !important;"></p><button onclick="sortingFunction(1)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button>
+              <br>
+              <br>
+            </div><button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo2')"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Pending Articles</button>
+            <div class="w3-hide w3-container lightbackground" id="Demo2">
+              <p class="articlecounttext" style="margin-top:20px !important;"></p><button onclick="sortingFunction(2)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button><br>
+              <br>
+            </div><button class="w3-btn-block w3-theme-d2 w3-left-align" onclick="myFunction('Demo3')"><i class="fa fa-times fa-fw w3-margin-right"></i> Rejected Articles</button>
+            <div class="w3-hide w3-container lightbackground" id="Demo3">
+              <p class="articlecounttext" style="margin-top:20px !important;"></p><button onclick="sortingFunction(3)" class="w3-btn w3-theme smallbtnfont" type="button"><i class="fa fa-filter"></i> &nbsp;Filter</button><br>
+              <br>
+            </div>
+          </div>
+        <!-- Generate Content -->
+        <?php
+            $articleQuery  = "SELECT Article.*, Faculty.*, Status.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Status ON Article.StatusID = Status.StatusID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " ORDER BY Article.StatusID ASC, Article.DateSubmitted DESC;";
+            $result = mysqli_query($con, $articleQuery);
+            while($row = mysqli_fetch_array($result)){
 
+              $dateAgo = date_create($row['DateSubmitted']);
+              $dateNow = date_create(gmdate("Y-m-d H:i:s"));
+              $dateAgoUnix = date_format($dateAgo, "U");
+              $dateNowUnix = date_format($dateNow, "U");
+
+              $seconds = $dateNowUnix - $dateAgoUnix;
+
+              if ($seconds < 60) {
+                $stringAgo = ($seconds == 1) ? " second ago" : " seconds ago";
+                $timeAgo = ltrim(gmdate("s", $seconds), '0') . $stringAgo;
+              } else if ($seconds < 3600 && $seconds >= 60) {
+                $stringAgo = ($seconds >= 60 && $seconds < 120) ? " minute ago" : " minutes ago";
+                $timeAgo = ltrim(gmdate("i", $seconds), '0') . $stringAgo;
+              } else if ($seconds < 86400 && $seconds >= 3600) {
+                $stringAgo = ($seconds >= 3600 && $seconds < 7200) ? " hour ago" : " hours ago";
+                $timeAgo = ltrim(gmdate("H", $seconds), '0') . $stringAgo;
+              } else if ($seconds >= 86400) {
+                $days = floor($seconds / 86400);
+                $stringAgo = ($days == 1) ? " day ago" : " days ago";
+                $timeAgo = $days . " " . $stringAgo;
+              }
+
+              echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent statusAll status" . $row['StatusID'] . "'><br>";
+              echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='images/avatars/" . $row['AvatarID'] . ".png' style='width:60px'>";
+              echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
+              echo "<h4 style='margin-bottom:0 !important;'>" . $row['ArticleName'] . " <span style='font-size:13px;'>(" . $row['Status'] . ")</span></h4>";
+              echo "<p style='margin:0 !important;color:#999 !important;font-style: italic;'>" . $row['Username'] . "</p>";
+              echo "<p>" . $row['ArticleDescription'] . "</p>";
+              echo "<div class='w3-row-padding' style='margin:0 -16px'>";
+              $db_images = $row['ImagePath'];
+              $imagesArray = explode(";", $db_images);
+              $noOfImages = sizeof($imagesArray);
+
+              if ($noOfImages == 3) {
+                $imageClass = 'w3-third';
+              } else if ($noOfImages == 2) {
+                $imageClass = 'w3-half';
+              } else {
+                $imageClass = 'w3-full';
+              }
+
+              for ($i = 0; $i < $noOfImages; $i++) {
+                echo "<div class='" . $imageClass . "'><img class='w3-margin-bottom' src='article_images/" . $imagesArray[$i] . "' style='width:100%'></div>";
+              }
+
+              echo "</div>";
+              echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
+                echo "</div>";
+            }
+            if (mysqli_num_rows($result) === 0){
+              echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent'><br>";
+              echo "<h4 style='margin-bottom:0 !important;text-align:center;'>No Articles</h4>";
+              echo "<p style='text-align:center;'>There are currently no approved articles in your faculty!</p>";
+              echo "<div class='w3-row-padding' style='margin:0 -16px'>";
+              echo "<div class='w3-full'><img class='w3-margin-bottom' src='images/sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
+              echo "</div>";
+
+            }
+            mysqli_close($con);
+        ?>
+
+        <!-- End Middle Column -->
+      </div><!-- Right Column -->
+      </div><!-- End Grid -->
+    </div><!-- End Page Container -->
+  </div><br>
   <script>
   // START Navbar Animations START //
   $("#statsText").hide();
@@ -82,6 +194,99 @@
   });
   // END Navbar Animations END //
 
+  // Accordion
+  function myFunction(id) {
+     var x = document.getElementById(id);
+     if (x.className.indexOf("w3-show") == -1) {
+         x.className += " w3-show";
+         x.previousElementSibling.className += " w3-theme-d1";
+     } else { 
+         x.className = x.className.replace("w3-show", "");
+         x.previousElementSibling.className = 
+         x.previousElementSibling.className.replace(" w3-theme-d1", "");
+     }
+  }
+
+
+  function sortingFunction(number){
+    var counter;
+    var faculty;
+    if(number == 1){
+    var elements = document.getElementsByClassName('status1');
+    
+    for (var i = 0; i < elements.length; i++){
+        elements[i].style.display = "block";
+    }
+    var elements2 = document.getElementsByClassName('status2');
+    var elements3 = document.getElementsByClassName('status3');
+    for (var i = 0; i < elements2.length; i++){
+        elements2[i].style.display = "none";
+    }
+    for (var i = 0; i < elements3.length; i++){
+        elements3[i].style.display = "none";
+    }
+    counter = elements.length;
+    faculty = "Approved";
+    }
+    else if(number == 2){
+    //All
+    var elements = document.getElementsByClassName('status2');
+    
+    for (var i = 0; i < elements.length; i++){
+        elements[i].style.display = "block";
+    }
+    var elements2 = document.getElementsByClassName('status1');
+    var elements3 = document.getElementsByClassName('status3');
+    for (var i = 0; i < elements2.length; i++){
+        elements2[i].style.display = "none";
+    }
+    for (var i = 0; i < elements3.length; i++){
+        elements3[i].style.display = "none";
+    }
+    counter = elements.length;
+    faculty = "Pending";
+    }
+    else if(number == 3){
+    //All
+    var elements = document.getElementsByClassName('status3');
+    
+    for (var i = 0; i < elements.length; i++){
+        elements[i].style.display = "block";
+    }
+    var elements2 = document.getElementsByClassName('status1');
+    var elements3 = document.getElementsByClassName('status2');
+    for (var i = 0; i < elements2.length; i++){
+        elements2[i].style.display = "none";
+    }
+    for (var i = 0; i < elements3.length; i++){
+        elements3[i].style.display = "none";
+    }
+    counter = elements.length;
+    faculty = "Rejected";
+    }
+    else if(number == 4){
+    //All
+    var elements = document.getElementsByClassName('status1');
+    
+    for (var i = 0; i < elements.length; i++){
+        elements[i].style.display = "block";
+    }
+    var elements2 = document.getElementsByClassName('status2');
+    var elements3 = document.getElementsByClassName('status3');
+    for (var i = 0; i < elements2.length; i++){
+        elements2[i].style.display = "block";
+    }
+    for (var i = 0; i < elements3.length; i++){
+        elements3[i].style.display = "block";
+    }
+    counter = elements.length + elements2.length + elements3.length;
+    faculty = "Approved, Pending and Rejected";
+    }
+    document.getElementById("showingp").innerHTML = "Showing " + counter + " " + faculty + " Article(s)";    
+  }
+
+  sortingFunction(4);
+
   // Used to toggle the menu on smaller screens when clicking on the menu button
   function openNav() {
      var x = document.getElementById("navDemo");
@@ -91,6 +296,7 @@
          x.className = x.className.replace(" w3-show", "");
      }
   }
+
   </script>
 </body>
 </html>
