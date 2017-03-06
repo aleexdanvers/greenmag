@@ -71,28 +71,52 @@
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
                 <h4 class="">Admin</h4><br>
+                <form method="post">
+                <table>
+                  <tr>
+                    <td>Academic Year ID:</td>
+                    <td><input type="text" name="AcademicYearID" class="form-control"/></td>
+                  </tr>
+                  <tr>
+                    <td>Academic Year</td>
+                    <td><input type="text" name="AcademicYear" class="form-control"/></td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" name="submit" value="add" class="btn btn-success btn-lg"/></td>
+                  </tr>
+                </table>
                 <?php
-                echo "<table class='w3-table2'><tr valign='middle'><th>Academic Year ID</th><th style='text-align: center;'>Academic Year</th><th style='text-align: center;'></th><th style='text-align: center;'></th></tr>";
-
-                $AcademicYear  = "SELECT * FROM AcademicYear ORDER BY AcademicYearID;";
-                $result = mysqli_query($con, $AcademicYear); 
-
-                 while($row = mysqli_fetch_array($result)){
-                  echo "<tr valign='middle'>";
-                  echo "<td><input style='background-color:transparent !important;color:white !important;border:0px !important;width:100%;outline:none !important;padding:5px !important;' value='" . $row['AcademicYearID'] . "' type='number'></td>";
-                  echo "<td><input style='background-color:transparent !important;color:white !important;border:0px !important;width:100%;outline:none !important;padding:5px !important;' value='" . $row['AcademicYear'] . "' type='text'></td>";
-                  echo "<td width='5%;'><button class='w3-btn w3-theme' style='width:100%;' type='button'><i class='fa fa-pencil'></i> &nbsp;Save</button></td>";
-                  echo "<td width='5%;'><button class='w3-btn w3-theme' style='width:100%;' type='button'><i class='fa fa-times'></i> &nbsp;Delete</button></td>";
-                  echo "</tr>";
-                 }
-                  echo "<tr valign='middle'>";
-                  echo "<td><input style='background-color:transparent !important;color:white !important;border:0px !important;width:100%;outline:none !important;padding:5px !important;' placeholder ='Insert Here...' type='number'></td>";
-                  echo "<td><input style='background-color:transparent !important;color:white !important;border:0px !important;width:100%;outline:none !important;padding:5px !important;' placeholder ='Insert Here...' type='text'></td>";
-                  echo "<td width='5%;'><button class='w3-btn w3-theme' style='width:100%;' type='button'><i class='fa fa-pencil'></i> &nbsp;Save</button></td>";
-                  echo "</tr>";
-                echo "</table><br>";
-
+                if (isset($_POST['submit']))
+                  {    
+                    $AcademicYearID=$_POST['AcademicYearID'] ;
+                    $AcademicYear= $_POST['AcademicYear'] ;
+                                        
+                    mysqli_query("INSERT INTO AcademicYear(AcademicYearID,AcademicYear) VALUES ('$AcademicYearID','$AcademicYear')"); 
+                        
+                  }
                 ?>
+                </form>
+                <table border="1">
+                  
+                      <?php
+                        
+                      $result=mysqli_query("SELECT * FROM AcademicYear");
+                      
+                      while($test = mysqli_fetch_array($result))
+                      {
+                        $id = $test['AcademicYearID'];  
+                        echo "<tr align='center'>"; 
+                        echo"<td><font color='white'>" .$test['AcademicYearID']."</font></td>";
+                        echo"<td><font color='white'>" .$test['AcademicYear']."</font></td>";
+                        echo"<td> <a href ='view.php?AcademicYearID=$id'>Edit</a>";
+                        echo"<td> <a href ='del.php?AcademicYearID=$id'><center>Delete</center></a>";
+                                  
+                        echo "</tr>";
+                      }
+                      mysql_close($con);
+                      ?>
+                </table>
               </div>
             </div>
           </div>
