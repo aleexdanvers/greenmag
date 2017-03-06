@@ -93,15 +93,18 @@
 							echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin'><br>";
 							echo "<a href='/article_docs/" . $row['DocPath'] . "' class='w3-btn w3-theme' style='margin-right:10px;' download><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
 							echo "<h4 style='margin-bottom:0 !important;'>Title: </h4>";
-							echo "<input class='w3-input w3-border w3-margin-bottom2 w3-half' type='text' value='" . $row['ArticleName'] . "' name='articleName' id='articleName'>";
+							echo "<input class='w3-input w3-border w3-margin-bottom2 w3-half' type='text' value='" . $row['ArticleName'] . "' name='articleName' id='articleName' required>";
 							echo "<br><br>";
 							echo "<h4 style='margin-bottom:0 !important;'>Description: </h4>";
-							echo "<textarea rows='4' class='w3-input w3-border w3-margin-bottom2 w3-twothird' type='text' name='articleDescription' id='articleDescription'>" . $row['ArticleDescription'] . "</textarea>";
+							echo "<textarea required rows='4' class='w3-input w3-border w3-margin-bottom2 w3-twothird' type='text' name='articleDescription' id='articleDescription'>" . $row['ArticleDescription'] . "</textarea>";
 							echo "<div class='w3-row-padding'>";
 							echo "</div>";
 					    echo "<h4 style='margin-bottom:0 !important;'>Select file to upload: </h4>";
 						  echo "<input type='file' name='fileToUpload' id='fileToUpload'>";
 							echo "<br><br>";
+              if (isset($_SESSION['errorUpdate'])) {
+                echo "<p style='color:#ff3333;margin-top:0!important;margin-bottom:16px;'>" . $_SESSION['errorUpdate'] . "</p>";
+              }
 							echo "<input type='submit' class='w3-btn w3-theme w3-margin-bottom' value='Update Details' name='submit'>";
 							// echo "<button type='submit' class='w3-btn w3-theme w3-margin-bottom' id='updateChanges'>Update Details</button>";
 							echo "</div>";

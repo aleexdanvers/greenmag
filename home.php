@@ -22,6 +22,8 @@
   $NewPageViews = $rowpageview['Views'] + 1;
   $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Student Page';";
   $updatePageView = mysqli_query($con, $updatePageViewQuery);
+  
+  unset($_SESSION['errorUpdate']);
 ?>
 <!DOCTYPE html>
 <html>
