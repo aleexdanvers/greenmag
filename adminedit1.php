@@ -68,125 +68,44 @@
         <div id="uploadArticlesBox" class="w3-row-padding">
         <div class="w3-col m2"><br></div>
           <div class="w3-col m8">
-          <div class="w3-card-2 w3-round w3-333">
-            <div class="w3-container w3-padding">
-              <h4 class="w3-center">Admin</h4>
-              <p class="w3-center"><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
-            </div>
-          </div><br>
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
-                <h4>Academic Year Table</h5>
-                <table class="w3-table">
-                <tr>
-                  <th>Academic Year ID</th>
-                  <th>Academic Year</th>
-                  <th></th>
-                  <th></th>
-                </tr>
+                <h4 class="">Edit Record</h4><br>
+                <?php
+                $id =$_REQUEST['AcademicYearID'];
+
+                $result = mysqli_query($con, "SELECT * FROM AcademicYear WHERE AcademicYearID  = '$id'");
+                $test = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+                        $title= $test['AcademicYearID'] ;
+                        $author= $test['AcademicYear'] ;
+
+                if(isset($_POST['save']))
+                { 
+                  $title_save = $_POST['title'] ;
+                  $author_save = $_POST['author'] ;
+
+                  mysqli_query($con,"UPDATE AcademicYear SET AcademicYearID ='$title_save', AcademicYear ='$author_save' WHERE AcademicYearID = '$id'");
                   
-                      <?php
-                        
-                      $result=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
-                      
-                      while($test = mysqli_fetch_array($result))
-                      {
-                        $id = $test['AcademicYearID'];  
-                        echo "<tr align='center'>"; 
-                        echo"<td><font color='white'>" .$test['AcademicYearID']."</font></td>";
-                        echo"<td><font color='white'>" .$test['AcademicYear']."</font></td>";
-                        echo"<td> <a href ='adminedit1.php?AcademicYearID=$id'><center>Edit</center></a>";
-                        echo"<td> <a href ='admindel1.php?AcademicYearID=$id'><center>Delete</center></a>";
-                                  
-                        echo "</tr>";
-                      }
-                      ?>
-              </table>
-              <form action="adminadd1.php" method="post">
-              <table class="w3-table">
-                <tr>
-                  <th>Academic Year ID</th>
-                  <th>Academic Year</th>
-                  <th></th>
-                </tr>
-                  <tr>
-                    <td><input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" placeholder="Insert Content Here" type="number" name="AcademicYearID" class="form-control"/></td>
-                    <td><input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="text" placeholder="Insert Content Here" name="AcademicYear" class="form-control"/></td>
-                    <td><center><input type="submit" name="submit" value="add" class="w3-btn w3-theme"/></center></td>
-                  </tr>
-                </table>
-                </form><br>
-                </div>
-          </div><br>
-            <div class="w3-card-2 w3-round w3-333">
-              <div class="w3-container w3-padding">
-
-
-
-
-                <h4>Close Dates Table</h5>
+                  header("Location: admin.php");      
+                }
+                mysqli_close($con);
+                ?>
+                <form method="post">
                 <table class="w3-table">
-                <tr>
-                  <th>Close Dates ID</th>
-                  <th>Faculty ID</th>
-                  <th>Submission Date</th>
-                  <th>Final Submission Date</th>
-                  <th>Academic Year ID</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                <?php   
-                      $result2=mysqli_query($con, "SELECT * FROM CloseDates ORDER BY CloseDatesID");
-                      
-                      while($test2 = mysqli_fetch_array($result2))
-                      {
-                        $id2 = $test2['CloseDatesID'];  
-                        echo "<tr align='center'>"; 
-                        echo"<td><font color='white'>" .$test2['CloseDatesID']."</font></td>";
-                        echo"<td><font color='white'>" .$test2['FacultyID']."</font></td>";
-                        echo"<td><font color='white'>" .$test2['SubmissionDate']."</font></td>";
-                        echo"<td><font color='white'>" .$test2['FinalSubmissionDate']."</font></td>";
-                        echo"<td><font color='white'>" .$test2['AcademicYearID']."</font></td>";
-                        echo"<td> <a href ='adminedit2.php?CloseDatesID=$id2'><center>Edit</center></a>";
-                        echo"<td> <a href ='admindel2.php?CloseDatesID=$id2'><center>Delete</center></a>";
-                                  
-                        echo "</tr>";
-                      }
-                      ?>
-              </table>
-              <form action="adminadd2.php" method="post">
-              <table class="w3-table">
-                <tr>
-                  <th>Faculty ID</th>
-                  <th>Submission Date</th>
-                  <th>Final Submission Date</th>
-                  <th>Academic Year ID</th>
-                  <th></th>
-                </tr>
                   <tr>
-                  <td><select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select></td>
-                    <td><input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" placeholder="Insert Content Here" type="date" name="SubmissionDate" class="form-control"/></td>
-                    <td><input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" placeholder="Insert Content Here" name="FinalSubmissionDate" class="form-control"/></td>
-                    <td><select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearID">
-                    <?php
-                    $result3=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
-                    while($test3 = mysqli_fetch_array($result3))
-                      {
-                        echo "<option value='" . $test3['AcademicYearID'] . "'>" . $test3['AcademicYearID'] . "</option>";
-                      }
-                      ?>
-                      </select></td>
-                    <td><center><input type="submit" name="submit" value="add" class="w3-btn w3-theme"/></center></td>
+                    <th>Academic Year ID</th>
+                    <th>Academic Year</th>
+                    <th></th>
                   </tr>
-                </table>
-                </form><br>
+                  <tr>
+                    <td><input style="color:white;width:100%;background-color: #333; margin: 0px !important; border: 0px !important;" type="text" name="title" value="<?php echo $title ?>"/></td>
+                    <td><input style="color:white;width:100%;background-color: #333; margin: 0px !important; border: 0px !important;" type="text" name="author" value="<?php echo $author ?>"/></td>
+                    <td><center><input type="submit" name="save" value="save" class="w3-btn w3-theme"/></center></td>
+                  </tr>
+                </table></form><br>
               </div>
-            </div><br>
+            </div>
           </div>
         </div>
       </div><!-- End Middle Column -->

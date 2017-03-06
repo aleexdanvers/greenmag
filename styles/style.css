@@ -409,25 +409,6 @@ a{
     color: #fff;
 }
 
-.w3-table2,.w3-table2-all{
-	border-collapse:collapse;
-	border-spacing:0;
-	width:100%;
-	display:table;
-}
-.w3-table2 td, .w3-table2 th{
-	border: 1px solid #ff4d4d;
-	vertical-align: middle
-}
-.w3-table2 th{
-	background-color: #ff4d4d;
-	font-weight: normal !important;
-}
-.w3-table2 tr:nth-child(even) {
-    background-color: #444;
-    color: #fff;
-}
-
 
 .w3-table-all{
 	border:1px solid #ccc
@@ -457,9 +438,6 @@ svg > g > g:last-child { pointer-events: none }
 	display:table-cell;
 	text-align:left;
 	vertical-align:middle;
-}
-.w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{
-	padding-left:16px
 }
 .lightbackground{
 	background-color: #333 !important;
