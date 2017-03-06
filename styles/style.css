@@ -408,6 +408,27 @@ a{
     background-color: #444;
     color: #fff;
 }
+
+.w3-table2,.w3-table2-all{
+	border-collapse:collapse;
+	border-spacing:0;
+	width:100%;
+	display:table;
+}
+.w3-table2 td, .w3-table2 th{
+	border: 1px solid #ff4d4d;
+	vertical-align: middle
+}
+.w3-table2 th{
+	background-color: #ff4d4d;
+	font-weight: normal !important;
+}
+.w3-table2 tr:nth-child(even) {
+    background-color: #444;
+    color: #fff;
+}
+
+
 .w3-table-all{
 	border:1px solid #ccc
 }

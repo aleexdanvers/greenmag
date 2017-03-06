@@ -165,7 +165,7 @@
             if (mysqli_num_rows($result) === 0){
               echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent'><br>";
               echo "<h4 style='margin-bottom:0 !important;text-align:center;'>No Articles</h4>";
-              echo "<p style='text-align:center;'>There are currently no approved articles in your faculty!</p>";
+              echo "<p style='text-align:center;'>There are currently no articles!</p>";
               echo "<div class='w3-row-padding' style='margin:0 -16px'>";
               echo "<div class='w3-full'><img class='w3-margin-bottom' src='images/sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
               echo "</div>";

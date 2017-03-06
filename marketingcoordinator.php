@@ -157,6 +157,7 @@
 
               echo "</div>";
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
+                  echo "<hr class='no-margin-top'>";
                 echo "</div>";
             }
             if (mysqli_num_rows($result) === 0){

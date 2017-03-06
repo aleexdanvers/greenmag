@@ -59,6 +59,45 @@
     <a class="w3-padding-large" href="/marketingmanager.php">Marketing Manager</a> 
     <a class="w3-padding-large w3-theme-d4" href="logout.php">Logout</a>
   </div><!-- Page Container -->
+  <div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px">
+    <!-- The Grid -->
+    <div class="w3-row">
+      <!-- Left Column -->
+      </div><!-- Middle Column -->
+      <div class="w3-col m12">
+        <div id="uploadArticlesBox" class="w3-row-padding">
+        <div class="w3-col m2"><br></div>
+          <div class="w3-col m8">
+            <div class="w3-card-2 w3-round w3-333">
+              <div class="w3-container w3-padding">
+                <h4 class="">Admin</h4><br>
+                <?php
+                echo "<table class='w3-table2'><tr valign='middle'><th>Academic Year ID</th><th style='text-align: center;'>Academic Year</th><th style='text-align: center;'></th><th style='text-align: center;'></th></tr>";
+
+                $AcademicYear  = "SELECT * FROM AcademicYear ORDER BY AcademicYearID;";
+                $result = mysqli_query($con, $AcademicYear); 
+
+                 while($row = mysqli_fetch_array($result)){
+                  echo "<tr valign='middle'>";
+                  echo "<td><input style='background-color:transparent !important;color:white !important;border:0px !important;width:100%;outline:none !important;padding:5px !important;' value='" . $row['AcademicYearID'] . "' type='number'></td>";
+                  echo "<td><input style='background-color:transparent !important;color:white !important;border:0px !important;width:100%;outline:none !important;padding:5px !important;' value='" . $row['AcademicYear'] . "' type='text'></td>";
+                  echo "<td width='5%;'><button class='w3-btn w3-theme' style='width:100%;' type='button'><i class='fa fa-pencil'></i> &nbsp;Save</button></td>";
+                  echo "<td width='5%;'><button class='w3-btn w3-theme' style='width:100%;' type='button'><i class='fa fa-times'></i> &nbsp;Delete</button></td>";
+                  echo "</tr>";
+                 }
+                  echo "<tr valign='middle'>";
+                  echo "<td><input style='background-color:transparent !important;color:white !important;border:0px !important;width:100%;outline:none !important;padding:5px !important;' placeholder ='Insert Here...' type='number'></td>";
+                  echo "<td><input style='background-color:transparent !important;color:white !important;border:0px !important;width:100%;outline:none !important;padding:5px !important;' placeholder ='Insert Here...' type='text'></td>";
+                  echo "<td width='5%;'><button class='w3-btn w3-theme' style='width:100%;' type='button'><i class='fa fa-pencil'></i> &nbsp;Save</button></td>";
+                  echo "</tr>";
+                echo "</table><br>";
+
+                ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Middle Column -->
 
   <script>
 	var role = <?php echo json_encode($_SESSION['Role']); ?>;
