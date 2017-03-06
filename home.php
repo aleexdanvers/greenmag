@@ -5,6 +5,7 @@
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
   }
+
   if ($_SESSION["Role"] == 'Admin') {
     header('Location: admin.php');
   } else if ($_SESSION["Role"] == 'Marketing Manager') {
@@ -193,6 +194,8 @@
               echo "</div>";
 
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
+              
+              echo "<a href='updatearticle.php?id=" . $row['ArticleID'] . "'><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-pencil'></i> &nbsp;Update</button></a>";
 
               echo "<button class='w3-btn w3-theme w3-margin-bottom' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button>";
 
