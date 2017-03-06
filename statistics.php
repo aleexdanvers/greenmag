@@ -189,7 +189,7 @@
 
                  while($row2 = mysqli_fetch_array($results)){
                   $percentage = round((($row2['LogInQuantity']/$highest)*100),2);
-                  echo "<li class='skill'><h3>" . trim($row2['Username'],"@greenwich.ac.uk") . " - " . $row2['LogInQuantity'] . "</h3>";
+                  echo "<li class='skill'><h3>" . explode("@",$row2['Username'])[0] . " - " . $row2['LogInQuantity'] . "</h3>";
                   echo "<progress class='skill-3' max='100' value='" . $percentage . "'></progress></li>";
                  }
 
