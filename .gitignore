@@ -1,4 +1,3 @@
-
 .DS_Store
 includes/
-includes/dbConnection.php
+includes/*
