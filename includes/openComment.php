@@ -13,7 +13,7 @@
 	?>
 	<div class='clearfix'></div>
 	<h4>Status:</h4>
-	<select class="w3-twothird" name="statusID" id="statusID" required>
+	<?php echo "<select class='w3-twothird' name='statusID' id='statusID" . $row['ArticleID'] . "' required>"; ?>
 			<option value="1">
 					Approved
 			</option>

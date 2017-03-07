@@ -156,18 +156,17 @@
               }
               echo "</div>";
               if ($row['Comment'] != '') {
-                echo "<hr class='no-margin-top'>";
                 echo "<h4 style='margin-top:0!important'>Current Comment:</h4>";
                 echo "<p style='margin-top:0!important'>" . $row['Comment'] . "</p>";
               }
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
               echo "<button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' onclick='openComment(" . $row['ArticleID'] . ")' type='button'><i class='fa fa-pencil'></i> &nbsp;Edit</button>";
+              echo "<script>$(document).ready(function() { $('#statusID" . $row['ArticleID'] . "').val(" . $row['StatusID'] . ") });</script>";
               include 'includes/openComment.php';
               echo "<button class='w3-btn w3-theme w3-margin-top' type='submit'><i class='fa fa-check-square-o'></i> &nbsp;Submit</button></a>";
               echo "</form>";
               echo "</div>";
               echo "</div>";
-              echo "<script>$('#statusID option[value=" . $row['StatusID'] . "]').attr('selected', 'selected');</script>";
             }
             if (mysqli_num_rows($result) === 0){
               echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent'><br>";
