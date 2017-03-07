@@ -154,11 +154,20 @@
               for ($i = 0; $i < $noOfImages; $i++) {
                 echo "<div class='" . $imageClass . "'><img class='w3-margin-bottom' src='article_images/" . $imagesArray[$i] . "' style='width:100%'></div>";
               }
-
               echo "</div>";
+              if ($row['Comment'] != '') {
+                echo "<hr class='no-margin-top'>";
+                echo "<h4 style='margin-top:0!important'>Current Comment:</h4>";
+                echo "<p style='margin-top:0!important'>" . $row['Comment'] . "</p>";
+              }
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
-                  echo "<hr class='no-margin-top'>";
-                echo "</div>";
+              echo "<button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' onclick='openComment(" . $row['ArticleID'] . ")' type='button'><i class='fa fa-pencil'></i> &nbsp;Edit</button>";
+              include 'includes/openComment.php';
+              echo "<button class='w3-btn w3-theme w3-margin-top' type='submit'><i class='fa fa-check-square-o'></i> &nbsp;Submit</button></a>";
+              echo "</form>";
+              echo "</div>";
+              echo "</div>";
+              echo "<script>$('#statusID option[value=" . $row['StatusID'] . "]').attr('selected', 'selected');</script>";
             }
             if (mysqli_num_rows($result) === 0){
               echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent'><br>";
@@ -167,11 +176,9 @@
               echo "<div class='w3-row-padding' style='margin:0 -16px'>";
               echo "<div class='w3-full'><img class='w3-margin-bottom' src='images/sademoji.png' style='height:150px;display:block;margin:0 auto;'></div></div>";
               echo "</div>";
-
             }
             mysqli_close($con);
         ?>
-
         <!-- End Middle Column -->
       </div><!-- Right Column -->
       </div><!-- End Grid -->
@@ -182,38 +189,18 @@
   
   if (role == 'Student') {
     $("#statsNav").show();
-    // $("#guestNav").hide();
-    // $("#marketingManagerNav").hide();
     $("#articlesNav").show();
-    // $("#marketingCoordinatorNav").hide();
-    // $("#adminNav").hide();
   } else if (role == 'Guest') {
     $("#statsNav").show();
     $("#guestNav").show();
-    // $("#marketingManagerNav").hide();
-    // $("#articlesNav").hide();
-    // $("#marketingCoordinatorNav").hide();
-    // $("#adminNav").hide();
   } else if (role == 'Marketing Co-ordinator') {
     $("#statsNav").show();
-    // $("#guestNav").hide();
-    // $("#marketingManagerNav").hide();
-    // $("#articlesNav").hide();
     $("#marketingCoordinatorNav").show();
-    // $("#adminNav").hide();
   } else if (role == 'Marketing Manager') {
     $("#statsNav").show();
-    // $("#guestNav").hide();
     $("#marketingManagerNav").show();
-    // $("#articlesNav").hide();
-    // $("#marketingCoordinatorNav").hide();
-    // $("#adminNav").hide();
   } else if (role == 'Admin') {
     $("#statsNav").show();
-    // $("#guestNav").hide();
-    // $("#marketingManagerNav").hide();
-    // $("#articlesNav").hide();
-    // $("#marketingCoordinatorNav").hide();
     $("#adminNav").show();
   }
   // START Navbar Animations START //
@@ -369,6 +356,15 @@
      }
   }
 
+  function openComment(commentID) {
+    var id = 'openCommentMarketing' + commentID;
+    var comment = $('#'+id);
+    if (comment.css('display') != 'block') {
+      $('#'+id).show('fast');
+    } else {
+      $('#'+id).hide('fast');
+    }
+  }
   </script>
 </body>
 </html>

@@ -2058,3 +2058,9 @@ hr.no-margin-top {
 .navHover {
 	display: none;
 }
+.clearfix {
+	clear: both;
+}
+.openCommentMarketing {
+	display: none;
+}
