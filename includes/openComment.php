@@ -2,7 +2,7 @@
 	echo "<div id='openCommentMarketing" . $row['ArticleID'] . "' class='w3-margin-bottom openCommentMarketing' style='margin-top:10px'>";
 ?>
 	<hr class='no-margin-top'>
-	<form method="post" action="updateComment.php">
+	<form method="post" action="updatecomment.php">
 	<h4>Comment:</h4>
 	<?php 
 		if ($row['Comment'] == '') {
