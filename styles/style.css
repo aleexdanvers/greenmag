@@ -1078,7 +1078,7 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 		width:100%
 }
 }
-@media (max-width:768px){
+@media (max-width:830px){
 	.w3-modal-content{
 		width:500px
 }
@@ -2075,11 +2075,16 @@ hr.no-margin-top {
 .openCommentMarketing {
 	display: none;
 }
-@media (min-width:601px){
+@media (min-width:830px){
 	.w3-padding-left-5 {
 		padding-left: 5px;
 	}
 	.w3-padding-right-5 {
 		padding-right: 5px;
+	}
+}
+@media (max-width:830px) and (min-width:601px) {
+	.w3-tablet-width {
+		width: 500px;
 	}
 }

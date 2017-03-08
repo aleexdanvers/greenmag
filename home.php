@@ -243,7 +243,7 @@
         <div class="w3-card-2 w3-round w3-333 w3-center">
           <div class="w3-container">
             <h4 class="w3-center">Change Avatar</h4>
-            <div class="w3-content w3-display-container">
+            <div class="w3-content w3-display-container w3-tablet-width">
               <img class="mySlides" src="images/avatars/1.png" id="avatar1" style="width:100%"> 
               <img class="mySlides" src="images/avatars/2.png" id="avatar2" style="width:100%"> 
               <img class="mySlides" src="images/avatars/3.png" id="avatar3" style="width:100%"> 
@@ -388,30 +388,32 @@
   // END Navbar Animations END //
   
   if ($(window).width() <= 600) {
+    // $('#logo').css('height','34px');
+  } else if ($(window).width() <= 830) {
     $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
     $('#uploadArticlesBox').removeClass('w3-row-padding');
     $('.generatedContent').addClass('w3-margin-bottom');
     $('.generatedContent').removeClass('w3-margin');
+    $('.modal-content').css('width', '90%');
     $('#acceptButton').removeClass('w3-section');
     $('#acceptButton').addClass('w3-margin-top');
     $('#rejectButton').removeClass('w3-section');
     $('#rejectButton').addClass('w3-margin-bottom');
-    $('.modal-content').css('width', '90%');
-    $('#logo').css('height','34px');
   }
 
   $(window).resize(function() {
     if ($(window).width() <= 600) {
+      // $('#logo').css('height','34px');
+    } else if ($(window).width() <= 830) {
       $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
       $('#uploadArticlesBox').removeClass('w3-row-padding');
       $('.generatedContent').addClass('w3-margin-bottom');
       $('.generatedContent').removeClass('w3-margin');
+      $('.modal-content').css('width', '90%');
       $('#acceptButton').removeClass('w3-section');
       $('#acceptButton').addClass('w3-margin-top');
       $('#rejectButton').removeClass('w3-section');
       $('#rejectButton').addClass('w3-margin-bottom');
-      $('.modal-content').css('width', '90%');
-      $('#logo').css('height','34px');
     } else {
       $('#uploadArticlesBox').removeClass('w3-row-padding-bottom');
       $('#uploadArticlesBox').addClass('w3-row-padding');

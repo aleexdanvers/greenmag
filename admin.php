@@ -107,7 +107,7 @@
                     
                     while($test = mysqli_fetch_array($result))
                     {
-                      echo "<table class='w3-table w3-hide-large w3-margin-bottom' id='table1Mobile' style='overflow-x:auto;'>";
+                      echo "<table class='w3-table w3-hide-large w3-hide-medium w3-margin-bottom' id='table1Mobile' style='overflow-x:auto;'>";
                       $id = $test['AcademicYearID'];  
                       echo "<tr class='firstRow'>";
                       echo "<th>Academic Year ID</th>";
