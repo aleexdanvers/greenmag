@@ -4,16 +4,21 @@
   include 'includes/dbConnection.php';
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
+    die();
   }
 	
 	if ($_SESSION["Role"] == 'Marketing Manager') {
 		header('Location: marketingmanager.php');
+    die();
 	} else if ($_SESSION["Role"] == 'Marketing Co-ordinator') {
 		header('Location: marketingcoordinator.php');
+    die();
 	} else if ($_SESSION["Role"] == 'Student') {
 		header('Location: home.php');
+    die();
 	} else if ($_SESSION["Role"] == 'Guest') {
 		header('Location: guest.php');
+    die();
 	}
 
   $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Student Page';";
@@ -72,24 +77,24 @@
               <div class="w3-container w3-padding">
                 <h4 class="">Edit Record</h4><br>
                 <?php
-                $id =$_REQUEST['AcademicYearID'];
+                  $id =$_REQUEST['AcademicYearID'];
 
-                $result = mysqli_query($con, "SELECT * FROM AcademicYear WHERE AcademicYearID  = '$id'");
-                $test = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                  $result = mysqli_query($con, "SELECT * FROM AcademicYear WHERE AcademicYearID  = '$id'");
+                  $test = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-                        $title= $test['AcademicYearID'] ;
-                        $author= $test['AcademicYear'] ;
+                          $title= $test['AcademicYearID'] ;
+                          $author= $test['AcademicYear'] ;
 
-                if(isset($_POST['save']))
-                { 
-                  $title_save = $_POST['title'] ;
-                  $author_save = $_POST['author'] ;
+                  if(isset($_POST['save']))
+                  { 
+                    $title_save = $_POST['title'] ;
+                    $author_save = $_POST['author'] ;
 
-                  mysqli_query($con,"UPDATE AcademicYear SET AcademicYearID ='$title_save', AcademicYear ='$author_save' WHERE AcademicYearID = '$id'");
-                  
-                  header("Location: admin.php");      
-                }
-                mysqli_close($con);
+                    mysqli_query($con,"UPDATE AcademicYear SET AcademicYearID ='$title_save', AcademicYear ='$author_save' WHERE AcademicYearID = '$id'");
+                    
+                    echo "<script>window.location.replace('admin.php');</script>";
+                  }
+                  mysqli_close($con);
                 ?>
                 <form method="post">
                 <table class="w3-table">
@@ -207,6 +212,9 @@
      } else { 
          x.className = x.className.replace(" w3-show", "");
      }
+  }
+  function redirect() {
+    window.location.replace("admin.php");
   }
   </script>
 </body>

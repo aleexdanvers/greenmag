@@ -72,68 +72,134 @@
               <div class="w3-container w3-padding">
                 <h4 class="">Edit Record</h4><br>
                 <?php
-                $id =$_REQUEST['CloseDatesID'];
+                  $id =$_REQUEST['CloseDatesID'];
 
-                $result = mysqli_query($con, "SELECT * FROM CloseDates WHERE CloseDatesID  = '$id'");
-                $test = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                  $result = mysqli_query($con, "SELECT * FROM CloseDates WHERE CloseDatesID  = '$id'");
+                  $test = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-                        $title= $test['CloseDatesID'] ;
-                        $author= $test['FacultyID'] ;
-                        $title2= $test['SubmissionDate'] ;
-                        $author2= $test['FinalSubmissionDate'] ;
-                        $title3= $test['AcademicYearID'] ;
+                          $title= $test['CloseDatesID'] ;
+                          $author= $test['FacultyID'] ;
+                          $title2= $test['SubmissionDate'] ;
+                          $author2= $test['FinalSubmissionDate'] ;
+                          $title3= $test['AcademicYearID'] ;
 
-                if(isset($_POST['save']))
-                { 
-                        $author_save= $_POST['FacultyID'] ;
-                        $title2_save= $_POST['SubmissionDate'] ;
-                        $author2_save= $_POST['FinalSubmissionDate'] ;
-                        $title3_save= $_POST['AcademicYearID'] ;
+                  if(isset($_POST['save']))
+                  { 
+                          $author_save= $_POST['FacultyID'] ;
+                          $title2_save= $_POST['SubmissionDate'] ;
+                          $author2_save= $_POST['FinalSubmissionDate'] ;
+                          $title3_save= $_POST['AcademicYearID'] ;
 
-                  mysqli_query($con,"UPDATE CloseDates SET FacultyID ='$author_save', SubmissionDate ='$title2_save', FinalSubmissionDate ='$author2_save', AcademicYearID ='$title3_save' WHERE CloseDatesID = '$id'");
-                  
-                  header("Location: admin.php");      
-                }
+                    mysqli_query($con,"UPDATE CloseDates SET FacultyID ='$author_save', SubmissionDate ='$title2_save', FinalSubmissionDate ='$author2_save', AcademicYearID ='$title3_save' WHERE CloseDatesID = '$id'");
+                    
+                    echo "<script>window.location.replace('admin.php');</script>";     
+                  }
                 ?>
                 <form method="post">
-
-
-              <table class="w3-table">
-                <tr>
-                  <th>Close Dates ID</th>
-                  <th>Faculty ID</th>
-                  <th>Submission Date</th>
-                  <th>Final Submission Date</th>
-                  <th>Academic Year ID</th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <td><?php echo $title ?></td>
-                  <td><select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
-                    <option value="1" <?php if($author == 1){echo "selected";}?>>1</option>
-                    <option value="2" <?php if($author == 2){echo "selected";}?>>2</option>
-                    <option value="3" <?php if($author == 3){echo "selected";}?>>3</option>
-                    <option value="4" <?php if($author == 4){echo "selected";}?>>4</option>
-                  </select></td>
-                    <td><input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $title2; ?>" name="SubmissionDate" class="form-control"/></td>
-                    <td><input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $author2; ?>" name="FinalSubmissionDate" class="form-control"/></td>
-                    <td><select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearID">
-                    <?php
-                    $result3=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
-                    while($test3 = mysqli_fetch_array($result3))
-                      {
-                        if($title3 == $test3['AcademicYearID']){
-                          echo "<option value='" . $test3['AcademicYearID'] . "' selected>" . $test3['AcademicYearID'] . "</option>";
-                        }
-                        else{
-                        echo "<option value='" . $test3['AcademicYearID'] . "'>" . $test3['AcademicYearID'] . "</option>";
-                        }
-                      }
-                      ?>
-                      </select></td>
-                    <td><center><input type="submit" name="save" value="save" class="w3-btn w3-theme"/></center></td>
+                  <table class="w3-table w3-hide-small w3-hide-medium w3-hide-medium-small">
+                  <tr>
+                    <th>Close Dates ID</th>
+                    <th>Faculty ID</th>
+                    <th>Submission Date</th>
+                    <th>Final Submission Date</th>
+                    <th>Academic Year ID</th>
+                    <th></th>
                   </tr>
-                </table></form><br>
+                  <tr>
+                    <td><?php echo $title ?></td>
+                    <td>
+                      <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
+                        <option value="1" <?php if($author == 1){echo "selected";}?>>1</option>
+                        <option value="2" <?php if($author == 2){echo "selected";}?>>2</option>
+                        <option value="3" <?php if($author == 3){echo "selected";}?>>3</option>
+                        <option value="4" <?php if($author == 4){echo "selected";}?>>4</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $title2; ?>" name="SubmissionDate" class="form-control"/>
+                    </td>
+                    <td>
+                      <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $author2; ?>" name="FinalSubmissionDate" class="form-control"/>
+                    </td>
+                    <td>
+                      <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearID">
+                      <?php
+                        $result3=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
+                        while($test3 = mysqli_fetch_array($result3))
+                        {
+                          if($title3 == $test3['AcademicYearID']){
+                            echo "<option value='" . $test3['AcademicYearID'] . "' selected>" . $test3['AcademicYearID'] . "</option>";
+                          }
+                          else{
+                          echo "<option value='" . $test3['AcademicYearID'] . "'>" . $test3['AcademicYearID'] . "</option>";
+                          }
+                        }
+                      ?>
+                      </select>
+                    </td>
+                    <td>
+                      <center><input type="submit" name="save" value="save" class="w3-btn w3-theme"/></center>
+                    </td>
+                  </tr>
+                  </table>
+
+                  <table class="w3-table w3-hide-large">
+                  <tr>
+                    <th>Close Dates ID</th>
+                    <td><?php echo $title ?></td>
+                  </tr>
+                  <tr>
+                    <th>Faculty ID</th>
+                    <td>
+                      <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
+                        <option value="1" <?php if($author == 1){echo "selected";}?>>1</option>
+                        <option value="2" <?php if($author == 2){echo "selected";}?>>2</option>
+                        <option value="3" <?php if($author == 3){echo "selected";}?>>3</option>
+                        <option value="4" <?php if($author == 4){echo "selected";}?>>4</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Submission Date</th>
+                    <td>
+                      <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $title2; ?>" name="SubmissionDate" class="form-control"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Final Submission Date</th>
+                    <td>
+                      <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $author2; ?>" name="FinalSubmissionDate" class="form-control"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Academic Year ID</th>
+                    <td>
+                      <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearID">
+                        <?php
+                        $result3=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
+                        while($test3 = mysqli_fetch_array($result3))
+                        {
+                          if($title3 == $test3['AcademicYearID']){
+                            echo "<option value='" . $test3['AcademicYearID'] . "' selected>" . $test3['AcademicYearID'] . "</option>";
+                          }
+                          else{
+                            echo "<option value='" . $test3['AcademicYearID'] . "'>" . $test3['AcademicYearID'] . "</option>";
+                          }
+                        }
+                        ?>
+                      </select>
+                    </td>
+                  </tr>
+                  </table>
+                  <table class='w3-table w3-hide-large'>
+                    <tr>
+                      <td>
+                        <center><input type="submit" name="save" value="save" class="w3-btn w3-theme"/></center>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+                <br>
               </div>
             </div>
           </div>

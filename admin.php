@@ -77,33 +77,54 @@
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
                 <h4>Academic Year Table</h5>
-                <table class="w3-table" style="overflow-x:auto;">
-                <tr>
-                  <th>Academic Year ID</th>
-                  <th>Academic Year</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                  
-                      <?php
-                        
-                      $result=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
-                      
-                      while($test = mysqli_fetch_array($result))
-                      {
-                        $id = $test['AcademicYearID'];  
-                        echo "<tr align='center'>"; 
-                        echo"<td><font color='white'>" .$test['AcademicYearID']."</font></td>";
-                        echo"<td><font color='white'>" .$test['AcademicYear']."</font></td>";
-                        echo"<td> <a href ='adminedit1.php?AcademicYearID=$id'><center>Edit</center></a>";
-                        echo"<td> <a href ='admindel1.php?AcademicYearID=$id'><center>Delete</center></a>";
-                                  
-                        echo "</tr>";
-                      }
-                      ?>
-              </table>
+                <table class="w3-table w3-hide-small w3-hide-medium" id="table1" style="overflow-x:auto;">
+                  <tr>
+                    <th>Academic Year ID</th>
+                    <th>Academic Year</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <?php
+                    $result=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
+                    
+                    while($test = mysqli_fetch_array($result))
+                    {
+                      $id = $test['AcademicYearID'];  
+                      echo "<tr align='center'>"; 
+                      echo"<td><font color='white'>" .$test['AcademicYearID']."</font></td>";
+                      echo"<td><font color='white'>" .$test['AcademicYear']."</font></td>";
+                      echo"<td> <a href ='adminedit1.php?AcademicYearID=$id'><center>Edit</center></a>";
+                      echo"<td> <a href ='admindel1.php?AcademicYearID=$id'><center>Delete</center></a>";
+                                
+                      echo "</tr>";
+                    }
+                  ?>
+                </table>
+                  <?php
+                    $result=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
+                    
+                    while($test = mysqli_fetch_array($result))
+                    {
+                      echo "<table class='w3-table w3-hide-large w3-margin-bottom' id='table1Mobile' style='overflow-x:auto;'>";
+                      $id = $test['AcademicYearID'];  
+                      echo "<tr class='firstRow'>";
+                      echo "<th>Academic Year ID</th>";
+                      echo "<td><font color='white'>" .$test['AcademicYearID']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr class='secondRow'>"; 
+                      echo "<th>Academic Year</th>";
+                      echo "<td><font color='white'>" .$test['AcademicYear']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr class='thirdRow'>";
+                      echo "<td><a href ='adminedit1.php?AcademicYearID=$id'><center>Edit</center></a>";
+                      echo "<td><a href ='admindel1.php?AcademicYearID=$id'><center>Delete</center></a>";
+                      echo "</tr>";
+                      echo "</table>";
+                    }
+                  ?>
+              
               <form action="adminadd1.php" method="post">
-              <table class="w3-table">
+              <table class="w3-table" id="table2">
                 <tr>
                   <th>Academic Year ID</th>
                   <th>Academic Year</th>
@@ -125,71 +146,163 @@
 
 
                 <h4>Close Dates Table</h5>
-                <table class="w3-table">
-                <tr>
-                  <th>Close Dates ID</th>
-                  <th>Faculty ID</th>
-                  <th>Submission Date</th>
-                  <th>Final Submission Date</th>
-                  <th>Academic Year ID</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-                <?php   
-                      $result2=mysqli_query($con, "SELECT * FROM CloseDates ORDER BY CloseDatesID");
-                      
-                      while($test2 = mysqli_fetch_array($result2))
-                      {
-                        $id2 = $test2['CloseDatesID'];  
-                        echo "<tr align='center'>"; 
-                        echo"<td><font color='white'>" .$test2['CloseDatesID']."</font></td>";
-                        echo"<td><font color='white'>" .$test2['FacultyID']."</font></td>";
-                        echo"<td><font color='white'>" .$test2['SubmissionDate']."</font></td>";
-                        echo"<td><font color='white'>" .$test2['FinalSubmissionDate']."</font></td>";
-                        echo"<td><font color='white'>" .$test2['AcademicYearID']."</font></td>";
-                        echo"<td> <a href ='adminedit2.php?CloseDatesID=$id2'><center>Edit</center></a>";
-                        echo"<td> <a href ='admindel2.php?CloseDatesID=$id2'><center>Delete</center></a>";
-                                  
-                        echo "</tr>";
-                      }
-                      ?>
-              </table>
-              <form action="adminadd2.php" method="post">
-              <table class="w3-table">
-                <tr>
-                  <th>Faculty ID</th>
-                  <th>Submission Date</th>
-                  <th>Final Submission Date</th>
-                  <th>Academic Year ID</th>
-                  <th></th>
-                </tr>
+                <table class="w3-table w3-hide-small w3-hide-medium-small" id="table3">
                   <tr>
-                  <td><select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select></td>
-                    <td><input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" placeholder="Insert Content Here" type="date" name="SubmissionDate" class="form-control"/></td>
-                    <td><input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" placeholder="Insert Content Here" name="FinalSubmissionDate" class="form-control"/></td>
-                    <td><select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearID">
+                    <th>Close Dates ID</th>
+                    <th>Faculty ID</th>
+                    <th>Submission Date</th>
+                    <th>Final Submission Date</th>
+                    <th>Academic Year ID</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <?php   
+                    $result2=mysqli_query($con, "SELECT * FROM CloseDates ORDER BY CloseDatesID");
+                      
+                    while($test2 = mysqli_fetch_array($result2))
+                    {
+                      $id2 = $test2['CloseDatesID'];  
+                      echo "<tr align='center'>"; 
+                      echo"<td><font color='white'>" .$test2['CloseDatesID']."</font></td>";
+                      echo"<td><font color='white'>" .$test2['FacultyID']."</font></td>";
+                      echo"<td><font color='white'>" .$test2['SubmissionDate']."</font></td>";
+                      echo"<td><font color='white'>" .$test2['FinalSubmissionDate']."</font></td>";
+                      echo"<td><font color='white'>" .$test2['AcademicYearID']."</font></td>";
+                      echo"<td> <a href ='adminedit2.php?CloseDatesID=$id2'><center>Edit</center></a>";
+                      echo"<td> <a href ='admindel2.php?CloseDatesID=$id2'><center>Delete</center></a>";
+                                
+                      echo "</tr>";
+                    }
+                  ?>
+                </table>
+
+                  <?php   
+                    $result2=mysqli_query($con, "SELECT * FROM CloseDates ORDER BY CloseDatesID");
+                      
+                    while($test2 = mysqli_fetch_array($result2))
+                    {
+                      $id2 = $test2['CloseDatesID'];  
+                      echo "<table class='w3-table w3-hide-large w3-hide-medium w3-margin-bottom' id='table3'>";
+                      echo "<tr class='firstRow'>";
+                      echo "<th>Close Dates ID</th>";
+                      echo "<td><font color='white'>" .$test2['CloseDatesID']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr class='secondRow'>";
+                      echo "<th>Faculty ID</th>";
+                      echo "<td><font color='white'>" .$test2['FacultyID']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr class='thirdRow'>";
+                      echo "<th>Submission Date</th>";
+                      echo "<td><font color='white'>" .$test2['SubmissionDate']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr class='fourthRow'>";
+                      echo "<th>Final Submission Date</th>";
+                      echo "<td><font color='white'>" .$test2['FinalSubmissionDate']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr class='fifthRow'>";
+                      echo "<th>Academic Year ID</th>";
+                      echo "<td><font color='white'>" .$test2['AcademicYearID']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr class='sixthRow'>";
+                      echo "<td> <a href ='adminedit2.php?CloseDatesID=$id2'><center>Edit</center></a>";
+                      echo "<td> <a href ='admindel2.php?CloseDatesID=$id2'><center>Delete</center></a>";
+                      echo "</tr>";
+                      echo "</table>";
+                    }
+                  ?>
+              <form action="adminadd2.php" method="post">
+              <table class="w3-table w3-hide-small w3-hide-medium-small" id="table4">
+                <tr>
+                  <th>Faculty ID</th>
+                  <th>Submission Date</th>
+                  <th>Final Submission Date</th>
+                  <th>Academic Year ID</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>
+                    <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
+                      <option value="1" selected>1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" placeholder="Insert Content Here" type="date" name="SubmissionDate" class="form-control"/>
+                  </td>
+                  <td>
+                    <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" placeholder="Insert Content Here" name="FinalSubmissionDate" class="form-control"/>
+                  </td>
+                  <td>
+                    <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearID">
                     <?php
-                    $result3=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
-                    while($test3 = mysqli_fetch_array($result3))
+                      $result3=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
+                      while($test3 = mysqli_fetch_array($result3))
                       {
                         echo "<option value='" . $test3['AcademicYearID'] . "'>" . $test3['AcademicYearID'] . "</option>";
                       }
-                      ?>
-                      </select></td>
-                    <td><center><input type="submit" name="submit" value="add" class="w3-btn w3-theme"/></center></td>
-                  </tr>
-                </table>
-                </form><br>
-              </div>
-            </div><br>
-          </div>
+                    ?>
+                    </select>
+                  </td>
+                  <td>
+                    <center><input type="submit" name="submit" value="add" class="w3-btn w3-theme"/></center>
+                  </td>
+                </tr>
+              </table>
+
+              <table class="w3-table w3-hide-large w3-hide-medium" id="table4">
+                <tr class='firstRow'>
+                  <th>Faculty ID</th>
+                  <td>
+                    <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
+                      <option value="1" selected>1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class='secondRow'>
+                  <th>Submission Date</th>
+                  <td>
+                    <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" placeholder="Insert Content Here" type="date" name="SubmissionDate" class="form-control"/>
+                  </td>
+                </tr>
+                <tr class='thirdRow'>
+                  <th>Final Submission Date</th>
+                  <td>
+                    <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" placeholder="Insert Content Here" name="FinalSubmissionDate" class="form-control"/>
+                  </td>
+                </tr>
+                <tr class='fourthRow'>
+                  <th>Academic Year ID</th>
+                  <td>
+                    <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearID">
+                    <?php
+                      $result3=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
+                      while($test3 = mysqli_fetch_array($result3))
+                      {
+                        echo "<option value='" . $test3['AcademicYearID'] . "'>" . $test3['AcademicYearID'] . "</option>";
+                      }
+                    ?>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+              <table class="w3-table w3-hide-large w3-hide-medium">
+                <tr class='fifthRow'>
+                  <td style='border-top: 0 !important'>
+                    <center><input type="submit" name="submit" value="add" class="w3-btn w3-theme"/></center>
+                  </td>
+                </tr>
+              <table>
+              </form><br>
+            </div>
+          </div><br>
         </div>
-      </div><!-- End Middle Column -->
+      </div>
+    </div><!-- End Middle Column -->
 
   <script>
 	var role = <?php echo json_encode($_SESSION['Role']); ?>;
@@ -279,6 +392,13 @@
       $("#adminText").hide('slow');
   });
   // END Navbar Animations END //
+
+  // if ($(window).width() <= 600) {
+  //   $('#table1').removeClass('w3-table');
+  //   $('#table2').removeClass('w3-table');
+  //   $('#table3').removeClass('w3-table');
+  //   $('#table4').removeClass('w3-table');
+  // }
 
   // Used to toggle the menu on smaller screens when clicking on the menu button
   function openNav() {
