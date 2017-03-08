@@ -68,12 +68,14 @@
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
-    <a class="w3-padding-large" href="/">Home</a> 
-    <a class="w3-padding-large" href="/statistics.php">Statistics</a> 
-    <a class="w3-padding-large" href="/viewarticles.php">All Articles</a> 
-    <a class="w3-padding-large" href="/guest.php">Guest</a> 
-    <a class="w3-padding-large" href="/marketingmanager.php">Marketing Manager</a> 
-    <a class="w3-padding-large w3-theme-d4" href="logout.php">Logout</a>
+    <a class="w3-padding-large mobileNav" id="profileNavMobile" href="/">Home</a>
+    <a class="w3-padding-large mobileNav" id="statsNavMobile" href="/statistics.php">Statistics</a> 
+    <a class="w3-padding-large mobileNav" id="articlesNavMobile" href="/viewarticles.php">All Articles</a> 
+    <a class="w3-padding-large mobileNav" id="guestNavMobile" href="/guest.php">Guest</a> 
+    <a class="w3-padding-large mobileNav" id="marketingManagerNavMobile" href="/marketingmanager.php">Marketing Manager</a> 
+    <a class="w3-padding-large mobileNav" id="marketingCoordinatorNavMobile" href="/marketingcoordinator.php">Marketing Coordinator</a> 
+    <a class="w3-padding-large mobileNav" id="adminNavMobile" href="/admin.php">Admin</a> 
+    <a class="w3-padding-large" href="logout.php">Logout</a>
   </div><!-- Page Container -->
 	<div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px">
 		<!-- The Grid -->
