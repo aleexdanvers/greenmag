@@ -1,5 +1,9 @@
 <?php 
 session_start();
+if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1) != 'marketingcoordinator.php') {
+	header('Location: marketingcoordinator.php');
+	die();
+}
 
 include 'includes/dbConnection.php';
 

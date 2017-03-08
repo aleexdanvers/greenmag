@@ -1,6 +1,9 @@
 <?php
     session_start();
-
+    if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1) != 'index.php') {
+      header('Location: index.php');
+      die();
+    }
     include 'includes/dbConnection.php';
 
     $LoginUsername = trim(strip_tags(addslashes($_REQUEST['login-email'])));

@@ -1,4 +1,8 @@
 <?php
+	if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1) != 'updatearticle.php') {
+		header('Location: updatearticle.php');
+		die();
+	}
 	session_start();
 	include 'includes/dbConnection.php';
 	if($_SESSION["user_logged_in"] == false){

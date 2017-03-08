@@ -3,6 +3,11 @@
 
     include 'includes/dbConnection.php';
 
+    if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1) != 'home.php') {
+      header('Location: home.php');
+      die();
+    }
+
 		$loginUsername = $_SESSION['Username'];
 		$oldPassword = md5($_REQUEST['previousPassword']);
 		$newPassword = md5($_REQUEST['newPassword']);
