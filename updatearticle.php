@@ -56,7 +56,7 @@
   <!-- Navbar -->
   <div class="w3-top">
     <div class="w3-bar w3-theme-d2 w3-left-align w3-medium">
-			<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
+      <a class="w3-bar-item w3-button w3-hide-medium  w3-hide-medium-small w3-hide-large w3-opennav w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a> 
       <a class="w3-bar-item w3-logo-button w3-theme-d4" href="home.php"><i class="fa fa-glide-g" style="font-size: 55px;vertical-align: middle;line-height: 30px;"></i></a> 
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="statsNav" href="statistics.php" title="Statistics"><i class="fa fa-bar-chart"></i><p class="navbarText" id="statsText">Statistics</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="articlesNav" href="viewarticles.php" title="Account Settings"><i class="fa fa-file-text-o"></i><p class="navbarText" id="articlesText">All Articles</p></a>
@@ -64,17 +64,17 @@
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingManagerNav" href="marketingmanager.php" title="Marketing Manager"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingManagerText">Marketing Manager</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="marketingCoordinatorNav" href="marketingcoordinator.php" title="Marketing Co-ordinator"><i class="fa fa-briefcase"></i><p class="navbarText" id="marketingCoordinatorText">Marketing Co-ordinator</p></a>
       <a class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white navHover" id="adminNav" href="admin.php" title="Admin"><i class="fa fa-cog"></i><p class="navbarText" id="adminText">Admin</p></a>
-      <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="My Account"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
+      <a class="w3-bar-item w3-logout-button w3-hide-small w3-right w3-padding-large w3-theme-d4" href="logout.php" title="Logout"><i aria-hidden="true" class="fa fa-sign-out"></i> Logout</a>
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
     <a class="w3-padding-large mobileNav" id="profileNavMobile" href="/">Home</a>
-    <a class="w3-padding-large mobileNav" id="statsNavMobile" href="/statistics.php">Statistics</a> 
-    <a class="w3-padding-large mobileNav" id="articlesNavMobile" href="/viewarticles.php">All Articles</a> 
-    <a class="w3-padding-large mobileNav" id="guestNavMobile" href="/guest.php">Guest</a> 
-    <a class="w3-padding-large mobileNav" id="marketingManagerNavMobile" href="/marketingmanager.php">Marketing Manager</a> 
-    <a class="w3-padding-large mobileNav" id="marketingCoordinatorNavMobile" href="/marketingcoordinator.php">Marketing Coordinator</a> 
-    <a class="w3-padding-large mobileNav" id="adminNavMobile" href="/admin.php">Admin</a> 
+    <a class="w3-padding-large mobileNav" id="statsNavMobile" href="statistics.php">Statistics</a> 
+    <a class="w3-padding-large mobileNav" id="articlesNavMobile" href="viewarticles.php">All Articles</a> 
+    <a class="w3-padding-large mobileNav" id="guestNavMobile" href="guest.php">Guest</a> 
+    <a class="w3-padding-large mobileNav" id="marketingManagerNavMobile" href="marketingmanager.php">Marketing Manager</a> 
+    <a class="w3-padding-large mobileNav" id="marketingCoordinatorNavMobile" href="marketingcoordinator.php">Marketing Coordinator</a> 
+    <a class="w3-padding-large mobileNav" id="adminNavMobile" href="admin.php">Admin</a> 
     <a class="w3-padding-large" href="logout.php">Logout</a>
   </div><!-- Page Container -->
 	<div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px">
@@ -147,41 +147,46 @@
   <script>
 	var role = <?php echo json_encode($_SESSION['Role']); ?>;
 	
-	if (role == 'Student') {
+  if (role == 'Student') {
     $("#statsNav").show();
-    // $("#guestNav").hide();
-    // $("#marketingManagerNav").hide();
+    $("#guestNavMobile").hide();
+    $("#marketingManagerNavMobile").hide();
     $("#articlesNav").show();
-    // $("#marketingCoordinatorNav").hide();
-    // $("#adminNav").hide();
+    $("#marketingCoordinatorNavMobile").hide();
+    $("#adminNavMobile").hide();
+    $("#profileNav").show();
   } else if (role == 'Guest') {
     $("#statsNav").show();
     $("#guestNav").show();
-    // $("#marketingManagerNav").hide();
-    // $("#articlesNav").hide();
-    // $("#marketingCoordinatorNav").hide();
-    // $("#adminNav").hide();
+    $("#marketingManagerNavMobile").hide();
+    $("#articlesNavMobile").hide();
+    $("#marketingCoordinatorNavMobile").hide();
+    $("#adminNavMobile").hide();
+    $("#profileNavMobile").hide();
   } else if (role == 'Marketing Co-ordinator') {
     $("#statsNav").show();
-    // $("#guestNav").hide();
-    // $("#marketingManagerNav").hide();
-    // $("#articlesNav").hide();
+    $("#guestNavMobile").hide();
+    $("#marketingManagerNavMobile").hide();
+    $("#articlesNavMobile").hide();
     $("#marketingCoordinatorNav").show();
-    // $("#adminNav").hide();
+    $("#adminNavMobile").hide();
+    $("#profileNavMobile").hide();
   } else if (role == 'Marketing Manager') {
     $("#statsNav").show();
-    // $("#guestNav").hide();
+    $("#guestNavMobile").hide();
     $("#marketingManagerNav").show();
-    // $("#articlesNav").hide();
-    // $("#marketingCoordinatorNav").hide();
-    // $("#adminNav").hide();
+    $("#articlesNavMobile").hide();
+    $("#marketingCoordinatorNavMobile").hide();
+    $("#adminNavMobile").hide();
+    $("#profileNavMobile").hide();
   } else if (role == 'Admin') {
     $("#statsNav").show();
-    // $("#guestNav").hide();
-    // $("#marketingManagerNav").hide();
-    // $("#articlesNav").hide();
-    // $("#marketingCoordinatorNav").hide();
+    $("#guestNavMobile").hide();
+    $("#marketingManagerNavMobile").hide();
+    $("#articlesNavMobile").hide();
+    $("#marketingCoordinatorNavMobile").hide();
     $("#adminNav").show();
+    $("#profileNavMobile").hide();
   }
   // START Navbar Animations START //
   $("#statsText").hide();
