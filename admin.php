@@ -77,7 +77,7 @@
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
                 <h4>Academic Year Table</h5>
-                <table class="w3-table">
+                <table class="w3-table" style="overflow-x:auto;">
                 <tr>
                   <th>Academic Year ID</th>
                   <th>Academic Year</th>

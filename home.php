@@ -54,12 +54,14 @@
     </div>
   </div><!-- Navbar on small screens -->
   <div class="w3-navblock w3-theme-d2 w3-large w3-hide w3-hide-large w3-hide-medium w3-top" id="navDemo" style="margin-top:51px">
-    <a class="w3-padding-large" href="/">Home</a> 
-    <a class="w3-padding-large" href="/statistics.php">Statistics</a> 
-    <a class="w3-padding-large" href="/viewarticles.php">All Articles</a> 
-    <a class="w3-padding-large" href="/guest.php">Guest</a> 
-    <a class="w3-padding-large" href="/marketingmanager.php">Marketing Manager</a> 
-    <a class="w3-padding-large w3-theme-d4" href="logout.php">Logout</a>
+    <a class="w3-padding-large mobileNav" id="profileNavMobile" href="/">Home</a>
+    <a class="w3-padding-large mobileNav" id="statsNavMobile" href="/statistics.php">Statistics</a> 
+    <a class="w3-padding-large mobileNav" id="articlesNavMobile" href="/viewarticles.php">All Articles</a> 
+    <a class="w3-padding-large mobileNav" id="guestNavMobile" href="/guest.php">Guest</a> 
+    <a class="w3-padding-large mobileNav" id="marketingManagerNavMobile" href="/marketingmanager.php">Marketing Manager</a> 
+    <a class="w3-padding-large mobileNav" id="marketingCoordinatorNavMobile" href="/marketingcoordinator.php">Marketing Coordinator</a> 
+    <a class="w3-padding-large mobileNav" id="adminNavMobile" href="/admin.php">Admin</a> 
+    <a class="w3-padding-large" href="logout.php">Logout</a>
   </div><!-- Page Container -->
  <div class="w3-container w3-content" style="max-width:1400px;min-height:860px;margin-top:80px"> 
     <!-- The Grid -->
@@ -255,12 +257,12 @@
             </div>
             <div class="w3-row">
               <form method="post" action="changeAvatar.php">
-                <div class="w3-half" style="padding-right:5px;">
+                <div class="w3-half w3-padding-right-5" style>
                   <button id="acceptButton" class="w3-btn w3-green w3-btn-block w3-section" title="Accept"><i class="fa fa-check"></i></button>
                   <input id="selectedAvatar" name="selectedAvatar" style="display: none"/>
                 </div>
               </form>
-              <div class="w3-half" style="padding-left:5px;">
+              <div class="w3-half w3-padding-left-5">
                 <button id="rejectButton" class="w3-btn w3-ff4d4d w3-btn-block w3-section" onclick="nextImage()" title="Decline"><i class="fa fa-remove"></i></button>
               </div>
             </div>
@@ -290,44 +292,64 @@
       </div>
     </div>
   </div>
-  <script src="scripts/navbarRoles.js"></script>
   <script>
   var role = <?php echo json_encode($_SESSION['Role']); ?>;
   
   if (role == 'Student') {
     $("#statsNav").show();
     // $("#guestNav").hide();
+    $("#guestNavMobile").hide();
     // $("#marketingManagerNav").hide();
+    $("#marketingManagerNavMobile").hide();
     $("#articlesNav").show();
     // $("#marketingCoordinatorNav").hide();
+    $("#marketingCoordinatorNavMobile").hide();
     // $("#adminNav").hide();
+    $("#adminNavMobile").hide();
+    $("#profileNav").show();
   } else if (role == 'Guest') {
     $("#statsNav").show();
     $("#guestNav").show();
     // $("#marketingManagerNav").hide();
+    $("#marketingManagerNavMobile").hide();
     // $("#articlesNav").hide();
+    $("#articlesNavMobile").hide();
     // $("#marketingCoordinatorNav").hide();
+    $("#marketingCoordinatorNavMobile").hide();
     // $("#adminNav").hide();
+    $("#adminNavMobile").hide();
   } else if (role == 'Marketing Co-ordinator') {
     $("#statsNav").show();
     // $("#guestNav").hide();
+    $("#guestNavMobile").hide();
     // $("#marketingManagerNav").hide();
+    $("#marketingManagerNavMobile").hide();
     // $("#articlesNav").hide();
+    $("#articlesNavMobile").hide();
     $("#marketingCoordinatorNav").show();
     // $("#adminNav").hide();
+    $("#adminNavMobile").hide();
   } else if (role == 'Marketing Manager') {
     $("#statsNav").show();
     // $("#guestNav").hide();
+    $("#guestNavMobile").hide();
     $("#marketingManagerNav").show();
     // $("#articlesNav").hide();
+    $("#articlesNavMobile").hide();
     // $("#marketingCoordinatorNav").hide();
+    $("#marketingCoordinatorNavMobile").hide();
     // $("#adminNav").hide();
+    $("#adminNavMobile").hide();
   } else if (role == 'Admin') {
     $("#statsNav").show();
     // $("#guestNav").hide();
+    $("#guestNavMobile").hide();
     // $("#marketingManagerNav").hide();
+    $("#marketingManagerNavMobile").hide();
     // $("#articlesNav").hide();
+    $("#articlesNavMobile").hide();
     // $("#marketingCoordinatorNav").hide();
+    $("#marketingCoordinatorNavMobile").hide();
     $("#adminNav").show();
   }
   
