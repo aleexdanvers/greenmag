@@ -146,6 +146,8 @@
                       <h4>Article</h4>
                       <input type='file' class='w3-margin-bottom' name='articleToUpload' id='articleToUpload' accept=".doc,.docx,.pdf" required>
                       <br>
+                      <input class="w3-check" type="checkbox" name="terms" value="termsAndConditions" required> I agree with Terms and Conditions
+                      <br><br>
                       <button class='w3-btn w3-theme' type='submit'>Submit</button>
                     </div>
                     <div class='w3-half w3-padding-left'>
@@ -685,7 +687,7 @@
       $('#postButton').html('<i class="fa fa-times"></i> &nbsp;Close');
     } else {
       $('#upload').hide('slow');
-      $('#postButton').html('<i class="fa fa-pencil"></i> &nbsp;Post');
+      $('#postButton').html('<i class="fa fa-check"></i> &nbsp;Next');
     }
   }
 

@@ -9,7 +9,9 @@ $article = $_FILES['articleToUpload'];
 $image1 = $_FILES['imageToUpload1'];
 $image2 = (!empty($_FILES['imageToUpload2']['name'])) ? $image2 = $_FILES['imageToUpload2'] : '';
 $image3 = (!empty($_FILES['imageToUpload3']['name'])) ? $image3 = $_FILES['imageToUpload2'] : '';
-
+$userID = $_SESSION['UserID'];
+$dateNow = date("Y-m-d H:i:s");
+// var_dump($dateNow);die();
 function randomPassword() {
 		$alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
 		$pass = array();
@@ -77,5 +79,20 @@ if (!empty($image3)) {
 	}
 }
 
+if (!isset($newFileNameImage2) && !isset($newFileNameImage3)) {
+	$imgString = $newFileNameImage1;
+} else if (isset($newFileNameImage2) && !isset($newFileNameImage3)) {
+	$imgString = $newFileNameImage1 . ';' . $newFileNameImage2;
+} else if (isset($newFileNameImage2) && isset($newFileNameImage3)) {
+	$imgString = $newFileNameImage1 . ';' . $newFileNameImage2 . ';' . $newFileNameImage3;
+} else if (!isset($newFileNameImage2) && isset($newFileNameImage3)) {
+	$imgString = $newFileNameImage1 . ';' . $newFileNameImage3;
+}
+
+// echo $imgString;
+
+$insertQuery = "INSERT INTO Article (UserID, ArticleName, ArticleDescription, DateSubmitted, AcademicYearID, StatusID, DocPath, ImagePath) VALUES (" . $userID . ", '" . $articleTitle . "','" . $articleDescription . "','" . $dateNow . "','1617','2','" . $newFileNameArticle . "','" . $imgString . "');";
+mysqli_query($con, $insertQuery);
+mysqli_close($con);
 header('Location: home.php');
 ?>
