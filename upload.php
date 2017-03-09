@@ -11,7 +11,7 @@ $image2 = (!empty($_FILES['imageToUpload2']['name'])) ? $image2 = $_FILES['image
 $image3 = (!empty($_FILES['imageToUpload3']['name'])) ? $image3 = $_FILES['imageToUpload2'] : '';
 $userID = $_SESSION['UserID'];
 $dateNow = date("Y-m-d H:i:s");
-// var_dump($dateNow);die();
+
 function randomPassword() {
 		$alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
 		$pass = array();
@@ -31,9 +31,9 @@ $newFileNameArticle = randomPassword() . '.' . $fileType;
 $fullPathArticle = $articleDirectory . $newFileNameArticle;
 
 if (move_uploaded_file($article["tmp_name"], $fullPathArticle)) {
-
+	$_SESSION['ErrorUpload'] = 'false';
 } else {
-
+	$_SESSION['ErrorUpload'] = 'true';
 }
 
 // Image1 //
@@ -44,9 +44,9 @@ $newFileNameImage1 = randomPassword() . '.' . $fileType;
 $fullPathImage1 = $imageDirectory . $newFileNameImage1;
 
 if (move_uploaded_file($image1["tmp_name"], $fullPathImage1)) {
-
+	$_SESSION['ErrorUpload'] = 'false';
 } else {
-
+	$_SESSION['ErrorUpload'] = 'true';
 }
 
 // Image 2 //
@@ -58,9 +58,9 @@ if (!empty($image2)) {
 	$fullPathImage2 = $imageDirectory . $newFileNameImage2;
 
 	if (move_uploaded_file($image2["tmp_name"], $fullPathImage2)) {
-
+		$_SESSION['ErrorUpload'] = 'false';
 	} else {
-
+		$_SESSION['ErrorUpload'] = 'true';
 	}
 }
 
@@ -73,9 +73,9 @@ if (!empty($image3)) {
 	$fullPathImage3 = $imageDirectory . $newFileNameImage3;
 
 	if (move_uploaded_file($image3["tmp_name"], $fullPathImage3)) {
-
+		$_SESSION['ErrorUpload'] = 'false';
 	} else {
-
+		$_SESSION['ErrorUpload'] = 'true';
 	}
 }
 
@@ -89,10 +89,22 @@ if (!isset($newFileNameImage2) && !isset($newFileNameImage3)) {
 	$imgString = $newFileNameImage1 . ';' . $newFileNameImage3;
 }
 
-// echo $imgString;
-
 $insertQuery = "INSERT INTO Article (UserID, ArticleName, ArticleDescription, DateSubmitted, AcademicYearID, StatusID, DocPath, ImagePath) VALUES (" . $userID . ", '" . $articleTitle . "','" . $articleDescription . "','" . $dateNow . "','1617','2','" . $newFileNameArticle . "','" . $imgString . "');";
 mysqli_query($con, $insertQuery);
+
+$coordinatorEmailQuery = "SELECT Username FROM User WHERE FacultyID=" . $_SESSION["FacultyID"] . " AND RoleID=3;";
+$row = mysqli_fetch_array(mysqli_query($con, $coordinatorEmailQuery));
+
+// $to = $row['Username'];
+$to = 'bj552@greenwich.ac.uk';
+$subject = "Greenmag - Article Upload";
+$txt = "Hello,<br><br>A Student within your faculty just uploaded a new article titled '" . $articleTitle . "'. You can see details below.<br><br><strong>Article Title: </strong>" . $articleTitle . "<br><strong>Article Description: </strong>" . $articleDescription . "<br><br>Log back into the system to see any further changes.<br><br>You have 14 days to add comments and change status.<br><br>Thank you,<br><br>Greenmag Team";
+$headers = "From: noreply@greenmag.co.uk" . "\r\n";
+$headers .= "MIME-Version: 1.0" . "\r\n";
+$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+mail($to,$subject,$txt,$headers);
+
+
 mysqli_close($con);
 header('Location: home.php');
 ?>

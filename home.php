@@ -137,6 +137,7 @@
                       <button class="w3-btn w3-theme" type="button" style="padding-top: 9px;padding-bottom: 9px;" id="postButton" onclick="uploadForm()"><i class="fa fa-check"></i> &nbsp;Next</button>
                     </div>
                   </div>
+                  <p style='display:none;color:#ff3333;' id='errorUploadMsg'>Oops, something went wrong. Please try again.</p>
                   <div id='upload' style="display:none;">
                     <div class='w3-full'>
                       <h4>Description</h4>
@@ -149,6 +150,9 @@
                       <input class="w3-check" type="checkbox" name="terms" value="termsAndConditions" required> I agree with Terms and Conditions
                       <br><br>
                       <button class='w3-btn w3-theme' type='submit'>Submit</button>
+                      <br><br>
+                      <h5 style='display:inline'>Time Remaining: </h5>
+                      <p id='timer' style='display:inline'></p>
                     </div>
                     <div class='w3-half w3-padding-left'>
                       <h4>Images</h4>
@@ -172,8 +176,11 @@
             $row5 = mysqli_fetch_array($result5);
             $closeDate = date_create($row5['SubmissionDate']);
             $_SESSION["CloseDate"] = date_format($closeDate, 'd/m/Y');
+            $_SESSION["CloseDateFull"] = date_format($closeDate, 'M j, Y G:i:s');
+            $_SESSION["CloseDateUnix"] = date_format($closeDate, 'U');
             $finalCloseDate = date_create($row5['FinalSubmissionDate']);
             $_SESSION["FinalCloseDate"] = date_format($finalCloseDate, 'd/m/Y');
+            $_SESSION["FinalCloseDateUnix"] = date_format($finalCloseDate, 'U');
 
             while($row = mysqli_fetch_array($result)){
             $statusquery  = "SELECT * FROM Status WHERE StatusID = '" . $row['StatusID'] . "';";
@@ -229,10 +236,10 @@
 
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
               
-              echo "<a href='updatearticle.php?id=" . $row['ArticleID'] . "'><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-pencil'></i> &nbsp;Update</button></a>";
+              echo "<button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button>";
 
-              echo "<button class='w3-btn w3-theme w3-margin-bottom' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button>";
-
+              echo "<a href='updatearticle.php?id=" . $row['ArticleID'] . "'><button id='updateArticleBtn' class='updateArticleBtn w3-btn w3-theme w3-margin-bottom' type='button'><i class='fa fa-pencil'></i> &nbsp;Update</button></a>";
+              
               if ($row['Comment'] != ""){
                 echo "<div class='hiddenComments hiddenComments" . $row['ArticleID'] . "' style='display:none;'>";
                   echo "<hr class='no-margin-top'>";
@@ -543,6 +550,18 @@
   var previousPassword = document.getElementById("previousPassword");
   var updatePassworddiv = document.getElementById("updatePassworddiv");
   var LastLoggedIn = <?php echo json_encode($_SESSION['LastLoggedIn']); ?>;
+  
+<?php 
+  if (isset($_SESSION['ErrorUpload'])) {
+    if ($_SESSION['ErrorUpload'] == true) {
+      echo "$('#errorUploadMsg').css('display','block');";
+    } else {
+      echo "$('#errorUploadMsg').css('display','none');";
+    }
+  } else {
+    echo "$('#errorUploadMsg').css('display','none');";
+  }
+?>
 
   // When the user clicks the button, open the modal 
   btn.onclick = function() {
@@ -690,7 +709,37 @@
       $('#postButton').html('<i class="fa fa-check"></i> &nbsp;Next');
     }
   }
+  
+  if (performance.navigation.type == 1) {
+    $('#errorUploadMsg').css('display','none');
+  }
+  
+  var dateNow = <?php echo date_format($dateNow, "U"); ?>;
+  var closingDate = <?php echo json_encode($_SESSION['CloseDateUnix']); ?>;
+  var finalClosingDate = <?php echo json_encode($_SESSION['FinalCloseDateUnix']); ?>;
+  
+  if (dateNow > closingDate) {
+    $('#postButton').prop('disabled', true);
+    $('#postButton').attr('title','Uploads disabled');
+  }
+  
+  if (dateNow > finalClosingDate) {
+    $('.updateArticleBtn').prop('disabled', true);
+    $('.updateArticleBtn').attr('title', 'Updating articles disabled');
+  }
+  
+  var timerCountdown = setInterval(function() {
+    var countDownDate = new Date(<?php echo json_encode($_SESSION['CloseDateFull']); ?>).getTime();
+    var now = new Date().getTime();  
+    var timeDifference = countDownDate - now;
 
+    var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    
+    document.getElementById("timer").innerHTML = days + " day(s), " + hours + " hr(s), " + minutes + " min(s), " + seconds + " sec(s)";
+  },1000);
   changePassword();
   countArticles();
   </script>
