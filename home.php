@@ -133,14 +133,14 @@
                     <div class="w3-col m10 w3-center">
                       <input class="w3-input w3-border" placeholder="Give your article a name!" id='articleTitle' name='articleTitle' required>
                     </div>
-                    <div class="w3-col m2 w3-center">
+                    <div class="w3-col m2" style="text-align:right">
                       <button class="w3-btn w3-theme" type="button" style="padding-top: 9px;padding-bottom: 9px;" id="postButton" onclick="uploadForm()"><i class="fa fa-check"></i> &nbsp;Next</button>
                     </div>
                   </div>
                   <div id='upload' style="display:none;">
-                    <div class='w3-twothird'>
+                    <div class='w3-full'>
                       <h4>Description</h4>
-                      <textarea rows='4' class='w3-input w3-border w3-margin-bottom' placeholder="Description" name='articleDescription' id='articleDescription' required></textarea>
+                      <textarea rows='4' maxlength="200" class='w3-input w3-border w3-margin-bottom' placeholder="Description" name='articleDescription' id='articleDescription' required></textarea>
                     </div>
                     <div class="w3-half w3-padding-right">
                       <h4>Article</h4>
