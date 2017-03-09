@@ -87,10 +87,10 @@
 
                   if(isset($_POST['save']))
                   { 
-                          $author_save= $_POST['FacultyID'] ;
-                          $title2_save= $_POST['SubmissionDate'] ;
-                          $author2_save= $_POST['FinalSubmissionDate'] ;
-                          $title3_save= $_POST['AcademicYearID'] ;
+                          $author_save= isset($_POST['FacultyID']) ? $_POST['FacultyID'] : $_POST['FacultyIDMobile'] ;
+                          $title2_save= isset($_POST['SubmissionDate']) ? $_POST['SubmissionDate'] : $_POST['SubmissionDateMobile'];
+                          $author2_save= isset($_POST['FinalSubmissionDate']) ? $_POST['FinalSubmissionDate'] : $_POST['FinalSubmissionDateMobile'] ;
+                          $title3_save= isset($_POST['AcademicYearID']) ? $_POST['AcademicYearID'] : $_POST['AcademicYearIDMobile'] ;
 
                     mysqli_query($con,"UPDATE CloseDates SET FacultyID ='$author_save', SubmissionDate ='$title2_save', FinalSubmissionDate ='$author2_save', AcademicYearID ='$title3_save' WHERE CloseDatesID = '$id'");
                     
@@ -154,29 +154,29 @@
                     <th>Faculty ID</th>
                     <td>
                       <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
-                        <option value="1" <?php if($author == 1){echo "selected";}?>>1</option>
-                        <option value="2" <?php if($author == 2){echo "selected";}?>>2</option>
-                        <option value="3" <?php if($author == 3){echo "selected";}?>>3</option>
-                        <option value="4" <?php if($author == 4){echo "selected";}?>>4</option>
+                        <option value="1Mobile" <?php if($author == 1){echo "selected";}?>>1</option>
+                        <option value="2Mobile" <?php if($author == 2){echo "selected";}?>>2</option>
+                        <option value="3Mobile" <?php if($author == 3){echo "selected";}?>>3</option>
+                        <option value="4Mobile" <?php if($author == 4){echo "selected";}?>>4</option>
                       </select>
                     </td>
                   </tr>
                   <tr>
                     <th>Submission Date</th>
                     <td>
-                      <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $title2; ?>" name="SubmissionDate" class="form-control"/>
+                      <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $title2; ?>" name="SubmissionDateMobile" class="form-control"/>
                     </td>
                   </tr>
                   <tr>
                     <th>Final Submission Date</th>
                     <td>
-                      <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $author2; ?>" name="FinalSubmissionDate" class="form-control"/>
+                      <input style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" type="date" value="<?php echo $author2; ?>" name="FinalSubmissionDateMobile" class="form-control"/>
                     </td>
                   </tr>
                   <tr>
                     <th>Academic Year ID</th>
                     <td>
-                      <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearID">
+                      <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="AcademicYearIDMobile">
                         <?php
                         $result3=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
                         while($test3 = mysqli_fetch_array($result3))
