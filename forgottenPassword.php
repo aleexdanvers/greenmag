@@ -1,13 +1,9 @@
 <?php
     session_start();
-    if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1) != 'index.php') {
-      header('Location: index.php');
-      die();
-    }
 
     include 'includes/dbConnection.php';
 
-    $forgottenEmail = trim(strip_tags(addslashes($_REQUEST['ForgotUsername'])));
+    $forgottenEmail = trim(strip_tags(addslashes($_REQUEST['forgot-email'])));
     $_SESSION["ForgottenPasswordEmail"] = $forgottenEmail;
 
     function randomPassword() {
@@ -48,11 +44,6 @@
           $_SESSION["ForgottenPasswordFailed"] = false;
       
       }
-      
-      else {
-          echo "Error: " . mysqli_error($con);
-      }
-
 
     } else if (mysqli_num_rows($result) === 0) {
       //Failed Login
@@ -61,6 +52,6 @@
     }
 
     mysqli_close($con);
-    header('Location: index.php');
+    header('Location: http://www.greenmag.co.uk/forgotpassword.php');
 
 ?>

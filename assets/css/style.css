@@ -110,10 +110,6 @@ img { max-width: 100%; }
 .top-content .description a:hover, 
 .top-content .description a:focus { border-bottom: 1px dotted #fff; }
 
-.form-box {
-	margin-top: 70px;
-}
-
 .form-top {
 	overflow: hidden;
 	padding: 0 25px 15px 25px;

@@ -24,12 +24,7 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <style type="text/css">
       body { 
-        background: url("images/greenwichBackground.jpg") no-repeat center center fixed; 
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        z-index: 99999;
+        background-color:#222;
       }
     </style>
 </head>
@@ -62,12 +57,12 @@
                                         <input id="selectedbrowser" name="selectedbrowser" style="display: none"/>
                                     </div><button class="btn" type="submit">Sign in!</button>
                                 </form>
-                                <button style="margin-top:15px;width:100% !important;" class="btn" type="submit">Forgotten Password?</button>
+                                <button style="margin-top:15px;width:100% !important;" onclick="location.href='forgotpassword.php';" class="btn" type="submit">Forgotten Password?</button>
                                 <h4 id="incorrectPasswordLogin" style="display:none;padding-top:5px !important;color:#ff3333;font-size: 14px;"><i aria-hidden="true" class="fa fa-times"></i> Invalid Username or Password!</h4>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-1 middle-border"></div>
+                    <div class="col-sm-1"></div>
                     <div class="col-sm-1"></div>
                     <div class="col-sm-5">
                         <div class="form-box">
