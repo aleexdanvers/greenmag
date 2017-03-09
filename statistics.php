@@ -63,47 +63,65 @@
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
                 <h4 class="">Statistics</h4>
-                <table class="w3-table">
-                  <tr valign="middle">
-                    <th>Faculty</th>
-                    <th style="text-align: center;">2015 Uploads</th>
-                    <th style="text-align: center;">2015 Approvals</th>
-                    <th style="text-align: center;">2016 Uploads</th>
-                    <th style="text-align: center;">2016 Approvals</th>
-                  </tr>
-                  <tr valign="middle">
-                    <td>Architecture, Computing & Humanities</td>
-                    <td style="text-align: center;">5</td>
-                    <td style="text-align: center;">2</td>
-                    <td style="text-align: center;">4</td>
-                    <td style="text-align: center;">1</td>
-                  </tr>
-                  <tr valign="middle">
-                    <td>Business School</td>
-                    <td style="text-align: center;">7</td>
-                    <td style="text-align: center;">4</td>
-                    <td style="text-align: center;">5</td>
-                    <td style="text-align: center;">2</td>
-                  </tr>
-                  <tr valign="middle">
-                    <td>Education & Health</td>
-                    <td style="text-align: center;">8</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">7</td>
-                    <td style="text-align: center;">3</td>
-                  </tr>
-                  <tr valign="middle">
-                    <td>Engineering & Science</td>
-                    <td style="text-align: center;">9</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">6</td>
-                    <td style="text-align: center;">4</td>
+                                <table width="100%;">
+                  <tr>
+                  <td width="50%" style="text-align: center;"><h4>2016 / 2017</h4></td>
+                  <td width="50%" style="text-align: center;"><h4>2015 / 2016</h4></td>
                   </tr>
                 </table>
-                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of contributions within each Faculty for each academic year</p><br>
-
                 <div id="piechart" style="width: 50%; height: 300px;"></div>
                 <div id="piechart2" style="width: 50%; height: 300px;"></div>
+                <?php
+
+                $piequery = "SELECT  FacultyName, COUNT( A.UserID ) FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID
+                INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID=1617 group by FacultyName";
+                $piequery2 = "SELECT  FacultyName, COUNT( A.UserID ) FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID
+                INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID=1516 group by FacultyName";
+
+                $resultpiecontribution1 = mysqli_query($con, $piequery);
+                $resultpiecontribution2 = mysqli_query($con, $piequery2);
+
+                $_SESSION['rowpieFACH'] = 0;
+                $_SESSION['rowpieES'] = 0;
+                $_SESSION['rowpieEH'] = 0;
+                $_SESSION['rowpieBS'] = 0;
+                $_SESSION['rowpie2FACH'] = 0;
+                $_SESSION['rowpie2ES'] = 0;
+                $_SESSION['rowpie2EH'] = 0;
+                $_SESSION['rowpie2BS'] = 0;
+
+                while($rowpie = mysqli_fetch_array($resultpiecontribution1)){
+                  if($rowpie['FacultyName'] == "Architecture, Computing & Humanities"){
+                    $_SESSION['rowpieFACH'] = $rowpie['COUNT( A.UserID )'];
+                  }
+                  if($rowpie['FacultyName'] == "Engineering & Science"){
+                    $_SESSION['rowpieES'] = $rowpie['COUNT( A.UserID )'];
+                  }
+                  if($rowpie['FacultyName'] == "Education & Health"){
+                    $_SESSION['rowpieEH'] = $rowpie['COUNT( A.UserID )'];
+                  }
+                  if($rowpie['FacultyName'] == "Business School"){
+                    $_SESSION['rowpieBS'] = $rowpie['COUNT( A.UserID )'];
+                  }
+                }
+
+                while($rowpie2 = mysqli_fetch_array($resultpiecontribution2)){
+                  if($rowpie2['FacultyName'] == "Architecture, Computing & Humanities"){
+                    $_SESSION['rowpie2FACH'] = $rowpie2['COUNT( A.UserID )'];
+                  }
+                  if($rowpie2['FacultyName'] == "Engineering & Science"){
+                    $_SESSION['rowpie2ES'] = $rowpie2['COUNT( A.UserID )'];
+                  }
+                  if($rowpie2['FacultyName'] == "Education & Health"){
+                    $_SESSION['rowpie2EH'] = $rowpie2['COUNT( A.UserID )'];
+                  }
+                  if($rowpie2['FacultyName'] == "Business School"){
+                    $_SESSION['rowpie2BS'] = $rowpie2['COUNT( A.UserID )'];
+                  }
+                }
+
+
+                ?>
                 <script type="text/javascript">
                      google.charts.load('current', {'packages':['corechart']});
                      google.charts.setOnLoadCallback(drawChart);
@@ -111,19 +129,19 @@
                      function drawChart() {
 
                        var data = google.visualization.arrayToDataTable([
-                         ['Task', 'Hours per Day'],
-                         ['FACH',     11],
-                         ['Business',      4],
-                         ['Engineering',      4],
-                         ['Education',  7]
+                         ['Task', 'Hours per day'],
+                         ['Architecture, Computing & Humanities',     <?php echo $_SESSION['rowpieFACH']; ?>],
+                         ['Business School',      <?php echo $_SESSION['rowpieBS']; ?>],
+                         ['Engineering & Science',      <?php echo $_SESSION['rowpieES']; ?>],
+                         ['Education & Health',  <?php echo $_SESSION['rowpieEH']; ?>]
                        ]);
 
                        var data2 = google.visualization.arrayToDataTable([
-                         ['Task', 'Hours per Day'],
-                         ['FACH',     11],
-                         ['Business',      4],
-                         ['Engineering',      4],
-                         ['Education',  7]
+                         ['Task', 'Hours per day'],
+                         ['Architecture, Computing & Humanities',     <?php echo $_SESSION['rowpie2FACH']; ?>],
+                         ['Business School',      <?php echo $_SESSION['rowpie2BS']; ?>],
+                         ['Engineering & Science',      <?php echo $_SESSION['rowpie2ES']; ?>],
+                         ['Education & Health',  <?php echo $_SESSION['rowpie2EH']; ?>]
                        ]);
 
                         var options = {
@@ -137,34 +155,90 @@
                        chart.draw(data, options);
                        chart2.draw(data2, options);
                      }
+
                 </script>
+
+
                 <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Percentage of contributions by each Faculty for any academic year</p><br>
-                <table class="w3-table">
-                  <tr valign="middle">
-                    <th>Faculty</th>
-                    <th style="text-align: center;">2015 Contributors</th>
-                    <th style="text-align: center;">2016 Contributors</th>
-                  </tr>
-                  <tr valign="middle">
-                    <td>Architecture, Computing & Humanities</td>
-                    <td style="text-align: center;">5</td>
-                    <td style="text-align: center;">2</td>
-                  </tr>
-                  <tr valign="middle">
-                    <td>Business School</td>
-                    <td style="text-align: center;">7</td>
-                    <td style="text-align: center;">4</td>
-                  </tr>
-                  <tr valign="middle">
-                    <td>Education & Health</td>
-                    <td style="text-align: center;">8</td>
-                    <td style="text-align: center;">3</td>
-                  </tr>
-                  <tr valign="middle">
-                    <td>Engineering & Science</td>
-                    <td style="text-align: center;">9</td>
-                    <td style="text-align: center;">3</td>
-                  </tr>
+                <table class='w3-table'>
+                <?php
+                $year = "1617";
+                $contributionsQuery  = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . " Group By AcademicYear, FacultyName";
+                 $resultcontribution = mysqli_query($con, $contributionsQuery); 
+                 echo "<tr><th>Faculty</th><th style='text-align: center;'>2016/17 Uploads</th><th style='text-align: center;'>2016/17 Approvals</th></tr>";
+
+                while($row10 = mysqli_fetch_array($resultcontribution)){
+                  echo "<tr><td>" . $row10['FacultyName'] . "</td>";
+                  echo "<td style='text-align: center;'>" . $row10['ContributionsPerFaculty'] . "</td>";
+
+                  $theQuery = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsApprovedPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . " AND A.StatusID = 1 Group By AcademicYear, FacultyName";
+                  $contributionsApprovedQuery  = mysqli_query($con, $theQuery);
+                  $counterTotal = 0;
+                  while($row11 = mysqli_fetch_array($contributionsApprovedQuery)){
+                    if($row11['FacultyName'] == $row10['FacultyName']){
+                      echo "<td style='text-align: center;'>" . $row11['ContributionsApprovedPerFaculty'] . "</td>";
+                      $counterTotal = 1;
+                    }
+                  }
+                  if ($counterTotal == 0) {
+                    echo "<td style='text-align: center;'>0</td>";
+                  }
+                }
+                echo "</tr>";
+
+                $year2 = "1516";
+                $contributionsQuery2  = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . " Group By AcademicYear, FacultyName";
+                 $resultcontribution2 = mysqli_query($con, $contributionsQuery2); 
+                 echo "<tr><th>Faculty</th><th style='text-align: center;'>2015/16 Uploads</th><th style='text-align: center;'>2015/16 Approvals</th></tr>";
+
+                while($row12 = mysqli_fetch_array($resultcontribution2)){
+                  echo "<tr><td>" . $row12['FacultyName'] . "</td>";
+                  echo "<td style='text-align: center;'>" . $row12['ContributionsPerFaculty'] . "</td>";
+
+                  $theQuery = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsApprovedPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . " AND A.StatusID = 1 Group By AcademicYear, FacultyName";
+                  $contributionsApprovedQuery  = mysqli_query($con, $theQuery);
+                  $counterTotal2 = 0;
+                  while($row13 = mysqli_fetch_array($contributionsApprovedQuery)){
+                    if($row13['FacultyName'] == $row12['FacultyName']){
+                      echo "<td style='text-align: center;'>" . $row13['ContributionsApprovedPerFaculty'] . "</td>";
+                      $counterTotal2 = 1;
+                    }
+                  }
+                  if ($counterTotal2 == 0) {
+                    echo "<td style='text-align: center;'>0</td>";
+                  }
+                }
+                echo "</tr>";
+
+                ?>
+                </table>
+                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of contributions within each Faculty for each academic year</p><br>
+
+                <table class='w3-table'>
+                <?php
+                $year = "1617";
+                $contributorsQuery  = "SELECT FacultyName, AcademicYear, COUNT( DISTINCT A.UserID ) AS ContributorsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . " Group By AcademicYear, FacultyName";
+
+                 $resultcontributors = mysqli_query($con, $contributorsQuery); 
+                 echo "<tr><th>Faculty</th><th style='text-align: center;'>2016/17 Contributors</th></tr>";
+
+                while($rowcontributors = mysqli_fetch_array($resultcontributors)){
+                  echo "<tr><td>" . $rowcontributors['FacultyName'] . "</td>";
+                  echo "<td style='text-align: center;'>" . $rowcontributors['ContributorsPerFaculty'] . "</td>";  
+                }
+                echo "</tr>";
+                $year2 = "1516";
+                $contributorsQuery2  = "SELECT FacultyName, AcademicYear, COUNT( DISTINCT A.UserID ) AS ContributorsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . " Group By AcademicYear, FacultyName";
+
+                 $resultcontributors2 = mysqli_query($con, $contributorsQuery2); 
+                 echo "<tr><th>Faculty</th><th style='text-align: center;'>2015/16 Contributors</th></tr>";
+
+                while($rowcontributors2 = mysqli_fetch_array($resultcontributors2)){
+                  echo "<tr><td>" . $rowcontributors2['FacultyName'] . "</td>";
+                  echo "<td style='text-align: center;'>" . $rowcontributors2['ContributorsPerFaculty'] . "</td>";  
+                }
+                echo "</tr>";
+                ?>
                 </table>
                 <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of contributors within each Faculty for each academic year</p><br>
               </div>
