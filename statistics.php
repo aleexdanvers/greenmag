@@ -244,8 +244,43 @@
               </div>
             </div>
           </div>
+          <div class="w3-col m12 w3-margin-top">
+            <div class="w3-card-2 w3-round w3-333">
+              <div class="w3-container w3-padding">
+              <h4 class="">Exception Reports</h4>
+              <table class="w3-table">
+              <tr>
+              <th>Faculty Name</th>
+              <th>Academic Year</th>
+              <th>Article Name</th>
+              <th>User</th>
+              <th>Days Since Upload</th>
+              </tr>
+              <?php
+              $exceptionReportQuery = "SELECT  FacultyName, AcademicYear, ArticleName, Username, DATEDIFF(CURDATE(),A.DateSubmitted) AS CurrentDateTime FROM Article A INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID INNER JOIN User U on U.UserID=A.UserID INNER JOIN Faculty F on F.FacultyID=U.FacultyID WHERE A.Comment = '' Group By AcademicYear, ArticleName ORDER BY CurrentDateTime DESC";
+
+              $exceptionReportResult = mysqli_query($con, $exceptionReportQuery);
+
+              while($rowexceptionreport = mysqli_fetch_array($exceptionReportResult)){
+                echo "<tr>";
+                echo "<td>" . $rowexceptionreport['FacultyName'] . "</td>";
+                echo "<td>" . $rowexceptionreport['AcademicYear'] . "</td>";
+                echo "<td>" . $rowexceptionreport['ArticleName'] . "</td>";
+                echo "<td>" . explode('@greenwich.ac.uk',$rowexceptionreport['Username'])[0] . "</td>";
+                echo "<td>" . $rowexceptionreport['CurrentDateTime'] . "</td>";
+                echo "</tr>";
+              }
+
+              ?>
+              </table>
+              <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Articles currently without a comment from the Marketing Co-ordinator</p><br>
+              <br>
+              </div>
+            </div>
+          </div>
         </div>
-      </div><!-- End Middle Column -->
+      </div>
+      <!-- End Middle Column -->
       <!-- Right Column -->
       <div class="w3-col m4">
         <div id="uploadArticlesBox" class="w3-row-padding">
@@ -325,7 +360,8 @@
               </div>
             </div>
           </div>
-        </div><!-- End Right Column -->
+        </div>
+        <!-- End Right Column -->
       </div><!-- End Grid -->
     </div><!-- End Page Container -->
   </div><br>
