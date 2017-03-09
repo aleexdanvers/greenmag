@@ -142,7 +142,7 @@
                 </div>
           </div><br>
             <div class="w3-card-2 w3-round w3-333">
-              <div class="w3-container w3-padding">
+              <div class="w3-container w3-padding w3-margin-bottom">
 
 
 
@@ -301,7 +301,7 @@
               <table>
               </form><br>
             </div>
-          </div><br>
+          </div>
         </div>
       </div>
     </div><!-- End Middle Column -->
