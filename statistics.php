@@ -63,7 +63,7 @@
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
                 <h4 class="">Statistics</h4>
-                                <table width="100%;">
+                <table width="100%;" id="pieChartHeadings">
                   <tr>
                   <td width="50%" style="text-align: center;"><h4>2016 / 2017</h4></td>
                   <td width="50%" style="text-align: center;"><h4>2015 / 2016</h4></td>
@@ -283,7 +283,7 @@
       <!-- End Middle Column -->
       <!-- Right Column -->
       <div class="w3-col m4">
-        <div id="uploadArticlesBox" class="w3-row-padding">
+        <div id="uploadArticlesBox2" class="w3-row-padding">
           <div class="w3-col m12">
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
@@ -462,6 +462,8 @@
   if ($(window).width() <= 600) {
     $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
     $('#uploadArticlesBox').removeClass('w3-row-padding');
+    $('#uploadArticlesBox2').addClass('w3-row-padding-bottom');
+    $('#uploadArticlesBox2').removeClass('w3-row-padding');
     $('.generatedContent').addClass('w3-margin-bottom');
     $('.generatedContent').removeClass('w3-margin');
     $('#acceptButton').removeClass('w3-section');
@@ -474,11 +476,15 @@
     $('#piechart2').removeClass('floatDaPies-right');
     $('#piechart').addClass('marginDaPies');
     $('#piechart2').addClass('marginDaPies');
+    $('#pieChartHeadings').css('display','none');
+    $('#piechart').before('<h4 class="w3-center" style="margin:0!important;">2016 / 2017</h4>');
+    $('#piechart2').before('<h4 class="w3-center" style="margin:0!important;">2015 / 2016</h4>');
   } else {
     $('#piechart').addClass('floatDaPies-left');
     $('#piechart2').addClass('floatDaPies-right');
     $('#piechart').removeClass('marginDaPies');
     $('#piechart2').removeClass('marginDaPies');
+    
   }
 
   $(window).resize(function() {
@@ -486,6 +492,8 @@
     if ($(window).width() <= 600) {
       $('#uploadArticlesBox').addClass('w3-row-padding-bottom');
       $('#uploadArticlesBox').removeClass('w3-row-padding');
+      $('#uploadArticlesBox2').addClass('w3-row-padding-bottom');
+      $('#uploadArticlesBox2').removeClass('w3-row-padding');
       $('.generatedContent').addClass('w3-margin-bottom');
       $('.generatedContent').removeClass('w3-margin');
       $('#acceptButton').removeClass('w3-section');
@@ -498,9 +506,14 @@
       $('#piechart2').removeClass('floatDaPies-right');
       $('#piechart').addClass('marginDaPies');
       $('#piechart2').addClass('marginDaPies');
+      $('#pieChartHeadings').css('display','none');
+      $('#piechart').before('<h4 class="w3-center" style="margin:0!important;">2016 / 2017</h4>');
+      $('#piechart2').before('<h4 class="w3-center" style="margin:0!important;">2015 / 2016</h4>');
     } else {
       $('#uploadArticlesBox').removeClass('w3-row-padding-bottom');
       $('#uploadArticlesBox').addClass('w3-row-padding');
+      $('#uploadArticlesBox2').removeClass('w3-row-padding-bottom');
+      $('#uploadArticlesBox2').addClass('w3-row-padding');
       $('.generatedContent').removeClass('w3-margin-bottom');
       $('.generatedContent').addClass('w3-margin');
       $('#acceptButton').addClass('w3-section');
