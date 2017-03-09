@@ -128,7 +128,35 @@
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
                 <h4 class="">Upload Articles</h4>
-                <p class="w3-border w3-padding" contenteditable="true">Give your article a name!</p><button class="w3-btn w3-theme" type="button"><i class="fa fa-pencil"></i> &nbsp;Post</button>
+                <form method="post" action="upload.php" enctype="multipart/form-data">
+                  <div class="w3-row w3-margin-bottom">
+                    <div class="w3-col m10 w3-center">
+                      <input class="w3-input w3-border" placeholder="Give your article a name!" id='articleTitle' name='articleTitle' required>
+                    </div>
+                    <div class="w3-col m2 w3-center">
+                      <button class="w3-btn w3-theme" type="button" style="padding-top: 9px;padding-bottom: 9px;" id="postButton" onclick="uploadForm()"><i class="fa fa-check"></i> &nbsp;Next</button>
+                    </div>
+                  </div>
+                  <div id='upload' style="display:none;">
+                    <div class='w3-twothird'>
+                      <h4>Description</h4>
+                      <textarea rows='4' class='w3-input w3-border w3-margin-bottom' placeholder="Description" name='articleDescription' id='articleDescription' required></textarea>
+                    </div>
+                    <div class="w3-half w3-padding-right">
+                      <h4>Article</h4>
+                      <input type='file' class='w3-margin-bottom' name='articleToUpload' id='articleToUpload' accept=".doc,.docx,.pdf" required>
+                      <br>
+                      <button class='w3-btn w3-theme' type='submit'>Submit</button>
+                    </div>
+                    <div class='w3-half w3-padding-left'>
+                      <h4>Images</h4>
+                      <input class='w3-margin-bottom imageUpload' type='file' name='imageToUpload1' id='imageToUpload1' accept=".jpeg,.jpg,.png" required>
+                      <input class='w3-margin-bottom imageUpload' type='file' name='imageToUpload2' id='imageToUpload2' accept=".jpeg,.jpg,.png" style="display:none;">
+                      <input class='w3-margin-bottom imageUpload' type='file' name='imageToUpload3' id='imageToUpload3' accept=".jpeg,.jpg,.png" style="display:none;">
+                      <button class='w3-btn w3-theme w3-margin-bottom' id='moreImages' onclick='addNewImage()' type='button'>Add Another Image</button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -633,6 +661,32 @@
     document.getElementsByClassName("articlecounttext")[1].innerHTML = "You have " + element1 + " pending article(s).";
     document.getElementsByClassName("articlecounttext")[2].innerHTML = "You have " + element2 + " approved article(s).";
     document.getElementsByClassName("articlecounttext")[3].innerHTML = "You have " + element3+ " rejected article(s).";
+  }
+  
+  function addNewImage() {
+    var image2 = $('#imageToUpload2');
+    var image3 = $('#imageToUpload3');
+    
+    if (image2.css('display') == 'none') {
+      image2.show('slow');
+    } else if (image2.css('display') != 'none' && image3.css('display') == 'none') {
+      image3.show('slow');
+    }
+    
+    if (image2.css('display') != 'none' && image3.css('display') != 'none') {
+      $('#moreImages').prop('disabled', true);
+      $('#moreImages').css('cursor', 'default');
+    }
+  }
+
+  function uploadForm() {
+    if ($('#upload').css('display') == 'none') {
+      $('#upload').show('slow');
+      $('#postButton').html('<i class="fa fa-times"></i> &nbsp;Close');
+    } else {
+      $('#upload').hide('slow');
+      $('#postButton').html('<i class="fa fa-pencil"></i> &nbsp;Post');
+    }
   }
 
   changePassword();
