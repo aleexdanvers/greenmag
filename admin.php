@@ -72,10 +72,79 @@
           <div class="w3-col m8">
           <div class="w3-card-2 w3-round w3-333">
             <div class="w3-container w3-padding">
-              <h4 class="w3-center">Admin</h4>
-              <p class="w3-center"><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
+              <div class="w3-center">
+                <h4>Admin</h4>
+                <p><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
+                <h4>Current Academic Year</h4>
+                <form method='post' action='academicyear.php'>
+                  <select name="currentYear">
+                    <?php 
+                      $sql = mysqli_query($con, "SELECT * FROM AcademicYear");
+                      while ($row = mysqli_fetch_array($sql)){
+                        echo "<option value=" . $row['AcademicYearID'] . ">" . $row['AcademicYear'] . "</option>";
+                      }
+                    ?>
+                  </select>
+                  <br><br>
+                  <button type='submit' class='w3-btn w3-theme'>Save</button>
+                </form>
+              </div>
             </div>
           </div><br>
+            <div class="w3-card-2 w3-round w3-333">
+              <div class="w3-container w3-padding">
+                <h4>User Table</h5>
+                <table class="w3-table" style="overflow-x:auto;">
+                  <tr>
+                    <th>User</th>
+                    <th>Faculty</th>
+                    <th>Role</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  <?php
+                    $result=mysqli_query($con, "SELECT User.*, Faculty.FacultyName, Role.RoleName FROM User INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Role ON User.RoleID=Role.RoleID ORDER BY UserID");
+                    
+                    while($user = mysqli_fetch_array($result))
+                    {
+                      $id = $user['UserID'];  
+                      echo "<tr align='center'>"; 
+                      echo"<td><font color='white'>" .explode('@greenwich.ac.uk',$user['Username'])[0]."</font></td>";
+                      echo"<td><font color='white'>" .$user['FacultyName']."</font></td>";
+                      echo"<td><font color='white'>" .$user['RoleName']."</font></td>";
+                      echo"<td> <a href ='userEdit.php?id=$id'><center>Edit</center></a>";
+                      echo"<td> <a href ='userDelete.php?id=$id'><center>Delete</center></a>";
+                                
+                      echo "</tr>";
+                    }
+                  ?>
+                </table>
+                  <?php
+                    // $result=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
+                    // 
+                    // while($test = mysqli_fetch_array($result))
+                    // {
+                    //   echo "<table class='w3-table w3-hide-large w3-hide-medium w3-margin-bottom' id='table1Mobile' style='overflow-x:auto;'>";
+                    //   $id = $test['AcademicYearID'];  
+                    //   echo "<tr class='firstRow'>";
+                    //   echo "<th>Academic Year ID</th>";
+                    //   echo "<td><font color='white'>" .$test['AcademicYearID']."</font></td>";
+                    //   echo "</tr>";
+                    //   echo "<tr class='secondRow'>"; 
+                    //   echo "<th>Academic Year</th>";
+                    //   echo "<td><font color='white'>" .$test['AcademicYear']."</font></td>";
+                    //   echo "</tr>";
+                    //   echo "<tr class='thirdRow'>";
+                    //   echo "<td><a href ='adminedit1.php?AcademicYearID=$id'><center>Edit</center></a>";
+                    //   echo "<td><a href ='admindel1.php?AcademicYearID=$id'><center>Delete</center></a>";
+                    //   echo "</tr>";
+                    //   echo "</table>";
+                    // }
+                  ?>
+              
+            </div>
+          </div>
+          <br>
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
                 <h4>Academic Year Table</h5>
@@ -140,13 +209,10 @@
                 </table>
                 </form><br>
                 </div>
-          </div><br>
+          </div>
+          <br>
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding w3-margin-bottom">
-
-
-
-
                 <h4>Close Dates Table</h5>
                 <table class="w3-table w3-hide-small w3-hide-medium-small" id="table3">
                   <tr>
