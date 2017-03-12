@@ -127,7 +127,7 @@
                 <form method="post" action="upload.php" enctype="multipart/form-data">
                   <div class="w3-row w3-margin-bottom">
                     <div class="w3-col m10 w3-center">
-                      <input class="w3-input w3-border" placeholder="Give your article a name!" id='articleTitle' name='articleTitle' required>
+                      <input class="w3-input w3-border" placeholder="Give your article a name!" id='articleTitle' name='articleTitle' maxlength="20" required>
                     </div>
                     <div class="w3-col m2" style="text-align:right">
                       <button class="w3-btn w3-theme" type="button" style="padding-top: 9px;padding-bottom: 9px;" id="postButton" onclick="uploadForm()"><i class="fa fa-check"></i> &nbsp;Next</button>
