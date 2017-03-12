@@ -5,7 +5,7 @@
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
   }
-	
+
 	if ($_SESSION["Role"] == 'Admin') {
     header('Location: admin.php');
   } else if ($_SESSION["Role"] == 'Marketing Manager') {
@@ -16,8 +16,10 @@
     header('Location: guest.php');
   }
   
+  $articlePageRegEx = preg_match("/article.php\?id=/",substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1));
   $urlJourney = substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1);
-  if ($urlJourney != 'home.php') {
+
+  if ($urlJourney != 'home.php' && $articlePageRegEx != 1) {
 		header('Location: home.php');
 		die();
 	}
@@ -85,11 +87,11 @@
 				<!-- Generate Content -->
 				<form method='post' action='edit.php' enctype="multipart/form-data">
 				<?php
+            $articleID = $_REQUEST['id'];
 						$articleQuery  = "SELECT Article.* FROM Article WHERE ArticleID = " . $articleID . ";";
 						$result = mysqli_query($con, $articleQuery);
 						
-						while($row = mysqli_fetch_array($result)){
-
+            while($row = mysqli_fetch_array($result)){
 							echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin'><br>";
 							echo "<a href='/article_docs/" . $row['DocPath'] . "' class='w3-btn w3-theme' style='margin-right:10px;' download><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
 							echo "<h4 style='margin-bottom:0 !important;'>Title: </h4>";
@@ -105,9 +107,7 @@
               if (isset($_SESSION['errorUpdate'])) {
                 echo "<p style='color:#ff3333;margin-top:0!important;margin-bottom:16px;'>" . $_SESSION['errorUpdate'] . "</p>";
               }
-							echo "<input type='submit' class='w3-btn w3-theme w3-margin-bottom' value='Update Details' name='submit'>";
-							// echo "<button type='submit' class='w3-btn w3-theme w3-margin-bottom' id='updateChanges'>Update Details</button>";
-							echo "</div>";
+							// echo "<input type='submit' class='w3-btn w3-theme w3-margin-bottom' value='Update Details' name='submit'>";
 						}
 						// if (mysqli_num_rows($result) === 0){
 						// 	echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent'><br>";
@@ -121,6 +121,8 @@
 						$_SESSION['articleID'] = $articleID;
 						mysqli_close($con);
 				?>
+            <button type='submit' class='w3-btn w3-theme w3-margin-bottom'>Update Details</button>
+          </div>
 				</form>
 				<!-- End Middle Column -->
 			</div><!-- Right Column -->

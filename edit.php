@@ -1,8 +1,10 @@
 <?php
-	if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1) != 'updatearticle.php') {
-		header('Location: updatearticle.php');
+	$articlePageRegEx = preg_match("/updatearticle.php\?id=/",substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1));
+	if ($articlePageRegEx != 1) {
+		header('Location: updatearticle.php?id='.$_SESSION['articleID']);
 		die();
 	}
+
 	session_start();
 	include 'includes/dbConnection.php';
 	if($_SESSION["user_logged_in"] == false){
