@@ -60,7 +60,7 @@
       <div class="w3-col m7">
         <!-- Generate Content -->
         <?php
-						$selectQuery = "SELECT Article.*, Status.*, User.*, AcademicYear.* FROM Article INNER JOIN Status ON Article.StatusID = Status.StatusID INNER JOIN User ON Article.UserID = User.UserID INNER JOIN AcademicYear ON Article.AcademicYearID = AcademicYear.AcademicYearID WHERE ArticleID = " . $articleID . " AND Article.AcademicYearID = " . $currentYear['AcademicYearID'] . ";";
+						$selectQuery = "SELECT Article.*, Status.*, User.*, AcademicYear.* FROM Article INNER JOIN Status ON Article.StatusID = Status.StatusID INNER JOIN User ON Article.UserID = User.UserID INNER JOIN AcademicYear ON Article.AcademicYearID = AcademicYear.AcademicYearID WHERE ArticleID = " . $articleID . ";";
 						$selectArticle = mysqli_query($con, $selectQuery);
 						$row = mysqli_fetch_array($selectArticle, MYSQLI_ASSOC);
 
