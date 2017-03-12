@@ -1,17 +1,5 @@
 <?php 
 	session_start();
-	$urlJourney = substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1);
-	if ($urlJourney != 'marketingcoordinator.php' 
-			&& $urlJourney != 'marketingmanager.php'
-			&& $urlJourney != 'marketingcoordinator.php'
-			&& $urlJourney != 'guest.php'
-			&& $urlJourney != 'home.php'
-			&& $urlJourney != 'statistics.php'
-			&& $urlJourney != 'admin.php') {
-		header('Location: redirects.php');
-		die();
-	}
-
 	include 'includes/dbConnection.php';
 
 	$articleID = $_GET['id'];
