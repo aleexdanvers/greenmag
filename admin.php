@@ -15,13 +15,9 @@
 	} else if ($_SESSION["Role"] == 'Guest') {
 		header('Location: guest.php');
 	}
-
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Student Page';";
-  $resultpageview = mysqli_query($con, $pageviewquery);
-  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-  $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Student Page';";
-  $updatePageView = mysqli_query($con, $updatePageViewQuery);
+  
+  $currentYearQuery = "SELECT * FROM AcademicYear WHERE currentYear = 1;";
+  $currentYear = mysqli_fetch_array(mysqli_query($con, $currentYearQuery), MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,9 +71,9 @@
               <div class="w3-center">
                 <h4>Admin</h4>
                 <p><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
-                <h4>Current Academic Year</h4>
+                <h4>Current Academic Year: <br class='w3-hide-large w3-hide-medium w3-hide-medium-small'> <?php echo $currentYear['AcademicYear'] ?></h4>
                 <form method='post' action='academicyear.php'>
-                  <select name="currentYear">
+                  <select name="currentYear" id="currentYear">
                     <?php 
                       $sql = mysqli_query($con, "SELECT * FROM AcademicYear");
                       while ($row = mysqli_fetch_array($sql)){
@@ -88,13 +84,27 @@
                   <br><br>
                   <button type='submit' class='w3-btn w3-theme'>Save</button>
                 </form>
+                <div class="w3-margin">
+                  <h4>Show:</h4>
+                  <button class='w3-btn w3-theme w3-hide-small' id='userTableBtn' type="button">User Table</button>
+                  <button class='w3-btn w3-theme w3-hide-small' id='academicYearBtn' type="button">Academic Year Table</button>
+                  <button class='w3-btn w3-theme w3-hide-small' id='closeDatesBtn' type="button">Close Dates Table</button>
+                  <div class="w3-hide-large w3-hide-medium w3-hide-medium-small">
+                    <button class='w3-btn w3-theme' id='userTableBtnMobile' type="button">User Table</button>
+                    <br><br>
+                    <button class='w3-btn w3-theme' id='academicYearBtnMobile' type="button">Academic Year Table</button>
+                    <br><br>
+                    <button class='w3-btn w3-theme' id='closeDatesBtnMobile' type="button">Close Dates Table</button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div><br>
-            <div class="w3-card-2 w3-round w3-333">
+          </div>
+          <br>
+            <div class="w3-card-2 w3-round w3-333"  id="userTable" style='display:none;'>
               <div class="w3-container w3-padding">
-                <h4>User Table</h5>
-                <table class="w3-table" style="overflow-x:auto;">
+                <h4>User Table</h4>
+                <table class="w3-table w3-hide-small w3-hide-medium-small" style="overflow-x:auto;">
                   <tr>
                     <th>User</th>
                     <th>Faculty</th>
@@ -109,45 +119,46 @@
                     {
                       $id = $user['UserID'];  
                       echo "<tr align='center'>"; 
-                      echo"<td><font color='white'>" .explode('@greenwich.ac.uk',$user['Username'])[0]."</font></td>";
-                      echo"<td><font color='white'>" .$user['FacultyName']."</font></td>";
-                      echo"<td><font color='white'>" .$user['RoleName']."</font></td>";
-                      echo"<td> <a href ='userEdit.php?id=$id'><center>Edit</center></a>";
-                      echo"<td> <a href ='userDelete.php?id=$id'><center>Delete</center></a>";
+                      echo "<td><font color='white'>" .explode('@greenwich.ac.uk',$user['Username'])[0]."</font></td>";
+                      echo "<td><font color='white'>" .$user['FacultyName']."</font></td>";
+                      echo "<td><font color='white'>" .$user['RoleName']."</font></td>";
+                      echo "<td> <a href ='userEdit.php?id=$id'><center>Edit</center></a>";
+                      echo "<td> <a href ='userDelete.php?id=$id'><center>Delete</center></a>";
                                 
                       echo "</tr>";
                     }
                   ?>
                 </table>
                   <?php
-                    // $result=mysqli_query($con, "SELECT * FROM AcademicYear ORDER BY AcademicYearID");
-                    // 
-                    // while($test = mysqli_fetch_array($result))
-                    // {
-                    //   echo "<table class='w3-table w3-hide-large w3-hide-medium w3-margin-bottom' id='table1Mobile' style='overflow-x:auto;'>";
-                    //   $id = $test['AcademicYearID'];  
-                    //   echo "<tr class='firstRow'>";
-                    //   echo "<th>Academic Year ID</th>";
-                    //   echo "<td><font color='white'>" .$test['AcademicYearID']."</font></td>";
-                    //   echo "</tr>";
-                    //   echo "<tr class='secondRow'>"; 
-                    //   echo "<th>Academic Year</th>";
-                    //   echo "<td><font color='white'>" .$test['AcademicYear']."</font></td>";
-                    //   echo "</tr>";
-                    //   echo "<tr class='thirdRow'>";
-                    //   echo "<td><a href ='adminedit1.php?AcademicYearID=$id'><center>Edit</center></a>";
-                    //   echo "<td><a href ='admindel1.php?AcademicYearID=$id'><center>Delete</center></a>";
-                    //   echo "</tr>";
-                    //   echo "</table>";
-                    // }
+                    $result2=mysqli_query($con, "SELECT User.*, Faculty.FacultyName, Role.RoleName FROM User INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Role ON User.RoleID=Role.RoleID ORDER BY UserID");
+                    
+                    while($user2 = mysqli_fetch_array($result2))
+                    {
+                      echo "<table class='w3-table w3-hide-large w3-hide-medium w3-margin-bottom' style='overflow-x:auto;'>";
+                      echo "<tr>";
+                      echo "<th style='width:50%'>User</th>";
+                      echo "<td style='width:50%'><font color='white'>" .explode('@greenwich.ac.uk',$user2['Username'])[0]."</font></td>";
+                      echo "</tr>";
+                      echo "<tr>";
+                      echo "<th style='width:50%'>Faculty</th>";
+                      echo "<td style='width:50%'><font color='white'>" .$user2['FacultyName']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr>";
+                      echo "<th style='width:50%'>Role</th>";
+                      echo "<td style='width:50%'><font color='white'>" .$user2['RoleName']."</font></td>";
+                      echo "</tr>";
+                      echo "<tr>";
+                      echo "<td style='width:50%'> <a href ='userEdit.php?id=$id'><center>Edit</center></a>";
+                      echo "<td style='width:50%'> <a href ='userDelete.php?id=$id'><center>Delete</center></a>";
+                      echo "</tr>";
+                    }
                   ?>
-              
+              </table>
             </div>
           </div>
-          <br>
-            <div class="w3-card-2 w3-round w3-333">
+            <div class="w3-card-2 w3-round w3-333" id="academicYearTable"  style='display:none;'>
               <div class="w3-container w3-padding">
-                <h4>Academic Year Table</h5>
+                <h4>Academic Year Table</h4>
                 <table class="w3-table w3-hide-small w3-hide-medium-small" id="table1" style="overflow-x:auto;">
                   <tr>
                     <th>Academic Year ID</th>
@@ -210,8 +221,7 @@
                 </form><br>
                 </div>
           </div>
-          <br>
-            <div class="w3-card-2 w3-round w3-333">
+            <div class="w3-card-2 w3-round w3-333" id="closeDatesTable"  style='display:none;'>
               <div class="w3-container w3-padding w3-margin-bottom">
                 <h4>Close Dates Table</h5>
                 <table class="w3-table w3-hide-small w3-hide-medium-small" id="table3">
@@ -375,6 +385,8 @@
   <script>
 	var role = <?php echo json_encode($_SESSION['Role']); ?>;
 	
+  $('#userTable').fadeIn('slow');
+  
   if (role == 'Student') {
     $("#statsNav").show();
     $("#guestNavMobile").hide();
@@ -482,6 +494,45 @@
          x.className = x.className.replace(" w3-show", "");
      }
   }
+  
+  var currentYear = <?php echo $currentYear['AcademicYearID']; ?>;
+  
+  $(document).ready(
+    function() { 
+      $('#currentYear').val(currentYear) 
+    }
+  );
+  
+  $('#userTableBtn').click(function() {
+    $('#userTable').fadeIn('slow');
+    $('#academicYearTable').hide();
+    $('#closeDatesTable').hide();
+  });
+  $('#academicYearBtn').click(function() {
+    $('#academicYearTable').fadeIn('slow');
+    $('#userTable').hide();
+    $('#closeDatesTable').hide();
+  });
+  $('#closeDatesBtn').click(function() {
+    $('#closeDatesTable').fadeIn('slow');
+    $('#academicYearTable').hide();
+    $('#userTable').hide();
+  });
+  $('#userTableBtnMobile').click(function() {
+    $('#userTable').fadeIn('slow');
+    $('#academicYearTable').hide();
+    $('#closeDatesTable').hide();
+  });
+  $('#academicYearBtnMobile').click(function() {
+    $('#academicYearTable').fadeIn('slow');
+    $('#userTable').hide();
+    $('#closeDatesTable').hide();
+  });
+  $('#closeDatesBtnMobile').click(function() {
+    $('#closeDatesTable').fadeIn('slow');
+    $('#academicYearTable').hide();
+    $('#userTable').hide();
+  });
   </script>
 </body>
 </html>

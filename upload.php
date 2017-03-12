@@ -3,6 +3,12 @@ session_start();
 
 include 'includes/dbConnection.php';
 
+$urlJourney = substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1);
+if ($urlJourney != 'home.php') {
+	header('Location: home.php');
+	die();
+}
+
 $articleTitle = $_REQUEST['articleTitle'];
 $articleDescription = $_REQUEST['articleDescription'];
 $article = $_FILES['articleToUpload'];
@@ -94,24 +100,22 @@ $currentYearRow = mysqli_fetch_array(mysqli_query($con, $currentYear), MYSQLI_AS
 
 $insertQuery = "INSERT INTO Article (UserID, ArticleName, ArticleDescription, DateSubmitted, AcademicYearID, StatusID, DocPath, ImagePath) VALUES (" . $userID . ", '" . $articleTitle . "','" . $articleDescription . "','" . $dateNow . "','" . $currentYearRow['AcademicYearID'] . "','2','" . $newFileNameArticle . "','" . $imgString . "');";
 mysqli_query($con, $insertQuery);
-// echo $insertQuery;
-// echo "<br>";
-$coordinatorEmailQuery = "SELECT Username FROM User WHERE FacultyID=" . $_SESSION["FacultyID"] . " AND RoleID=3;";
-// $row = mysqli_fetch_array(mysqli_query($con, $coordinatorEmailQuery));
 
-// while ($row = mysqli_fetch_array(mysqli_query($con, $coordinatorEmailQuery))) {
-	// $to = $row['Username'];
-	// echo $to;
-	// echo "<br>";
-	// $subject = "Greenmag - Article Upload";
-	// $txt = "Hello,<br><br>A Student within your faculty just uploaded a new article titled '" . $articleTitle . "'. You can see details below.<br><br><strong>Article Title: </strong>" . $articleTitle . "<br><strong>Article Description: </strong>" . $articleDescription . "<br><br>Log back into the system to see any further changes.<br><br>You have 14 days to add comments and change status.<br><br>Thank you,<br><br>Greenmag Team";
-	// $headers = "From: noreply@greenmag.co.uk" . "\r\n";
-	// $headers .= "MIME-Version: 1.0" . "\r\n";
-	// $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-	// mail($to,$subject,$txt,$headers);
+$getID = "SELECT ArticleID FROM Article WHERE UserID = " . $userID . " AND ArticleTitle = " . $articleTitle . " AND AcademicYearID = " . $currentYearRow['AcademicYear'] . " AND DocPath = " . $newFileNameArticle . " AND ImagePath = " . $imgString . ";";
+$newID = mysqli_fetch_array(mysqli_query($con, $getID), MYSQLI_ASSOC);
+
+$coordinatorEmailQuery = "SELECT * FROM User WHERE FacultyID=" . $_SESSION['FacultyID'] . " AND RoleID=3;";
+$dbQuery = mysqli_query($con, $coordinatorEmailQuery);
+
+while ($row = mysqli_fetch_array($dbQuery)) {
+	$to = $row['Username'];
+	$subject = "Greenmag - Article Upload";
+	$txt = "Hello,<br><br>A Student within your faculty just uploaded a new article titled <a href='http://www.greenmag.co.uk/article.php?id=" . $newID['ArticleID'] . "'>'" . $articleTitle . "'</a>. You can see details below.<br><br><strong>Article Title: </strong>" . $articleTitle . "<br><strong>Article Description: </strong>" . $articleDescription . "<br><br>Log back into the system to see any further changes.<br><br>You have 14 days to add comments and change status.<br><br>Thank you,<br><br>Greenmag Team";
+	$headers = "From: noreply@greenmag.co.uk" . "\r\n";
+	$headers .= "MIME-Version: 1.0" . "\r\n";
+	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+	mail($to,$subject,$txt,$headers);
 }
-// $to = $row['Username'];
-
 
 mysqli_close($con);
 header('Location: home.php');

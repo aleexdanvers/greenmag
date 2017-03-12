@@ -5,8 +5,6 @@
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
   }
-
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Marketing Manager Page';";
   
   if ($_SESSION["Role"] == 'Admin') {
     header('Location: admin.php');
@@ -18,13 +16,8 @@
     header('Location: guest.php');
   }
   
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Student Page';";
-
-  $resultpageview = mysqli_query($con, $pageviewquery);
-  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-  $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Marketing Manager Page';";
-  $updatePageView = mysqli_query($con, $updatePageViewQuery);
+  $currentYearQuery = "SELECT * FROM AcademicYear WHERE currentYear = 1;";
+  $currentYear = mysqli_fetch_array(mysqli_query($con, $currentYearQuery), MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
@@ -108,7 +101,7 @@
           </div>
         <!-- Generate Content -->
         <?php
-            $articleQuery  = "SELECT Article.*, Faculty.*, Status.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Status ON Article.StatusID = Status.StatusID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " ORDER BY Article.StatusID ASC, Article.DateSubmitted DESC;";
+            $articleQuery  = "SELECT Article.*, Faculty.*, Status.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Status ON Article.StatusID = Status.StatusID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND Article.AcademicYearID = " . $currentYear['AcademicYearID'] . " ORDER BY Article.StatusID ASC, Article.DateSubmitted DESC;";
             $result = mysqli_query($con, $articleQuery);
             while($row = mysqli_fetch_array($result)){
 
@@ -162,6 +155,7 @@
                 echo "<p style='margin-top:0!important'>" . $row['Comment'] . "</p>";
               }
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
+              echo "<a href='article.php?id=" . $row['ArticleID'] . "' style='margin-right:10px;'><button class='w3-btn w3-theme w3-margin-bottom' type='button'><i class='fa fa-eye'></i> &nbsp;View</button></a>";
               echo "<button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' onclick='openComment(" . $row['ArticleID'] . ")' type='button'><i class='fa fa-pencil'></i> &nbsp;Edit</button>";
               echo "<script>$(document).ready(function() { $('#statusID" . $row['ArticleID'] . "').val(" . $row['StatusID'] . ") });</script>";
               include 'includes/openComment.php';

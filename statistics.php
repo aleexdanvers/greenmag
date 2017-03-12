@@ -5,12 +5,6 @@
   if($_SESSION["user_logged_in"] == false){
     header('Location: logout.php');
   }
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Statistics Page';";
-  $resultpageview = mysqli_query($con, $pageviewquery);
-  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-  $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Statistics Page';";
-  $updatePageView = mysqli_query($con, $updatePageViewQuery);
 ?>
 <!DOCTYPE html>
 <html>
@@ -163,7 +157,7 @@
                 <table class='w3-table'>
                 <?php
                 $year = "1617";
-                $contributionsQuery  = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . " Group By AcademicYear, FacultyName";
+                $contributionsQuery  = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . "  AND F.FacultyName <> 'All' Group By AcademicYear, FacultyName";
                  $resultcontribution = mysqli_query($con, $contributionsQuery); 
                  echo "<tr><th>Faculty</th><th style='text-align: center;'>2016/17 Uploads</th><th style='text-align: center;'>2016/17 Approvals</th></tr>";
 
@@ -171,7 +165,7 @@
                   echo "<tr><td>" . $row10['FacultyName'] . "</td>";
                   echo "<td style='text-align: center;'>" . $row10['ContributionsPerFaculty'] . "</td>";
 
-                  $theQuery = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsApprovedPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . " AND A.StatusID = 1 Group By AcademicYear, FacultyName";
+                  $theQuery = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsApprovedPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . " AND A.StatusID = 1  AND F.FacultyName <> 'All' Group By AcademicYear, FacultyName";
                   $contributionsApprovedQuery  = mysqli_query($con, $theQuery);
                   $counterTotal = 0;
                   while($row11 = mysqli_fetch_array($contributionsApprovedQuery)){
@@ -187,7 +181,7 @@
                 echo "</tr>";
 
                 $year2 = "1516";
-                $contributionsQuery2  = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . " Group By AcademicYear, FacultyName";
+                $contributionsQuery2  = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . "  AND F.FacultyName <> 'All' Group By AcademicYear, FacultyName";
                  $resultcontribution2 = mysqli_query($con, $contributionsQuery2); 
                  echo "<tr><th>Faculty</th><th style='text-align: center;'>2015/16 Uploads</th><th style='text-align: center;'>2015/16 Approvals</th></tr>";
 
@@ -195,7 +189,7 @@
                   echo "<tr><td>" . $row12['FacultyName'] . "</td>";
                   echo "<td style='text-align: center;'>" . $row12['ContributionsPerFaculty'] . "</td>";
 
-                  $theQuery = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsApprovedPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . " AND A.StatusID = 1 Group By AcademicYear, FacultyName";
+                  $theQuery = "SELECT FacultyName, AcademicYear, COUNT( A.UserID ) AS ContributionsApprovedPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . " AND A.StatusID = 1 AND F.FacultyName <> 'All' Group By AcademicYear, FacultyName";
                   $contributionsApprovedQuery  = mysqli_query($con, $theQuery);
                   $counterTotal2 = 0;
                   while($row13 = mysqli_fetch_array($contributionsApprovedQuery)){
@@ -217,7 +211,7 @@
                 <table class='w3-table'>
                 <?php
                 $year = "1617";
-                $contributorsQuery  = "SELECT FacultyName, AcademicYear, COUNT( DISTINCT A.UserID ) AS ContributorsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . " Group By AcademicYear, FacultyName";
+                $contributorsQuery  = "SELECT FacultyName, AcademicYear, COUNT( DISTINCT A.UserID ) AS ContributorsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year . "  AND F.FacultyName <> 'All' Group By AcademicYear, FacultyName";
 
                  $resultcontributors = mysqli_query($con, $contributorsQuery); 
                  echo "<tr><th>Faculty</th><th style='text-align: center;'>2016/17 Contributors</th></tr>";
@@ -228,7 +222,7 @@
                 }
                 echo "</tr>";
                 $year2 = "1516";
-                $contributorsQuery2  = "SELECT FacultyName, AcademicYear, COUNT( DISTINCT A.UserID ) AS ContributorsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . " Group By AcademicYear, FacultyName";
+                $contributorsQuery2  = "SELECT FacultyName, AcademicYear, COUNT( DISTINCT A.UserID ) AS ContributorsPerFaculty FROM Faculty F INNER JOIN User U on U.FacultyID = F.FacultyID INNER JOIN Article A on A.UserID = U.UserID INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID WHERE A.AcademicYearID = " . $year2 . "  AND F.FacultyName <> 'All' Group By AcademicYear, FacultyName";
 
                  $resultcontributors2 = mysqli_query($con, $contributorsQuery2); 
                  echo "<tr><th>Faculty</th><th style='text-align: center;'>2015/16 Contributors</th></tr>";
@@ -257,7 +251,7 @@
               <th>Days Since Upload</th>
               </tr>
               <?php
-              $exceptionReportQuery = "SELECT  FacultyName, AcademicYear, ArticleName, Username, DATEDIFF(CURDATE(),A.DateSubmitted) AS CurrentDateTime FROM Article A INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID INNER JOIN User U on U.UserID=A.UserID INNER JOIN Faculty F on F.FacultyID=U.FacultyID WHERE A.Comment = '' Group By AcademicYear, ArticleName ORDER BY CurrentDateTime DESC";
+              $exceptionReportQuery = "SELECT  FacultyName, AcademicYear, ArticleName, ArticleID, Username, DATEDIFF(CURDATE(),A.DateSubmitted) AS CurrentDateTime FROM Article A INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID INNER JOIN User U on U.UserID=A.UserID INNER JOIN Faculty F on F.FacultyID=U.FacultyID WHERE A.Comment = '' Group By AcademicYear, ArticleName ORDER BY CurrentDateTime DESC";
 
               $exceptionReportResult = mysqli_query($con, $exceptionReportQuery);
 
@@ -265,7 +259,7 @@
                 echo "<tr>";
                 echo "<td>" . $rowexceptionreport['FacultyName'] . "</td>";
                 echo "<td>" . $rowexceptionreport['AcademicYear'] . "</td>";
-                echo "<td>" . $rowexceptionreport['ArticleName'] . "</td>";
+                echo "<td><a href='http://greenmag.ac.uk/article.php?id=" . $rowexceptionreport['ArticleID'] . "'>" . $rowexceptionreport['ArticleName'] . "</a></td>";
                 echo "<td>" . explode('@greenwich.ac.uk',$rowexceptionreport['Username'])[0] . "</td>";
                 echo "<td>" . $rowexceptionreport['CurrentDateTime'] . "</td>";
                 echo "</tr>";
@@ -339,21 +333,35 @@
               <h4 class="">Most Visited Pages</h4>
                 <ul class="skill-list">
                 <?php
-                 $pageviewsquery  = "SELECT * FROM PagesViewed ORDER BY Views DESC LIMIT 4;";
-                 $result6 = mysqli_query($con, $pageviewsquery);
-                 $row6 = mysqli_fetch_array($result6, MYSQLI_ASSOC);
-                 $highest2 = $row6['Views'];
+                  if ($_SESSION["Role"] == 'Marketing Manager') {
+                    $pageviewsquery  = "SELECT * FROM Article WHERE StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
+                    $pageviewsquerys  = "SELECT * FROM Article WHERE StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
+                  } else if ($_SESSION["Role"] == 'Marketing Co-ordinator') {
+                    $pageviewsquery  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " ORDER BY TimesVisited DESC LIMIT 4;";
+                    $pageviewsquerys  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " ORDER BY TimesVisited DESC LIMIT 4;";
+                  } else if ($_SESSION["Role"] == 'Student') {
+                    $pageviewsquery  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
+                    $pageviewsquerys  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
+                  } else if ($_SESSION["Role"] == 'Guest') {
+                    $pageviewsquery  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
+                    $pageviewsquerys  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
+                  } else if ($_SESSION["Role"] == 'Admin') {
+                    $pageviewsquery  = "SELECT * FROM Article ORDER BY TimesVisited DESC LIMIT 4;";
+                    $pageviewsquerys  = "SELECT * FROM Article ORDER BY TimesVisited DESC LIMIT 4;";
+                  }
 
-                $pageviewsquerys  = "SELECT * FROM PagesViewed ORDER BY Views DESC LIMIT 4;";
-                 $result7 = mysqli_query($con, $pageviewsquerys); 
+                  $result6 = mysqli_query($con, $pageviewsquery);
+                  $row6 = mysqli_fetch_array($result6, MYSQLI_ASSOC);
+                  $highest2 = $row6['TimesVisited'];
+                  
+                  $pageviewsquerys  = "SELECT * FROM Article ORDER BY TimesVisited DESC LIMIT 4;";
+                  $result7 = mysqli_query($con, $pageviewsquerys); 
 
-                 while($row7 = mysqli_fetch_array($result7)){
-                  $percentage2 = round((($row7['Views']/$highest2)*100),2);
-                  echo "<li class='skill'><h3>" . $row7['PageName'] . " - " . $row7['Views'] . "</h3>";
+                  while($row7 = mysqli_fetch_array($result7)){
+                  $percentage2 = round((($row7['TimesVisited']/$highest2)*100),2);
+                  echo "<li class='skill'><h3><a href='http://greenmag.co.uk/article.php?id=" . $row7['ArticleID'] . "'>" . $row7['ArticleName'] . "</a> - " . $row7['TimesVisited'] . "</h3>";
                   echo "<progress class='skill-3' max='100' value='" . $percentage2 . "'></progress></li>";
-                 }
-
-
+                  }
                 ?>
                 </ul>
                 <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of views on a specific page by users</p>

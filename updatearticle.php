@@ -15,29 +15,12 @@
   } else if ($_SESSION["Role"] == 'Guest') {
     header('Location: guest.php');
   }
-
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Student Page';";
-  $resultpageview = mysqli_query($con, $pageviewquery);
-  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-  $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Student Page';";
-  $updatePageView = mysqli_query($con, $updatePageViewQuery);
   
-  if (isset($_GET['id']) == false) {
-    header('Location: home.php');
-    die();
-  } else {
-    $articleID = $_GET['id'];
-  }
-  
-  $userIDQuery = "SELECT UserID FROM Article WHERE ArticleID = " . $articleID . ";";
-  $userIDresult = mysqli_query($con, $userIDQuery);
-  $rowUserID = mysqli_fetch_array($userIDresult, MYSQLI_ASSOC);
-  
-  if ($_SESSION['UserID'] != $rowUserID['UserID']) {
-    header('Location: home.php');
-    die();
-  }
+  $urlJourney = substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1);
+  if ($urlJourney != 'home.php') {
+		header('Location: home.php');
+		die();
+	}
 ?>
 <!DOCTYPE html>
 <html>

@@ -15,13 +15,9 @@
   } else if ($_SESSION["Role"] == 'Guest') {
     header('Location: guest.php');
   }
-
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Guest Page';";
-  $resultpageview = mysqli_query($con, $pageviewquery);
-  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-  $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Guest Page';";
-  $updatePageView = mysqli_query($con, $updatePageViewQuery);
+  
+  $currentYearQuery = "SELECT * FROM AcademicYear WHERE currentYear = 1;";
+  $currentYear = mysqli_fetch_array(mysqli_query($con, $currentYearQuery), MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
@@ -77,18 +73,14 @@
                 <!-- <h4 class="w3-center">Articles</h4> -->
                 <p style="text-align: center;">Here you can view all approved articles submitted to the <strong><?php echo $_SESSION['Faculty']; ?></strong> faculty.</p>
                 <?php
-                $articleQuery  = "SELECT Article.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID WHERE User.FacultyID = " . $_SESSION["FacultyID"] . " AND Article.StatusID = 1;";
+                $articleQuery  = "SELECT Article.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID WHERE User.FacultyID = " . $_SESSION["FacultyID"] . " AND Article.StatusID = 1 AND Article.AcademicYearID = " . $currentYear['AcademicYearID'] . " ORDER BY DateSubmitted DESC;";
                 $result = mysqli_query($con, $articleQuery); ?>
               </div>
             </div>
           </div>
         </div>
-        <div class="w3-col m3">
-        <!-- Profile -->
-        <br>
-      </div>
-        <!-- Generate Content -->
         <?php
+            echo "<h4 style='color:#fff' class='w3-margin w3-center'>Showing Articles for Year: " . $currentYear['AcademicYear'] . "</h4>";
             while($row = mysqli_fetch_array($result)){
 
               $dateAgo = date_create($row['DateSubmitted']);

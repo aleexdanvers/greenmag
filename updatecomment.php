@@ -1,6 +1,7 @@
 <?php 
 session_start();
-if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1) != 'marketingcoordinator.php') {
+$articlePageRegEx = preg_match("/article.php\?id=/",substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1));
+if (substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1) != 'marketingcoordinator.php' && $articlePageRegEx != 1) {
 	header('Location: marketingcoordinator.php');
 	die();
 }
@@ -30,15 +31,15 @@ $row2 = mysqli_fetch_array($result2);
 
 if ($currentComment == $newComment) {
 	$updateQuery = "UPDATE Article SET StatusID = " . $newStatusID . " WHERE ArticleID = " . $articleID . ";";
-	$txt = "Hello,<br><br>A Marketing Coordinator for your faculty recently changed status of your article titled '" . $articleName . "'.<br><br><strong>Previous Status: </strong>" . $row['Status'] . "<br><strong>Current Status: </strong>" . $row2['Status'] . "<br><br>Log back into the system to see any further changes.<br><br>Thank you,<br><br>Greenmag Team";
+	$txt = "Hello,<br><br>A Marketing Coordinator for your faculty recently changed status of your article titled <a href='http://www.greenmag.co.uk/article.php?id=" . $articleID . "'>'" . $articleName . "'</a>.<br><br><strong>Previous Status: </strong>" . $row['Status'] . "<br><strong>Current Status: </strong>" . $row2['Status'] . "<br><br>Log back into the system to see any further changes.<br><br>Thank you,<br><br>Greenmag Team";
 } else if ($currentStatusID == $newStatusID) {
 	$updateQuery = "UPDATE Article SET Comment = '" . $newComment . "' WHERE ArticleID = " . $articleID . ";";
-	$txt = "Hello,<br><br>A Marketing Coordinator for your faculty recently added comment to your article titled '" . $articleName . "'.<br><br><strong>New Comment: </strong>" . $newComment . "<br><br>Log back into the system to see any further changes.<br><br>Thank you,<br><br>Greenmag Team";
+	$txt = "Hello,<br><br>A Marketing Coordinator for your faculty recently added comment to your article titled <a href='http://www.greenmag.co.uk/article.php?id=" . $articleID . "'>'" . $articleName . "'</a>.<br><br><strong>New Comment: </strong>" . $newComment . "<br><br>Log back into the system to see any further changes.<br><br>Thank you,<br><br>Greenmag Team";
 } else if ($currentComment == $newComment && $currentStatusID == $newStatusID) {
 	header('Location: home.php');
 } else {
 	$updateQuery = "UPDATE Article SET Comment = '" . $newComment . "', StatusID = " . $newStatusID . " WHERE ArticleID = " . $articleID . ";";
-	$txt = "Hello,<br><br>A Marketing Coordinator for your faculty recently changed status of your article titled '" . $articleName . "'. Your Marketing Coordinator also added a comment.<br><br><strong>Previous Status: </strong>" . $row['Status'] . "<br><strong>Current Status: </strong>" . $row2['Status'] . "<br><br><strong>New Comment: </strong>" . $newComment . "<br><br>Log back into the system to see any further changes.<br><br>Thank you,<br><br>Greenmag Team";
+	$txt = "Hello,<br><br>A Marketing Coordinator for your faculty recently changed status of your article titled <a href='http://www.greenmag.co.uk/article.php?id=" . $articleID . "'>'" . $articleName . "'</a>. Your Marketing Coordinator also added a comment.<br><br><strong>Previous Status: </strong>" . $row['Status'] . "<br><strong>Current Status: </strong>" . $row2['Status'] . "<br><br><strong>New Comment: </strong>" . $newComment . "<br><br>Log back into the system to see any further changes.<br><br>Thank you,<br><br>Greenmag Team";
 }
 
 $userQuery = "SELECT * FROM User WHERE UserID = " . $row['UserID'] . ";";
@@ -56,5 +57,9 @@ $headers .= "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 mail($to,$subject,$txt,$headers);
 
-header('Location: marketingcoordinator.php');
+if ($articlePageRegEx == 1) {
+	header('Location: ' . substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1));
+} else {
+	header('Location: marketingcoordinator.php');
+} 
 ?>

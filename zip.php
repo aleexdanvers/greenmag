@@ -7,8 +7,11 @@
 
 	include 'includes/dbConnection.php';
 
+	$currentYearQuery = "SELECT * FROM AcademicYear WHERE currentYear = 1;";
+	$currentYear = mysqli_fetch_array(mysqli_query($con, $currentYearQuery), MYSQLI_ASSOC);
+
 	$files = [];
-	$articlezipquery  = "SELECT Article.DocPath, Article.ImagePath FROM Article;";
+	$articlezipquery  = "SELECT Article.DocPath, Article.ImagePath FROM Article WHERE AcademicYearID = " . $currentYear['AcademicYearID'] . ";";
     $result = mysqli_query($con, $articlezipquery); 
     while($row = mysqli_fetch_array($result)){
     	$images = explode(";", $row['ImagePath']);

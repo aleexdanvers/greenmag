@@ -1,12 +1,6 @@
 <?php
     session_start();
     include 'includes/dbConnection.php';
-    $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Welcome Page';";
-    $resultpageview = mysqli_query($con, $pageviewquery);
-    $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-    $NewPageViews = $rowpageview['Views'] + 1;
-    $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Welcome Page';";
-    $updatePageView = mysqli_query($con, $updatePageViewQuery);
 ?>
 <!DOCTYPE html>
 <html>

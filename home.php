@@ -16,14 +16,10 @@
     header('Location: guest.php');
   }
   
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Student Page';";
-  $resultpageview = mysqli_query($con, $pageviewquery);
-  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-  $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Student Page';";
-  $updatePageView = mysqli_query($con, $updatePageViewQuery);
-  
   unset($_SESSION['errorUpdate']);
+  
+  $currentYearQuery = "SELECT * FROM AcademicYear WHERE currentYear = 1;";
+  $currentYear = mysqli_fetch_array(mysqli_query($con, $currentYearQuery), MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
@@ -167,11 +163,12 @@
             </div>
           </div>
         </div>
+        
         <!-- Generate Content -->
         <?php
-            $articleQuery  = "SELECT * FROM Article WHERE UserID = '" . $_SESSION['UserID'] . "' ORDER BY DateSubmitted DESC;";
+            $articleQuery  = "SELECT * FROM Article WHERE UserID = '" . $_SESSION['UserID'] . "' AND AcademicYearID = " . $currentYear['AcademicYearID'] . " ORDER BY DateSubmitted DESC;";
             $result = mysqli_query($con, $articleQuery);
-            $datesQuery  = "SELECT * FROM CloseDates WHERE FacultyID = '" . $_SESSION['FacultyID'] . "';";
+            $datesQuery  = "SELECT * FROM CloseDates WHERE FacultyID = '" . $_SESSION['FacultyID'] . "' AND AcademicYearID = " . $currentYear['AcademicYearID'] . ";";
             $result5 = mysqli_query($con, $datesQuery);
             $row5 = mysqli_fetch_array($result5);
             $closeDate = date_create($row5['SubmissionDate']);
@@ -181,7 +178,9 @@
             $finalCloseDate = date_create($row5['FinalSubmissionDate']);
             $_SESSION["FinalCloseDate"] = date_format($finalCloseDate, 'd/m/Y');
             $_SESSION["FinalCloseDateUnix"] = date_format($finalCloseDate, 'U');
-
+            
+            echo "<h4 style='color:#fff' class='w3-margin'>Showing Articles for Year: " . $currentYear['AcademicYear'] . "</h4>";
+            
             while($row = mysqli_fetch_array($result)){
             $statusquery  = "SELECT * FROM Status WHERE StatusID = '" . $row['StatusID'] . "';";
             $result2 = mysqli_query($con, $statusquery);
@@ -208,7 +207,7 @@
                 $stringAgo = ($days == 1) ? " day ago" : " days ago";
                 $timeAgo = $days . " " . $stringAgo;
               }
-
+              
               echo "<div class='w3-container w3-card-2 w3-333 w3-round w3-margin generatedContent statusAll status" . $row2['Status'] . "'><br>";
               echo "<img alt='Avatar' class='w3-left w3-circle w3-margin-right' src='images/avatars/" . $_SESSION['avatarChosen'] . ".png' style='width:60px'>";
               echo "<span class='w3-right w3-opacity'>" . $timeAgo . "</span>";
@@ -237,7 +236,9 @@
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
               
               echo "<button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' onclick='showComment(" . $row['ArticleID'] . ")'' type='button'><i class='fa fa-comment'></i> &nbsp;View Comments</button>";
-
+              
+              echo "<a href='article.php?id=" . $row['ArticleID'] . "' style='margin-right:10px;'><button class='w3-btn w3-theme w3-margin-bottom' type='button'><i class='fa fa-eye'></i> &nbsp;View</button></a>";
+              
               echo "<a href='updatearticle.php?id=" . $row['ArticleID'] . "'><button id='updateArticleBtn' class='updateArticleBtn w3-btn w3-theme w3-margin-bottom' type='button'><i class='fa fa-pencil'></i> &nbsp;Update</button></a>";
               
               if ($row['Comment'] != ""){

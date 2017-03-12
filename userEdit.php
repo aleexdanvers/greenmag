@@ -20,13 +20,6 @@
 		header('Location: guest.php');
     die();
 	}
-
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Student Page';";
-  $resultpageview = mysqli_query($con, $pageviewquery);
-  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-  $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Student Page';";
-  $updatePageView = mysqli_query($con, $updatePageViewQuery);
 ?>
 <!DOCTYPE html>
 <html>

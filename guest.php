@@ -15,13 +15,9 @@
   } else if ($_SESSION["Role"] == 'Student') {
     header('Location: home.php');
   }
-  
-  $pageviewquery  = "SELECT * FROM PagesViewed WHERE PageName = 'Guest Page';";
-  $resultpageview = mysqli_query($con, $pageviewquery);
-  $rowpageview = mysqli_fetch_array($resultpageview, MYSQLI_ASSOC);
-  $NewPageViews = $rowpageview['Views'] + 1;
-  $updatePageViewQuery = "UPDATE PagesViewed SET Views = " . $NewPageViews . " WHERE PageName = 'Guest Page';";
-  $updatePageView = mysqli_query($con, $updatePageViewQuery);
+
+  $currentYearQuery = "SELECT * FROM AcademicYear WHERE currentYear = 1;";
+  $currentYear = mysqli_fetch_array(mysqli_query($con, $currentYearQuery), MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
@@ -79,9 +75,9 @@
                 <p style="text-align: center;"><?php echo $_SESSION['Faculty']; ?></p>
                 <p style="text-align: center;">Showing 
                 <?php
-                $articleQuery  = "SELECT Article.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID WHERE User.FacultyID = " . $_SESSION["FacultyID"] . " AND Article.StatusID = 1;";
+                $articleQuery  = "SELECT Article.*, User.UserID, User.FacultyID, User.AvatarID, User.Username FROM Article INNER JOIN User ON Article.UserID=User.UserID WHERE User.FacultyID = " . $_SESSION["FacultyID"] . " AND Article.StatusID = 1 AND AcademicYearID = " . $currentYear['AcademicYearID'] . ";";
                 $result = mysqli_query($con, $articleQuery); ?>
-                Approved Articles</p>
+                Approved Articles for Academic Year: <strong><?php echo $currentYear['AcademicYear']; ?></strong></p>
               </div>
             </div>
           </div>
@@ -141,6 +137,7 @@
 
               echo "</div>";
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
+              echo "<a href='article.php?id=" . $row['ArticleID'] . "' style='margin-right:10px;'><button class='w3-btn w3-theme w3-margin-bottom' type='button'><i class='fa fa-eye'></i> &nbsp;View</button></a>";
                 echo "</div>";
             }
             if (mysqli_num_rows($result) === 0){
