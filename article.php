@@ -5,8 +5,10 @@
 			&& $urlJourney != 'marketingmanager.php'
 			&& $urlJourney != 'marketingcoordinator.php'
 			&& $urlJourney != 'guest.php'
-			&& $urlJourney != 'home.php') {
-		header('Location: home.php');
+			&& $urlJourney != 'home.php'
+			&& $urlJourney != 'statistics.php'
+			&& $urlJourney != 'admin.php') {
+		header('Location: redirects.php');
 		die();
 	}
 
@@ -132,19 +134,21 @@
 
             echo "</div>";
 						
-						if ($row['Comment'] != ""){
-              echo "<div id='commentBlock' style='margin-bottom:32px!important;display:none;'>";
-                echo "<hr class='no-margin-top'>";
-                echo "<img style='float:left;margin-right:5px;' src='images/guestAvatar.png' height='50px'>";
-                echo "<span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator:</span>";
-                echo "<p class='commentText' style='margin-top:0 !important'>";
-                  echo $row['Comment'];
-                echo "</p>";
-								echo "<div class='clearfix'></div>";
-              echo "</div>";
-            }
-            else{
-              echo "<div id='commentBlock' class='w3-margin-bottom' style='display:none;'><p>No Comments</p></div>";
+						if ($_SESSION['Role'] == 'Student' || $_SESSION['Role'] == 'Marketing Co-ordinator') {
+							if ($row['Comment'] != ""){
+	              echo "<div id='commentBlock' style='margin-bottom:32px!important;display:none;'>";
+	                echo "<hr class='no-margin-top'>";
+	                echo "<img style='float:left;margin-right:5px;' src='images/guestAvatar.png' height='50px'>";
+	                echo "<span style='font-size:15px;font-weight:bold;'>Marketing Co-Ordinator:</span>";
+	                echo "<p class='commentText' style='margin-top:0 !important'>";
+	                  echo $row['Comment'];
+	                echo "</p>";
+									echo "<div class='clearfix'></div>";
+	              echo "</div>";
+							}
+							else{
+								echo "<div id='commentBlock' class='w3-margin-bottom' style='display:none;'><p>No Comments</p></div>";
+							}
             }
 						
 						echo "<a href='redirects.php'><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-arrow-left'></i> Back</button></a>";

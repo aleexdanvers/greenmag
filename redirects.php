@@ -9,5 +9,7 @@ if ($_SESSION["Role"] == 'Admin') {
 	header('Location: marketingcoordinator.php');
 } else if ($_SESSION["Role"] == 'Guest') {
 	header('Location: guest.php');
+} else if ($_SESSION["Role"] == 'Student') {
+	header('Location: home.php');
 }
 ?>
