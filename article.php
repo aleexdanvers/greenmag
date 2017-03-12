@@ -2,6 +2,10 @@
 	session_start();
 	include 'includes/dbConnection.php';
 
+	if($_SESSION["user_logged_in"] == false){
+    header('Location: logout.php');
+  }
+
 	$articleID = $_GET['id'];
 	$currentYearQuery = "SELECT * FROM AcademicYear WHERE currentYear = 1;";
 	$currentYear = mysqli_fetch_array(mysqli_query($con, $currentYearQuery), MYSQLI_ASSOC);
@@ -11,6 +15,9 @@
 	$newArticleView = $resultpageview['TimesVisited'] + 1;
 	$updateArticleViewQuery = "UPDATE Article SET TimesVisited = " . $newArticleView . " WHERE ArticleID = " . $articleID . ";";
 	$updatePageView = mysqli_query($con, $updateArticleViewQuery);
+	
+	$yearOfArticleQuery = "SELECT AcademicYearID FROM Article WHERE ArticleID =" . $articleID . ";";
+	$articleYr = mysqli_fetch_array(mysqli_query($con, $yearOfArticleQuery), MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -345,6 +352,16 @@
     $('#commentBtn').prop('disabled', true);
     $('#commentBtn').attr('title', 'Commenting disabled');
   }
+	
+	var articleAcademicYear = <?php echo $articleYr['AcademicYearID']; ?>;
+	var currentAcademicYear = <?php echo $currentYear['AcademicYearID']; ?>;
+	
+	if (articleAcademicYear != currentAcademicYear) {
+		$('.updateArticleBtn').prop('disabled', true);
+		$('.updateArticleBtn').attr('title', 'Updating articles disabled');
+		$('#commentBtn').prop('disabled', true);
+		$('#commentBtn').attr('title', 'Commenting disabled');
+	}
 	
 	function openComment(commentID) {
 		var id = 'openCommentMarketing' + commentID;
