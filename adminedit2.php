@@ -104,10 +104,10 @@
                     <td><?php echo $title ?></td>
                     <td>
                       <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
-                        <option value="1" <?php if($author == 1){echo "selected";}?>>1</option>
-                        <option value="2" <?php if($author == 2){echo "selected";}?>>2</option>
-                        <option value="3" <?php if($author == 3){echo "selected";}?>>3</option>
-                        <option value="4" <?php if($author == 4){echo "selected";}?>>4</option>
+                        <option value="1" <?php if($author == 1){echo "selected";}?>>FACH</option>
+                        <option value="2" <?php if($author == 2){echo "selected";}?>>Business School</option>
+                        <option value="3" <?php if($author == 3){echo "selected";}?>>Education & Health</option>
+                        <option value="4" <?php if($author == 4){echo "selected";}?>>Engineering & Science</option>
                       </select>
                     </td>
                     <td>
@@ -147,10 +147,10 @@
                     <th>Faculty ID</th>
                     <td>
                       <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
-                        <option value="1Mobile" <?php if($author == 1){echo "selected";}?>>1</option>
-                        <option value="2Mobile" <?php if($author == 2){echo "selected";}?>>2</option>
-                        <option value="3Mobile" <?php if($author == 3){echo "selected";}?>>3</option>
-                        <option value="4Mobile" <?php if($author == 4){echo "selected";}?>>4</option>
+                        <option value="1" <?php if($author == 1){echo "selected";}?>>FACH</option>
+                        <option value="2" <?php if($author == 2){echo "selected";}?>>Business School</option>
+                        <option value="3" <?php if($author == 3){echo "selected";}?>>Education & Health</option>
+                        <option value="4" <?php if($author == 4){echo "selected";}?>>Engineering & Science</option>
                       </select>
                     </td>
                   </tr>

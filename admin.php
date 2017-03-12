@@ -235,14 +235,14 @@
                     <th></th>
                   </tr>
                   <?php   
-                    $result2=mysqli_query($con, "SELECT * FROM CloseDates ORDER BY CloseDatesID");
+                    $result2=mysqli_query($con, "SELECT * FROM CloseDates INNER JOIN Faculty ON CloseDates.FacultyID=Faculty.FacultyID ORDER BY CloseDatesID");
                       
                     while($test2 = mysqli_fetch_array($result2))
                     {
                       $id2 = $test2['CloseDatesID'];  
                       echo "<tr align='center'>"; 
                       echo"<td><font color='white'>" .$test2['CloseDatesID']."</font></td>";
-                      echo"<td><font color='white'>" .$test2['FacultyID']."</font></td>";
+                      echo"<td><font color='white'>" .$test2['FacultyName']."</font></td>";
                       echo"<td><font color='white'>" .$test2['SubmissionDate']."</font></td>";
                       echo"<td><font color='white'>" .$test2['FinalSubmissionDate']."</font></td>";
                       echo"<td><font color='white'>" .$test2['AcademicYearID']."</font></td>";
@@ -255,7 +255,7 @@
                 </table>
 
                   <?php   
-                    $result2=mysqli_query($con, "SELECT * FROM CloseDates ORDER BY CloseDatesID");
+                    $result2=mysqli_query($con, "SELECT * FROM CloseDates INNER JOIN Faculty ON CloseDates.FacultyID=Faculty.FacultyID ORDER BY CloseDatesID");
                       
                     while($test2 = mysqli_fetch_array($result2))
                     {
@@ -267,7 +267,7 @@
                       echo "</tr>";
                       echo "<tr class='secondRow'>";
                       echo "<th>Faculty ID</th>";
-                      echo "<td><font color='white'>" .$test2['FacultyID']."</font></td>";
+                      echo "<td><font color='white'>" .$test2['FacultyName']."</font></td>";
                       echo "</tr>";
                       echo "<tr class='thirdRow'>";
                       echo "<th>Submission Date</th>";
@@ -300,10 +300,10 @@
                 <tr>
                   <td>
                     <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
-                      <option value="1" selected>1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
+                      <option value="1" selected>FACH</option>
+                      <option value="2">Business School</option>
+                      <option value="3">Education & Health</option>
+                      <option value="4">Engineering & Science</option>
                     </select>
                   </td>
                   <td>
@@ -334,10 +334,10 @@
                   <th>Faculty ID</th>
                   <td>
                     <select style="color:white;width:100%;background-color: #444; margin: 0px !important; border: 0px !important;" name="FacultyID">
-                      <option value="1" selected>1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
+                      <option value="1" selected>FACH</option>
+                      <option value="2">Business School</option>
+                      <option value="3">Education & Health</option>
+                      <option value="4">Engineering & Science</option>
                     </select>
                   </td>
                 </tr>
