@@ -238,7 +238,7 @@
               </div>
             </div>
           </div>
-          <div class="w3-col m12 w3-margin-top">
+          <div class="w3-col m12 w3-margin-top" id='exceptionReports'>
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
               <h4 class="">Exception Reports</h4>
@@ -392,6 +392,7 @@
     $("#marketingCoordinatorNavMobile").hide();
     $("#adminNavMobile").hide();
     $("#profileNavMobile").hide();
+    $("#exceptionReports").hide();
   } else if (role == 'Marketing Co-ordinator') {
     $("#statsNav").show();
     $("#guestNavMobile").hide();
