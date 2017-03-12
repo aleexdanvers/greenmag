@@ -259,7 +259,7 @@
                 echo "<tr>";
                 echo "<td>" . $rowexceptionreport['FacultyName'] . "</td>";
                 echo "<td>" . $rowexceptionreport['AcademicYear'] . "</td>";
-                echo "<td>" . $rowexceptionreport['ArticleName'] . "</td>";
+                echo "<td><a href='article.php?id=".$rowexceptionreport['ArticleID']."'>" . $rowexceptionreport['ArticleName'] . "</a></td>";
                 echo "<td>" . explode('@greenwich.ac.uk',$rowexceptionreport['Username'])[0] . "</td>";
                 echo "<td>" . $rowexceptionreport['CurrentDateTime'] . "</td>";
                 echo "</tr>";
@@ -359,7 +359,7 @@
 
                   while($row7 = mysqli_fetch_array($result7)){
                   $percentage2 = round((($row7['TimesVisited']/$highest2)*100),2);
-                  echo "<li class='skill'><h3>" . $row7['ArticleName'] . " - " . $row7['TimesVisited'] . "</h3>";
+                  echo "<li class='skill'><h3><a href='article.php?id=".$row7['ArticleID']."'>" . $row7['ArticleName'] . "</a> - " . $row7['TimesVisited'] . "</h3>";
                   echo "<progress class='skill-3' max='100' value='" . $percentage2 . "'></progress></li>";
                   }
                 ?>
