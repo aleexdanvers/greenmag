@@ -71,7 +71,7 @@
               <div class="w3-center">
                 <h4>Admin</h4>
                 <p><img alt="Avatar" class="w3-circle" src="images/guestAvatar.png" style="height:106px;width:106px"></p>
-                <h4>Current Academic Year: <br class='w3-hide-large w3-hide-medium w3-hide-medium-small'> <?php echo $currentYear['AcademicYear'] ?></h4>
+                <h4>Current Academic Year: <br> <?php echo $currentYear['AcademicYear'] ?></h4>
                 <form method='post' action='academicyear.php'>
                   <select name="currentYear" id="currentYear">
                     <?php 
@@ -83,7 +83,13 @@
                   </select>
                   <br><br>
                   <button type='submit' class='w3-btn w3-theme'>Save</button>
-                </form>
+                </form><br>
+                </div>
+                </div>
+                </div><br>
+                <div class="w3-card-2 w3-round w3-333">
+            <div class="w3-container w3-padding">
+              <div class="w3-center">
                 <div class="w3-margin">
                   <h4>Show:</h4>
                   <button class='w3-btn w3-theme w3-hide-small' id='userTableBtn' type="button">User Table</button>
@@ -113,7 +119,7 @@
                     <th></th>
                   </tr>
                   <?php
-                    $result=mysqli_query($con, "SELECT User.*, Faculty.FacultyName, Role.RoleName FROM User INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Role ON User.RoleID=Role.RoleID ORDER BY UserID");
+                    $result=mysqli_query($con, "SELECT User.*, Faculty.FacultyName, Role.RoleName FROM User INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Role ON User.RoleID=Role.RoleID ORDER BY FacultyName, RoleName");
                     
                     while($user = mysqli_fetch_array($result))
                     {

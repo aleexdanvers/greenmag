@@ -179,7 +179,7 @@
             $_SESSION["FinalCloseDate"] = date_format($finalCloseDate, 'd/m/Y');
             $_SESSION["FinalCloseDateUnix"] = date_format($finalCloseDate, 'U');
             
-            echo "<h4 style='color:#fff' class='w3-margin'>Showing Articles for Year: " . $currentYear['AcademicYear'] . "</h4>";
+            echo "<h4 style='color:#fff;text-align:center;' class='w3-margin'>Showing Articles for Year: <br>" . $currentYear['AcademicYear'] . "</h4>";
             
             while($row = mysqli_fetch_array($result)){
             $statusquery  = "SELECT * FROM Status WHERE StatusID = '" . $row['StatusID'] . "';";

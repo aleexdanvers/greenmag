@@ -139,7 +139,7 @@
                        ]);
 
                         var options = {
-                           slices: [{color: '#444444'}, {color: '#ff4d4d'}, {color: '#444444'}, {color: '#ff4d4d'}],
+                           slices: [{color: '#3366ff'}, {color: '#33cc33'}, {color: '#ff6600'}, {color: '#ff3333'}],
                            legend: {position: 'none'},
                            backgroundColor: 'transparent',};
 
@@ -151,9 +151,10 @@
                      }
 
                 </script>
+                <p style="text-align:center;color:#3366ff;"><span style="margin-right: 10px;">Architecture, Computing and Humanities</span><span style="color:#33cc33;margin-right: 10px;">Business School</span><span style="color:#ff6600;margin-right: 10px;">Engineering and Science</span><span style="color:#ff3333;margin-right: 10px;">Education and Health</span>
 
 
-                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Percentage of contributions by each Faculty for any academic year</p><br>
+                <p style="text-align: center;"><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Percentage of contributions by each Faculty for any academic year</p><br>
                 <table class='w3-table'>
                 <?php
                 $year = "1617";
@@ -251,7 +252,7 @@
               <th>Days Since Upload</th>
               </tr>
               <?php
-              $exceptionReportQuery = "SELECT  FacultyName, AcademicYear, ArticleName, ArticleID, Username, DATEDIFF(CURDATE(),A.DateSubmitted) AS CurrentDateTime FROM Article A INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID INNER JOIN User U on U.UserID=A.UserID INNER JOIN Faculty F on F.FacultyID=U.FacultyID WHERE A.Comment = '' Group By AcademicYear, ArticleName ORDER BY CurrentDateTime DESC";
+              $exceptionReportQuery = "SELECT  FacultyName, AcademicYear, ArticleName, ArticleID, Username, DATEDIFF(CURDATE(),A.DateSubmitted) AS CurrentDateTime FROM Article A INNER JOIN AcademicYear AY on AY.AcademicYearID=A.AcademicYearID INNER JOIN User U on U.UserID=A.UserID INNER JOIN Faculty F on F.FacultyID=U.FacultyID WHERE A.Comment = '' Group By AcademicYear, ArticleName ORDER BY F.FacultyName ASC";
 
               $exceptionReportResult = mysqli_query($con, $exceptionReportQuery);
 
@@ -261,13 +262,18 @@
                 echo "<td>" . $rowexceptionreport['AcademicYear'] . "</td>";
                 echo "<td><a href='article.php?id=".$rowexceptionreport['ArticleID']."'>" . $rowexceptionreport['ArticleName'] . "</a></td>";
                 echo "<td>" . explode('@greenwich.ac.uk',$rowexceptionreport['Username'])[0] . "</td>";
-                echo "<td>" . $rowexceptionreport['CurrentDateTime'] . "</td>";
+                if ($rowexceptionreport['CurrentDateTime'] > 13){
+                    echo "<td style='text-align:right;color:#ff4d4d;'>" . $rowexceptionreport['CurrentDateTime'] . "</td>";
+                }
+                else{
+                    echo "<td style='text-align:right;'>" . $rowexceptionreport['CurrentDateTime'] . "</td>";
+                }
                 echo "</tr>";
               }
 
               ?>
               </table>
-              <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Articles currently without a comment from the Marketing Co-ordinator</p><br>
+              <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Articles currently without a comment from the Marketing Co-ordinator</p>
               <br>
               </div>
             </div>
@@ -330,32 +336,27 @@
             </div><br>
             <div class="w3-card-2 w3-round w3-333">
               <div class="w3-container w3-padding">
-              <h4 class="">Most Visited Pages</h4>
+              <h4 class="">Most Visited Articles</h4>
                 <ul class="skill-list">
                 <?php
+                $pageviewsquery  = "SELECT * FROM Article ORDER BY TimesVisited DESC LIMIT 1;";
+                 $result6 = mysqli_query($con, $pageviewsquery);
+                 $row6 = mysqli_fetch_array($result6, MYSQLI_ASSOC);
+                 $highest2 = $row6['TimesVisited'];
+
                   if ($_SESSION["Role"] == 'Marketing Manager') {
-                    $pageviewsquery  = "SELECT * FROM Article WHERE StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
                     $pageviewsquerys  = "SELECT * FROM Article WHERE StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
                   } else if ($_SESSION["Role"] == 'Marketing Co-ordinator') {
-                    $pageviewsquery  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " ORDER BY TimesVisited DESC LIMIT 4;";
                     $pageviewsquerys  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " ORDER BY TimesVisited DESC LIMIT 4;";
                   } else if ($_SESSION["Role"] == 'Student') {
-                    $pageviewsquery  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
                     $pageviewsquerys  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
                   } else if ($_SESSION["Role"] == 'Guest') {
-                    $pageviewsquery  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
                     $pageviewsquerys  = "SELECT * FROM Article INNER JOIN User ON Article.UserID = User.UserID WHERE User.FacultyID = " . $_SESSION['FacultyID'] . " AND StatusID = 1 ORDER BY TimesVisited DESC LIMIT 4;";
                   } else if ($_SESSION["Role"] == 'Admin') {
-                    $pageviewsquery  = "SELECT * FROM Article ORDER BY TimesVisited DESC LIMIT 4;";
                     $pageviewsquerys  = "SELECT * FROM Article ORDER BY TimesVisited DESC LIMIT 4;";
                   }
-
-                  $result6 = mysqli_query($con, $pageviewsquery);
-                  $row6 = mysqli_fetch_array($result6, MYSQLI_ASSOC);
-                  $highest2 = $row6['TimesVisited'];
                   
-                  $pageviewsquerys  = "SELECT * FROM Article ORDER BY TimesVisited DESC LIMIT 4;";
-                  $result7 = mysqli_query($con, $pageviewsquerys); 
+                  $result7 = mysqli_query($con, $pageviewsquerys);
 
                   while($row7 = mysqli_fetch_array($result7)){
                   $percentage2 = round((($row7['TimesVisited']/$highest2)*100),2);
@@ -364,9 +365,34 @@
                   }
                 ?>
                 </ul>
+                <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of views on a article by users</p>
+              </div>
+            </div><br>
+            <div class="w3-card-2 w3-round w3-333">
+              <div class="w3-container w3-padding">
+              <h4 class="">Most Viewed Pages</h4>
+                <ul class="skill-list">
+                <?php
+                 $mostactivepage  = "SELECT * FROM PagesViewed ORDER BY Views DESC LIMIT 4;";
+                 $result8 = mysqli_query($con, $mostactivepage);
+                 $row8 = mysqli_fetch_array($result8, MYSQLI_ASSOC);
+                 $highest8 = $row8['Views'];
+
+                $mostactivepage2  = "SELECT * FROM PagesViewed ORDER BY Views DESC LIMIT 4;";
+                 $results9 = mysqli_query($con, $mostactivepage2); 
+
+                 while($row9 = mysqli_fetch_array($results9)){
+                  $percentage9 = round((($row9['Views']/$highest8)*100),2);
+                  echo "<li class='skill'><h3>" . $row9['PageName'] . " - " . $row9['Views'] . "</h3>";
+                  echo "<progress class='skill-3' max='100' value='" . $percentage9 . "'></progress></li>";
+                 }
+
+
+                ?>
+                </ul>
                 <p><i class="fa fa-question-circle" aria-hidden="true" style="padding-right: 4px;padding-left: 2px;"></i> Number of views on a specific page by users</p>
               </div>
-            </div>
+            </div><br>
           </div>
         </div>
         <!-- End Right Column -->
@@ -384,6 +410,7 @@
     $("#marketingCoordinatorNavMobile").hide();
     $("#adminNavMobile").hide();
     $("#profileNav").show();
+    $("#exceptionReports").hide();
   } else if (role == 'Guest') {
     $("#statsNav").show();
     $("#guestNav").show();
@@ -401,6 +428,7 @@
     $("#marketingCoordinatorNav").show();
     $("#adminNavMobile").hide();
     $("#profileNavMobile").hide();
+    $("#exceptionReports").hide();
   } else if (role == 'Marketing Manager') {
     $("#statsNav").show();
     $("#guestNavMobile").hide();
