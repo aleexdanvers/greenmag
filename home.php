@@ -180,6 +180,7 @@
             $_SESSION["FinalCloseDateUnix"] = date_format($finalCloseDate, 'U');
             
             echo "<h4 style='color:#fff;text-align:center;' class='w3-margin'>Showing Articles for Year: <br>" . $currentYear['AcademicYear'] . "</h4>";
+            $dateNow = date_create(gmdate("Y-m-d H:i:s"));
             
             while($row = mysqli_fetch_array($result)){
             $statusquery  = "SELECT * FROM Status WHERE StatusID = '" . $row['StatusID'] . "';";
@@ -187,7 +188,6 @@
             $row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
 
               $dateAgo = date_create($row['DateSubmitted']);
-              $dateNow = date_create(gmdate("Y-m-d H:i:s"));
               $dateAgoUnix = date_format($dateAgo, "U");
               $dateNowUnix = date_format($dateNow, "U");
 
