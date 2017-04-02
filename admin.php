@@ -119,7 +119,7 @@
                     <th></th>
                   </tr>
                   <?php
-                    $result=mysqli_query($con, "SELECT User.*, Faculty.FacultyName, Role.RoleName FROM User INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Role ON User.RoleID=Role.RoleID ORDER BY FacultyName, RoleName");
+                    $result=mysqli_query($con, "SELECT User.*, Faculty.FacultyName, Role.RoleName FROM User INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Role ON User.RoleID=Role.RoleID ORDER BY User.FacultyID, User.RoleID, User.UserName");
                     
                     while($user = mysqli_fetch_array($result))
                     {
@@ -136,7 +136,7 @@
                   ?>
                 </table>
                   <?php
-                    $result2=mysqli_query($con, "SELECT User.*, Faculty.FacultyName, Role.RoleName FROM User INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Role ON User.RoleID=Role.RoleID ORDER BY UserID");
+                    $result2=mysqli_query($con, "SELECT User.*, Faculty.FacultyName, Role.RoleName FROM User INNER JOIN Faculty ON User.FacultyID=Faculty.FacultyID INNER JOIN Role ON User.RoleID=Role.RoleID ORDER BY User.FacultyID, User.RoleID, User.UserName");
                     
                     while($user2 = mysqli_fetch_array($result2))
                     {
