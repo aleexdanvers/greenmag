@@ -220,17 +220,16 @@
               $noOfImages = sizeof($imagesArray);
 
               if ($noOfImages == 3) {
-                $imageClass = 'w3-third';
+                $imageClass = 'w3-third uploadedArticleImages3';
               } else if ($noOfImages == 2) {
-                $imageClass = 'w3-half';
+                $imageClass = 'w3-half uploadedArticleImages2';
               } else {
                 $imageClass = 'w3-full';
               }
 
               for ($i = 0; $i < $noOfImages; $i++) {
-                echo "<div class='" . $imageClass . "'><img class='w3-margin-bottom' src='article_images/" . $imagesArray[$i] . "' style='width:100%'></div>";
+                echo "<div class='" . $imageClass . "'><img class='w3-margin-bottom' onclick='openModalImage(" . json_encode($imagesArray[$i]) . ")' src='article_images/" . $imagesArray[$i] . "' style='width:100%'></div>";
               }
-
               echo "</div>";
 
               echo "<a href='/article_docs/" . $row['DocPath'] . "' download><button class='w3-btn w3-theme w3-margin-bottom' style='margin-right:10px;' type='button'><i class='fa fa-download'></i> &nbsp;Download Doc</button></a>";
@@ -277,7 +276,13 @@
             <p style="font-size: 12px;"><i aria-hidden="true" style="margin-right:5px;" class="fa fa-calendar-check-o fa-fw w3-text-theme"></i>Submissions: <?php echo $_SESSION["CloseDate"]; ?></p>
             <p style="font-size: 12px;"><i aria-hidden="true" style="margin-right:5px;" class="fa fa-calendar-check-o fa-fw w3-text-theme"></i>Close Date: <?php echo $_SESSION["FinalCloseDate"]; ?></p>
           </div>
-        </div><br>
+        </div>
+        <br>
+        <div class="w3-container w3-round w3-theme-l4 w3-theme-border w3-margin-bottom w3-hide-small">
+          <span class="w3-hover-text-grey w3-closebtn" onclick="this.parentElement.style.display='none'"><i class="fa fa-remove"></i></span>
+          <p><i aria-hidden="true" class="fa fa-exclamation-circle"></i> <strong>Did you know?</strong></p>
+          <p>You can click on an article image to see it in full size?</p>
+        </div>
         <div class="w3-card-2 w3-round w3-333 w3-center">
           <div class="w3-container">
             <h4 class="w3-center">Change Avatar</h4>
@@ -305,7 +310,8 @@
               </div>
             </div>
           </div>
-        </div><br>
+        </div>
+        <br>
         <div class="w3-card-2 w3-round w3-333 w3-padding-16 w3-center">
           <p><i class="fa fa-bug w3-xxlarge"></i></p>
           <div style="margin-left:10%;margin-right: 10%;">
@@ -328,6 +334,13 @@
         <p class="w3-padding-8">If you are a student, you should first register with your credentials so that you can login into the system. Once you register and login, you can submit one or more articles and accompanying images. Before any submission, you must agree to our <span style="font-style: italic;">Terms and Conditions</span>. You may update your submissions at any point up until the closure date. As a student, you will also have a faculty based Marketing Coordinator who will manage your faculties submissions. The Marketing Coordinator will read, edit and publish your articles to the system. There is also a general Marketing Manager who will oversee the whole process and choose the articles that will be published in the magazine.</p>
         <p class="w3-padding-8">If you are a guest, you can login within each Faculty to see the articles and the statistics about the annual submissions.</p>
       </div>
+    </div>
+  </div>
+  <!-- The Image Modal -->
+  <div id="photoModal" class="modal w3-center">
+    <img class="modal-content" id="imageToShow">
+    <div id="caption">
+      <small style='color:white'>(Press ESC to exit)</small>
     </div>
   </div>
   <script>
@@ -711,10 +724,6 @@
     }
   }
   
-  if (performance.navigation.type == 1) {
-    $('#errorUploadMsg').css('display','none');
-  }
-  
   var dateNow = <?php echo date_format($dateNow, "U"); ?>;
   var closingDate = <?php echo json_encode($_SESSION['CloseDateUnix']); ?>;
   var finalClosingDate = <?php echo json_encode($_SESSION['FinalCloseDateUnix']); ?>;
@@ -743,6 +752,21 @@
   },1000);
   changePassword();
   countArticles();
+  
+  function openModalImage(imageSrc) {
+    $('#photoModal').show();
+    $('#imageToShow').attr('src', 'article_images/'+imageSrc);
+  }
+  
+    $(document).keyup(function(e) {
+      if (e.keyCode == 27) {
+        if ($('#photoModal').css('display') != 'none') {
+          console.log("escape pressed");
+          $('#photoModal').slideUp('slow');
+        }
+      }
+    });
+
   </script>
 </body>
 </html>

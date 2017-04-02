@@ -2088,3 +2088,29 @@ hr.no-margin-top {
 		width: 500px;
 	}
 }
+
+.uploadedArticleImages2 {
+  position: relative !important;
+  overflow: hidden !important;
+  padding-bottom: 30% !important; /* here the desired aspect ratio */
+	margin-bottom: 10px;
+}
+
+.uploadedArticleImages3 {
+  position: relative !important;
+  overflow: hidden !important;
+  padding-bottom: 18% !important; /* here the desired aspect ratio */
+	margin-bottom: 10px;
+}
+
+.uploadedArticleImages2 img, .uploadedArticleImages3 img {
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  margin: auto !important;
+}
+
+#imageToShow {
+	max-height: 600px;
+	width: auto;
+}
