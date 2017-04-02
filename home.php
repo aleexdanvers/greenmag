@@ -552,11 +552,11 @@
   var updatePassworddiv = document.getElementById("updatePassworddiv");
   var LastLoggedIn = <?php echo json_encode($_SESSION['LastLoggedIn']); ?>;
   
-<?php 
+<?php
   if (isset($_SESSION['ErrorUpload'])) {
-    if ($_SESSION['ErrorUpload'] == true) {
+    if ($_SESSION['ErrorUpload'] == 'true') {
       echo "$('#errorUploadMsg').css('display','block');";
-    } else {
+    } else if ($_SESSION['ErrorUpload'] == 'false') {
       echo "$('#errorUploadMsg').css('display','none');";
     }
   } else {
