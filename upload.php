@@ -14,7 +14,7 @@ $articleDescription = $_REQUEST['articleDescription'];
 $article = $_FILES['articleToUpload'];
 $image1 = $_FILES['imageToUpload1'];
 $image2 = (!empty($_FILES['imageToUpload2']['name'])) ? $image2 = $_FILES['imageToUpload2'] : '';
-$image3 = (!empty($_FILES['imageToUpload3']['name'])) ? $image3 = $_FILES['imageToUpload2'] : '';
+$image3 = (!empty($_FILES['imageToUpload3']['name'])) ? $image3 = $_FILES['imageToUpload3'] : '';
 $userID = $_SESSION['UserID'];
 $dateNow = date("Y-m-d H:i:s");
 
@@ -40,6 +40,8 @@ if (move_uploaded_file($article["tmp_name"], $fullPathArticle)) {
 	$_SESSION['ErrorUpload'] = 'false';
 } else {
 	$_SESSION['ErrorUpload'] = 'true';
+	header('Location: home.php');
+	die();
 }
 
 // Image1 //
@@ -53,13 +55,15 @@ if (move_uploaded_file($image1["tmp_name"], $fullPathImage1)) {
 	$_SESSION['ErrorUpload'] = 'false';
 } else {
 	$_SESSION['ErrorUpload'] = 'true';
+	header('Location: home.php');
+	die();
 }
 
 // Image 2 //
 if (!empty($image2)) {
 	$imageDirectory = "article_images/";
 	$image2File = $imageDirectory . basename($image2["name"]);
-	$fileType = pathinfo($image1File,PATHINFO_EXTENSION);
+	$fileType = pathinfo($image2File,PATHINFO_EXTENSION);
 	$newFileNameImage2 = randomPassword() . '.' . $fileType;
 	$fullPathImage2 = $imageDirectory . $newFileNameImage2;
 
@@ -67,6 +71,8 @@ if (!empty($image2)) {
 		$_SESSION['ErrorUpload'] = 'false';
 	} else {
 		$_SESSION['ErrorUpload'] = 'true';
+		header('Location: home.php');
+		die();
 	}
 }
 
@@ -74,7 +80,7 @@ if (!empty($image2)) {
 if (!empty($image3)) {
 	$imageDirectory = "article_images/";
 	$image3File = $imageDirectory . basename($image3["name"]);
-	$fileType = pathinfo($image1File,PATHINFO_EXTENSION);
+	$fileType = pathinfo($image3File,PATHINFO_EXTENSION);
 	$newFileNameImage3 = randomPassword() . '.' . $fileType;
 	$fullPathImage3 = $imageDirectory . $newFileNameImage3;
 
@@ -82,6 +88,7 @@ if (!empty($image3)) {
 		$_SESSION['ErrorUpload'] = 'false';
 	} else {
 		$_SESSION['ErrorUpload'] = 'true';
+		header('Location: home.php');
 	}
 }
 
