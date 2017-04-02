@@ -2132,3 +2132,7 @@ hr.no-margin-top {
 .pager {
 	margin-bottom: 10px; 
 }
+
+.uploadedArticleImages3 img:hover,.uploadedArticleImages2 img:hover, .uploadedArticleImages1 img:hover {
+	cursor: pointer;
+}

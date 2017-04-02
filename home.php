@@ -224,7 +224,7 @@
               } else if ($noOfImages == 2) {
                 $imageClass = 'w3-half uploadedArticleImages2';
               } else {
-                $imageClass = 'w3-full';
+                $imageClass = 'w3-full uploadedArticleImages1';
               }
 
               for ($i = 0; $i < $noOfImages; $i++) {
