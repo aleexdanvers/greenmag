@@ -2114,3 +2114,21 @@ hr.no-margin-top {
 	max-height: 600px;
 	width: auto;
 }
+
+.pager span {
+	display: inline-block;
+	padding: 5px;
+	margin: 0 5px 5px 5px;
+	background-color: #ff4d4d;
+	width: 35px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.pager span:hover {
+	background-color: #222222;
+}
+
+.pager {
+	margin-bottom: 10px; 
+}

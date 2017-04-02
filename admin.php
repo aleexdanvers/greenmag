@@ -107,10 +107,10 @@
             </div>
           </div>
           <br>
-            <div class="w3-card-2 w3-round w3-333"  id="userTable" style='display:none;'>
+            <div class="w3-card-2 w3-round w3-333 w3-margin-bottom"  id="userTable" style='display:none;'>
               <div class="w3-container w3-padding">
                 <h4>User Table</h4>
-                <table class="w3-table w3-hide-small w3-hide-medium-small" style="overflow-x:auto;">
+                <table class="w3-table w3-hide-small w3-hide-medium-small" id="paginatedTableUsers" style="overflow-x:auto;">
                   <tr>
                     <th>User</th>
                     <th>Faculty</th>
@@ -539,6 +539,29 @@
     $('#academicYearTable').hide();
     $('#userTable').hide();
   });
+  
+  $('#paginatedTableUsers').each(function() {
+    var currentPage = 0;
+    var numPerPage = 10;
+    var $table = $(this);
+    $table.bind('repaginate', function() {
+        $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+    });
+    $table.trigger('repaginate');
+    var numRows = $table.find('tbody tr').length;
+    var numPages = Math.ceil(numRows / numPerPage);
+    var $pager = $('<div class="pager w3-hide-small w3-hide-medium-small"></div>');
+    for (var page = 0; page < numPages; page++) {
+        $('<span class="page-number"></span>').text(page + 1).bind('click', {
+            newPage: page
+        }, function(event) {
+            currentPage = event.data['newPage'];
+            $table.trigger('repaginate');
+            $(this).addClass('active').siblings().removeClass('active');
+        }).appendTo($pager).addClass('clickable');
+    }
+    $pager.insertBefore($table).find('span.page-number:first').addClass('active');
+});
   </script>
 </body>
 </html>
